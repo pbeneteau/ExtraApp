@@ -11,17 +11,8 @@ import Alamofire
 import SwiftyJSON
 import Ono
 
-enum BackendError: Error {
-    case network(error: Error) // Capture any underlying Error from the URLSession API
-    case dataSerialization(error: Error)
-    case jsonSerialization(error: Error)
-    case xmlSerialization(error: Error)
-    case objectSerialization(reason: String)
-}
 
-var headers: HTTPHeaders? = nil
-let userName: String = "20140637"
-let userPassword: String = "T@sty0psfr0st"
+
 
 
 internal typealias RequestCompletion = (Int?, Error?) -> ()?
@@ -29,6 +20,20 @@ private var completionBlock: RequestCompletion!
 var afManager : SessionManager!
 
 class ViewController: UIViewController {
+    
+    enum BackendError: Error {
+        case network(error: Error) // Capture any underlying Error from the URLSession API
+        case dataSerialization(error: Error)
+        case jsonSerialization(error: Error)
+        case xmlSerialization(error: Error)
+        case objectSerialization(reason: String)
+    }
+    
+    var headers: HTTPHeaders? = nil
+    let userName: String = "20140637"
+    let userPassword: String = "T@sty0psfr0st"
+    let studentVnCode: String = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +47,9 @@ class ViewController: UIViewController {
         manager?.startListening()
         
         logIn { success in
-            self.getStudentMarks{ marksDict in
-                //print(marksDict)
-                self.getVnCode{ success in
-                    
+            self.getVnCode{ vnCode in
+                self.getStudentMarks{ marksDict in
+                    //print(marksDict)
                 }
             }
         }
@@ -61,13 +65,13 @@ class ViewController: UIViewController {
         
         Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(userName)&password=\(userPassword)", method: .get).responseJSON { response in
             
-            headers = response.response?.allHeaderFields as? HTTPHeaders
+            self.headers = response.response?.allHeaderFields as? HTTPHeaders
             
             let cookies: Array = HTTPCookieStorage.shared.cookies!
             
             print(cookies)
             
-            headers = Alamofire.HTTPCookie.requestHeaderFields(with: cookies)
+            self.headers = Alamofire.HTTPCookie.requestHeaderFields(with: cookies)
             
             completionHandler(true)
         }
@@ -92,13 +96,14 @@ class ViewController: UIViewController {
         }
     }
     
-    func getVnCode(completionHandler: @escaping (_ success: Bool) -> ()) {
+    func getVnCode(completionHandler: @escaping (_ vnCode: String) -> ()) {
         
         let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
         
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
-            print(JSON(result.value!)["data"][0]["vn"].stringValue)
-            completionHandler(true)
+            let vnCode: String = JSON(result.value!)["data"][0]["vn"].stringValue
+            print(vnCode)
+            completionHandler(self.encodeEscapeUrl(string: vnCode))
         }
     }
     
