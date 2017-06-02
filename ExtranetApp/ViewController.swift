@@ -41,12 +41,13 @@ class ViewController: UIViewController {
         
         manager?.startListening()
         
-        logIn{ success in
+        logIn { success in
             self.getStudentMarks{ marksDict in
                 //print(marksDict)
                 self.getVnCode{ success in
                     
                 }
+            }
         }
     }
     
@@ -100,6 +101,7 @@ class ViewController: UIViewController {
             completionHandler(true)
         }
     }
+    
     
     func encodeEscapeUrl(string: String) -> String {
         
