@@ -43,8 +43,10 @@ class ViewController: UIViewController {
         
         logIn{ success in
             self.getStudentMarks{ marksDict in
-                print(marksDict)
-            }
+                //print(marksDict)
+                self.getVnCode{ success in
+                    
+                }
         }
     }
     
@@ -61,6 +63,8 @@ class ViewController: UIViewController {
             headers = response.response?.allHeaderFields as? HTTPHeaders
             
             let cookies: Array = HTTPCookieStorage.shared.cookies!
+            
+            print(cookies)
             
             headers = Alamofire.HTTPCookie.requestHeaderFields(with: cookies)
             
@@ -85,6 +89,22 @@ class ViewController: UIViewController {
             
             completionHandler(dict!)
         }
+    }
+    
+    func getVnCode(completionHandler: @escaping (_ success: Bool) -> ()) {
+        
+        let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
+        
+        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
+            print(JSON(result.value!)["data"][0]["vn"].stringValue)
+            completionHandler(true)
+        }
+    }
+    
+    func encodeEscapeUrl(string: String) -> String {
+        
+        let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        return escapedString
     }
     
     func cleanMarksJSON(string: String) -> String {
@@ -142,9 +162,6 @@ class ViewController: UIViewController {
         }
         return nil
     }
-    
-    
-    
 }
 
 
