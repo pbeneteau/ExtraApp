@@ -25,7 +25,8 @@ class ViewController: UIViewController {
     var headers: HTTPHeaders? = nil
     let userName: String = "20140637"
     let userPassword: String = "T@sty0psfr0st"
-    var studentVnCode: String = ""
+    var studentVnCodes = [String]()
+    var studentMarks = [JSON]()
     
     
     override func viewDidLoad() {
@@ -40,11 +41,14 @@ class ViewController: UIViewController {
         manager?.startListening()
         
         logIn { success in
-            self.getVnCode{ vnCode in
-                self.studentVnCode = vnCode
+            self.getVnCodes{ vnCodes in
+                self.studentVnCodes = vnCodes
                 self.getStudentPhoto()
-                self.getStudentMarks{ marksDict in
-                    print(marksDict)
+                for vnCode in self.studentVnCodes {
+                    self.getStudentMarks(vn: vnCode){ marksDict in
+                        self.studentMarks.append(JSON(marksDict))
+                        self.listMarks(jsonFile: JSON(marksDict))
+                    }
                 }
             }
         }
@@ -85,9 +89,9 @@ class ViewController: UIViewController {
         }
     }
     
-    func getStudentMarks(completionHandler: @escaping (_ marksDict: Any) -> ()) {
+    func getStudentMarks(vn: String, completionHandler: @escaping (_ marksDict: Any) -> ()) {
         
-        let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?_dc=&action=read&vn=\(studentVnCode)&academic_year=2016-2017&node=Root"
+        let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
         
         Alamofire.request(url).responseString { response in
             
@@ -98,26 +102,21 @@ class ViewController: UIViewController {
             let dict = self.convertToDictionary(text: dataString!)
             
            
-            if dict != nil {
-                let obj = dict as? NSDictionary
-                
-                //this part write all key and value
-                for (key, value) in obj! {
-                    print("Property: \"\(key)\", Value: \"\(value)\"")
-                }
-            }
-           
             completionHandler(dict!)
         }
     }
     
-    func getVnCode(completionHandler: @escaping (_ vnCode: String) -> ()) {
+    func getVnCodes(completionHandler: @escaping (_ vnCodes: [String]) -> ()) {
         
         let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
+        var vnCodes = [String]()
         
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
-            let vnCode: String = JSON(result.value!)["data"][0]["vn"].stringValue
-            completionHandler(self.encodeEscapeUrl(string: vnCode))
+            for i in 0..<JSON(result.value!)["data"].count {
+                let enscapedString = self.encodeEscapeUrl(string: JSON(result.value!)["data"][i]["vn"].stringValue)
+                vnCodes.append(enscapedString)
+            }
+            completionHandler(vnCodes)
         }
     }
     
@@ -159,6 +158,47 @@ class ViewController: UIViewController {
             print(myJSONError)
         }
         return nil
+    }
+
+    
+    
+    func listMarks(jsonFile: JSON) {
+        
+        if jsonFile["children"].count > 0 {
+            let years = jsonFile["children"]
+            for i in 0..<years.count {
+                print("\(years[i]["Title"].stringValue)")
+                print("     |")
+                
+                let semesters = years[i]["children"]
+                for i in 0..<semesters.count {
+                    print("     \(semesters[i]["Title"].stringValue)")
+                    print("             |")
+                    
+                    let modules = semesters[i]["children"]
+                    for i in 0..<modules.count {
+                        print("             \(modules[i]["Title"].stringValue)          credits: \(modules[i]["CreditsAttempt"].stringValue)")
+                        print("                     |")
+                        
+                        let courses = modules[i]["children"]
+                        for i in 0..<courses.count {
+                            print("                     \(courses[i]["Title"].stringValue)          coefficient: \(courses[i]["Weight"].stringValue)")
+                            print("                             Moyenne: \(courses[i]["MarkCode"].stringValue)")
+                            
+                            
+                            let exams = courses[i]["children"]
+                            for i in 0..<exams.count {
+                                print("                             \(exams[i]["Title"].stringValue)          coefficient: \(exams[i]["Weight"].stringValue)")
+                                print("                                     Note: \(exams[i]["MarkCode"].stringValue)")
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            print("No")
+        }
     }
     
     
