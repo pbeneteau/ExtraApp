@@ -9,15 +9,6 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import Ono
-
-
-
-
-
-internal typealias RequestCompletion = (Int?, Error?) -> ()?
-private var completionBlock: RequestCompletion!
-var afManager : SessionManager!
 
 class ViewController: UIViewController {
     
@@ -29,10 +20,12 @@ class ViewController: UIViewController {
         case objectSerialization(reason: String)
     }
     
+    @IBOutlet weak var studentPicture: UIImageView!
+    
     var headers: HTTPHeaders? = nil
     let userName: String = "20140637"
     let userPassword: String = "T@sty0psfr0st"
-    let studentVnCode: String = ""
+    var studentVnCode: String = ""
     
     
     override func viewDidLoad() {
@@ -48,8 +41,10 @@ class ViewController: UIViewController {
         
         logIn { success in
             self.getVnCode{ vnCode in
+                self.studentVnCode = vnCode
+                self.getStudentPhoto()
                 self.getStudentMarks{ marksDict in
-                    //print(marksDict)
+                    print(marksDict)
                 }
             }
         }
@@ -62,14 +57,11 @@ class ViewController: UIViewController {
     
     func logIn(completionHandler: @escaping (_ success: Bool) -> ()) {
         
-        
         Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(userName)&password=\(userPassword)", method: .get).responseJSON { response in
             
             self.headers = response.response?.allHeaderFields as? HTTPHeaders
             
             let cookies: Array = HTTPCookieStorage.shared.cookies!
-            
-            print(cookies)
             
             self.headers = Alamofire.HTTPCookie.requestHeaderFields(with: cookies)
             
@@ -77,21 +69,44 @@ class ViewController: UIViewController {
         }
     }
     
+    func getStudentPhoto() {
+        
+        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
+        
+        Alamofire.download("https://extranet.groupe-efrei.fr/Student/Home/Photo/Unknown.jpeg", to: destination)
+            .downloadProgress { progress in
+                print("Download Progress: \(progress.fractionCompleted)")
+            }
+            .responseData { response in
+                if let data = response.result.value {
+                    let image = UIImage(data: data)
+                    self.studentPicture.image = image
+                }
+        }
+    }
+    
     func getStudentMarks(completionHandler: @escaping (_ marksDict: Any) -> ()) {
         
-        Alamofire.request("https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?_dc=1496321401163&action=read&vn=T%2B0Rhhq6%2FBbHvK3KupsGpQ%3D%3D&academic_year=2016-2017&node=Root").responseString { response in
-            
+        let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?_dc=&action=read&vn=\(studentVnCode)&academic_year=2016-2017&node=Root"
+        
+        Alamofire.request(url).responseString { response in
             
             var dataString = response.result.value
             
             dataString = self.cleanMarksJSON(string: dataString!)
             
-            //let data = dataString?.data(using: .utf8)
-            
-            //print(self.nsdataToJSON(data: data! as NSData))
-            
             let dict = self.convertToDictionary(text: dataString!)
             
+           
+            if dict != nil {
+                let obj = dict as? NSDictionary
+                
+                //this part write all key and value
+                for (key, value) in obj! {
+                    print("Property: \"\(key)\", Value: \"\(value)\"")
+                }
+            }
+           
             completionHandler(dict!)
         }
     }
@@ -102,7 +117,6 @@ class ViewController: UIViewController {
         
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
             let vnCode: String = JSON(result.value!)["data"][0]["vn"].stringValue
-            print(vnCode)
             completionHandler(self.encodeEscapeUrl(string: vnCode))
         }
     }
@@ -110,7 +124,8 @@ class ViewController: UIViewController {
     
     func encodeEscapeUrl(string: String) -> String {
         
-        let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let escapedString = string.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+        print(escapedString)
         return escapedString
     }
     
@@ -136,30 +151,6 @@ class ViewController: UIViewController {
         return nil
     }
     
-    func makeAlamofireRequest(url :String){
-        let configuration = URLSessionConfiguration.default
-        
-        afManager = Alamofire.SessionManager(configuration: configuration)
-        afManager.request(url, method: .post).validate().responseJSON {
-            response in
-            switch (response.result) {
-            case .success:
-                print("data - > \n    \(String(describing: response.data?.debugDescription)) \n")
-                print("response - >\n    \(String(describing: response.response?.debugDescription)) \n")
-                _ = 0
-                if let unwrappedResponse = response.response {
-                    _ = unwrappedResponse.statusCode
-                }
-                
-                break
-            case .failure(let error):
-                print("error - > \n    \(error.localizedDescription) \n")
-                _ = response.response?.statusCode
-                break
-            }
-        }
-    }
-    
     // Convert from NSData to json object
     func nsdataToJSON(data: NSData) -> Any? {
         do {
@@ -169,6 +160,7 @@ class ViewController: UIViewController {
         }
         return nil
     }
+    
 }
 
 
