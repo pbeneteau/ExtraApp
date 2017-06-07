@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		006CE2591EE81194001F156A /* SemesterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE2581EE81194001F156A /* SemesterViewController.swift */; };
+		006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE25A1EE811F1001F156A /* ModulesViewController.swift */; };
+		006DD1D31EE7243400E71768 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D21EE7243400E71768 /* Student.swift */; };
+		006DD1D51EE7274D00E71768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D41EE7274D00E71768 /* LoginViewController.swift */; };
+		006DD1D71EE737F300E71768 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D61EE737F300E71768 /* ProfileViewController.swift */; };
+		006DD1D91EE73F0500E71768 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D81EE73F0500E71768 /* utils.swift */; };
+		006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1DA1EE741E800E71768 /* MarksViewController.swift */; };
 		382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382027881EDF5BA90092D384 /* AppDelegate.swift */; };
 		3820278B1EDF5BA90092D384 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3820278A1EDF5BA90092D384 /* ViewController.swift */; };
 		3820278E1EDF5BA90092D384 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3820278C1EDF5BA90092D384 /* Main.storyboard */; };
@@ -37,6 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		006CE2581EE81194001F156A /* SemesterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterViewController.swift; sourceTree = "<group>"; };
+		006CE25A1EE811F1001F156A /* ModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModulesViewController.swift; sourceTree = "<group>"; };
+		006DD1D21EE7243400E71768 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		006DD1D41EE7274D00E71768 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		006DD1D61EE737F300E71768 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		006DD1D81EE73F0500E71768 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		006DD1DA1EE741E800E71768 /* MarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarksViewController.swift; sourceTree = "<group>"; };
 		16AE405F965644DD7E64E6DC /* Pods-ExtranetApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExtranetApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExtranetApp/Pods-ExtranetApp.debug.xcconfig"; sourceTree = "<group>"; };
 		382027851EDF5BA90092D384 /* ExtranetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExtranetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		382027881EDF5BA90092D384 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +130,13 @@
 			children = (
 				382027881EDF5BA90092D384 /* AppDelegate.swift */,
 				3820278A1EDF5BA90092D384 /* ViewController.swift */,
+				006DD1D21EE7243400E71768 /* Student.swift */,
+				006DD1D41EE7274D00E71768 /* LoginViewController.swift */,
+				006DD1D81EE73F0500E71768 /* utils.swift */,
+				006DD1D61EE737F300E71768 /* ProfileViewController.swift */,
+				006DD1DA1EE741E800E71768 /* MarksViewController.swift */,
+				006CE2581EE81194001F156A /* SemesterViewController.swift */,
+				006CE25A1EE811F1001F156A /* ModulesViewController.swift */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
@@ -449,7 +470,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				006DD1D51EE7274D00E71768 /* LoginViewController.swift in Sources */,
 				3820278B1EDF5BA90092D384 /* ViewController.swift in Sources */,
+				006DD1D71EE737F300E71768 /* ProfileViewController.swift in Sources */,
+				006DD1D91EE73F0500E71768 /* utils.swift in Sources */,
+				006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */,
+				006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */,
+				006DD1D31EE7243400E71768 /* Student.swift in Sources */,
+				006CE2591EE81194001F156A /* SemesterViewController.swift in Sources */,
 				382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
