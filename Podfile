@@ -9,6 +9,8 @@ target 'ExtranetApp' do
     pod 'SwiftyJSON'
     pod 'Ono'
     pod 'CZPicker'
+    pod 'FZAccordionTableView'
+    pod 'DynamicButton'
     
     target 'ExtranetAppTests' do
         inherit! :search_paths

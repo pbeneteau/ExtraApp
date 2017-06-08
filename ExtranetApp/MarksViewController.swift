@@ -73,7 +73,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "yearCell"
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         cell.textLabel?.text = coursesArray[indexPath.section][indexPath.row]
@@ -82,9 +81,10 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailController = segue.destination as? SemesterViewController
+        if let detailController = segue.destination as? CourseViewController
         {
-            detailController.yearChoosed = indexSelected
+            detailController.courseSelected = indexSelected
+            detailController.semesterJSON = student.getSemesters()[selectedSemester]
         }
     }
     
@@ -146,6 +146,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         picker?.show()
     }
     
+    
+    // Semester Pikcer View
     
     func numberOfRows(in pickerView: CZPickerView!) -> Int {
         return semesters.count

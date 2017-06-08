@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		006CE2591EE81194001F156A /* SemesterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE2581EE81194001F156A /* SemesterViewController.swift */; };
+		006CE2591EE81194001F156A /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE2581EE81194001F156A /* CourseViewController.swift */; };
 		006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE25A1EE811F1001F156A /* ModulesViewController.swift */; };
 		006DD1D31EE7243400E71768 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D21EE7243400E71768 /* Student.swift */; };
 		006DD1D51EE7274D00E71768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D41EE7274D00E71768 /* LoginViewController.swift */; };
@@ -44,7 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		006CE2581EE81194001F156A /* SemesterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterViewController.swift; sourceTree = "<group>"; };
+		006CE2581EE81194001F156A /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		006CE25A1EE811F1001F156A /* ModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModulesViewController.swift; sourceTree = "<group>"; };
 		006DD1D21EE7243400E71768 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		006DD1D41EE7274D00E71768 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 				006DD1D81EE73F0500E71768 /* utils.swift */,
 				006DD1D61EE737F300E71768 /* ProfileViewController.swift */,
 				006DD1DA1EE741E800E71768 /* MarksViewController.swift */,
-				006CE2581EE81194001F156A /* SemesterViewController.swift */,
+				006CE2581EE81194001F156A /* CourseViewController.swift */,
 				006CE25A1EE811F1001F156A /* ModulesViewController.swift */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
@@ -477,7 +477,7 @@
 				006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */,
 				006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */,
 				006DD1D31EE7243400E71768 /* Student.swift in Sources */,
-				006CE2591EE81194001F156A /* SemesterViewController.swift in Sources */,
+				006CE2591EE81194001F156A /* CourseViewController.swift in Sources */,
 				382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
