@@ -115,6 +115,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
         
         cell.textLabel?.text = exams[indexPath.row]
+        cell.frame.size.height = 90
         
         return cell
     }
