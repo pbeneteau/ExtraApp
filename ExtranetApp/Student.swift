@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 class Student {
-    
+        
     enum BackendError: Error {
         case network(error: Error) // Capture any underlying Error from the URLSession API
         case dataSerialization(error: Error)
@@ -39,97 +39,28 @@ class Student {
         
     }
     
-    public func cleanMarksJSON(string: String) -> String {
-        
-        var newString = string.replacingOccurrences(of: "X.net.RM.getIcon(\"BulletWhite\")", with: "\"\"")
-        newString = newString.replacingOccurrences(of: "\"leaf\":true", with: "\"leaf\":\"true\"")
-        newString = newString.replacingOccurrences(of: "\"leaf\":false", with: "\"leaf\":\"false\"")
-        newString = newString.replacingOccurrences(of: " \"total\": 0", with: "\"total\": \"0\"")
-        newString = newString.replacingOccurrences(of: "Ã©", with: "é")
-        newString = newString.replacingOccurrences(of: "Ã¨", with: "è")
-        newString = newString.replacingOccurrences(of: "Ã", with: "à")
-        
-        return newString
-    }
-    
-    public func cleanMarksJSONinfos(string: String) -> String {
-        
-        var newString = string.replacingOccurrences(of: "<script type=\"text/javascript\">Ext.ComponentManager.onAvailable(\"ExtranetContent\",", with: "")
-        newString = newString.replacingOccurrences(of: "function(){", with: "")
-        newString = newString.replacingOccurrences(of: "Ext.net.addTo(\"ExtranetContent\",", with: "")
-        newString = newString.replacingOccurrences(of: ");</script>", with: "")
-        newString = newString.replacingOccurrences(of: ", false);}", with: "")
-        newString = newString.replacingOccurrences(of: ",listeners:{afterrender:{fn:function(item){Ext.net.DirectMethod.request({url: '/Student/Absence/Summary', timeout: 600000, cleanRequest: true, eventMask: {showMask:true} });}}}", with: "")
-        newString = newString.replacingOccurrences(of: "id:\"ExtranetRightContent\",border:false,xtype:\"panel\",flex:3,", with: "")
-        newString = newString.replacingOccurrences(of: "{cls:\"x-panel-alert\",style:\"padding: 5px\",items:[{cls:\"alert-label\",xtype:\"netlabel\",text:\"No alerts\"}],layout:\"vbox\",title:\"Important Messages\"},", with: "")
-        newString = newString.replacingOccurrences(of: "cls:\"x-panel-infoperso\",style:\"padding: 5px\",", with: "")
-        newString = newString.replacingOccurrences(of: ",{border:false,minHeight:170,style:\"padding: 5px\",xtype:\"container\",flex:1,items:[{xtype:\"netimage\",imageUrl:\"/Student/Home/Photo\"}]}", with: "")
-        newString = newString.replacingOccurrences(of: "border:false,padding:0,xtype:\"fieldset\",flex:2,", with: "")
-        newString = newString.replacingOccurrences(of: "id:\"idfa34d15a698236ef\",xtype:\"displayfield\",", with: "")
-        newString = newString.replacingOccurrences(of: "id:\"id9a187f56aec236ef\",cls:\"alert-detail\",xtype:\"displayfield\",", with: "")
-        newString = newString.replacingOccurrences(of: "id:\"EXT_ADDRESS\",xtype:\"displayfield\",", with: "")
-        newString = newString.replacingOccurrences(of: "id:\"EXT_PLACE\",cls:\"alert-detail\",xtype:\"displayfield\",", with: "")
-        newString = newString.replacingOccurrences(of: "id:\"EXT_TELEPHONEMOBILE\",cls:\"alert-detail\",xtype:\"displayfield\",", with: "")
-        newString = newString.replacingOccurrences(of: "xtype:\"fieldcontainer\",", with: "")
-        newString = newString.replacingOccurrences(of: "id:\"idd0b11e8e78ad36ef\",xtype:\"displayfield\",", with: "")
-        newString = newString.replacingOccurrences(of: ",fieldLabel:\"E-mail\",labelWidth:50", with: "")
-        newString = newString.replacingOccurrences(of: ",layout:\"hbox\",title:\"Personal Data\"", with: "")
-        newString = newString.replacingOccurrences(of: "items:", with: "\"items\":")
-        newString = newString.replacingOccurrences(of: "id:", with: "\"id\":")
-        newString = newString.replacingOccurrences(of: "xtype:", with: "\"xtype\":")
-        newString = newString.replacingOccurrences(of: "value:", with: "\"value\":")
-        newString = newString.replacingOccurrences(of: "cls:", with: "\"cls\":")
-        newString = newString.replacingOccurrences(of: "layout:", with: "\"layout\":")
-        newString = newString.replacingOccurrences(of: "[{\"items\":[{\"items\":[{\"items\":", with: "{\"items\":[{\"items\":[{\"items\":")
-        newString = newString.replacingOccurrences(of: "]}]}]", with: "]}]}")
-        newString = newString.replacingOccurrences(of: "Name : ", with: "")
-        newString = newString.replacingOccurrences(of: "Birthdate : ", with: "")
-        newString = newString.replacingOccurrences(of: "Address : ", with: "")
-        newString = newString.replacingOccurrences(of: "City : ", with: "")
-        newString = newString.replacingOccurrences(of: "Mobile Phone : ", with: "")
-        
-        return newString
-    }
-    
-    
-    public func convertToDictionary(text: String) -> Any? {
-        if let data = text.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: [])
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        return nil
-    }
-    
-    // Convert from NSData to json object
-    public func nsdataToJSON(data: NSData) -> Any? {
-        do {
-            return try JSONSerialization.jsonObject(with: data as Data, options: .mutableContainers)
-        } catch let myJSONError {
-            print(myJSONError)
-        }
-        return nil
-    }
     
     public func initInfos() {
-        let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
-        
-        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { result in
-            let dataString = self.cleanMarksJSONinfos(string: result.value!)
-            let dict = self.convertToDictionary(text: dataString)
+        if Reachability.isConnectedToNetwork() == true
+        {
+            let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
             
-            self.name = JSON(dict!)["items"][0]["items"][0]["items"][0]["value"].stringValue
-            self.birthDate = JSON(dict!)["items"][0]["items"][0]["items"][1]["value"].stringValue
-            self.address = JSON(dict!)["items"][0]["items"][0]["items"][2]["value"].stringValue
-            self.city = JSON(dict!)["items"][0]["items"][0]["items"][3]["value"].stringValue
-            self.phone = JSON(dict!)["items"][0]["items"][0]["items"][4]["value"].stringValue
-            self.email = JSON(dict!)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
+            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { result in
+                let dataString = cleanMarksJSONinfos(string: result.value!)
+                let dict = convertToDictionary(text: dataString)
+                
+                self.name = JSON(dict!)["items"][0]["items"][0]["items"][0]["value"].stringValue
+                self.birthDate = JSON(dict!)["items"][0]["items"][0]["items"][1]["value"].stringValue
+                self.address = JSON(dict!)["items"][0]["items"][0]["items"][2]["value"].stringValue
+                self.city = JSON(dict!)["items"][0]["items"][0]["items"][3]["value"].stringValue
+                self.phone = JSON(dict!)["items"][0]["items"][0]["items"][4]["value"].stringValue
+                self.email = JSON(dict!)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
+            }
         }
     }
     
     func logIn(completionHandler: @escaping (_ success: Bool) -> ()) {
+        
         
         Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(self.username)&password=\(self.password)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
             
@@ -143,6 +74,9 @@ class Student {
                         self.setMarks(marks: marks)
                         self.sortBydate()
                         self.initSemester()
+                        
+                        self.saveInfosToUserDefaults()
+                        self.saveSemesters()
                         completionHandler(true)
                     }
                 }
@@ -153,6 +87,7 @@ class Student {
             
         }
     }
+
     
     public func refreshMarks(completionHandler: @escaping (_ success: Bool) -> ()) {
         self.getVnCodes { vnCodes in
@@ -168,38 +103,43 @@ class Student {
     
     
     func getStudentMarks(completionHandler: @escaping (_ marks: [JSON]) -> ()) {
-        var marks = [JSON]()
-        for vn in studentVnCodes {
-            let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
-            
-            Alamofire.request(url).responseString { response in
+        if Reachability.isConnectedToNetwork() == true
+        {
+            var marks = [JSON]()
+            for vn in studentVnCodes {
+                let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
                 
-                var dataString: String = (response.result.value)!
-                
-                dataString = self.cleanMarksJSON(string: dataString)
-                
-                let dict = self.convertToDictionary(text: dataString)
-                
-                marks.append(JSON(dict as Any))
-                
-                if (self.studentVnCodes.count == marks.count) {
-                    completionHandler(marks)
+                Alamofire.request(url).responseString { response in
+                    
+                    var dataString: String = (response.result.value)!
+                    
+                    dataString = cleanMarksJSON(string: dataString)
+                    
+                    let dict = convertToDictionary(text: dataString)
+                    
+                    marks.append(JSON(dict as Any))
+                    
+                    if (self.studentVnCodes.count == marks.count) {
+                        completionHandler(marks)
+                    }
                 }
             }
         }
     }
     
     func getVnCodes(completionHandler: @escaping (_ vnCodes: [String]) -> ()) {
-        
-        let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
-        var vnCodes = [String]()
-        
-        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
-            for i in 0..<JSON(result.value!)["data"].count {
-                let enscapedString = self.encodeEscapeUrl(string: JSON(result.value!)["data"][i]["vn"].stringValue)
-                vnCodes.append(enscapedString)
+        if Reachability.isConnectedToNetwork() == true
+        {
+            let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
+            var vnCodes = [String]()
+            
+            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
+                for i in 0..<JSON(result.value!)["data"].count {
+                    let enscapedString = self.encodeEscapeUrl(string: JSON(result.value!)["data"][i]["vn"].stringValue)
+                    vnCodes.append(enscapedString)
+                }
+                completionHandler(vnCodes)
             }
-            completionHandler(vnCodes)
         }
     }
     
@@ -259,6 +199,14 @@ class Student {
         } else {
             print("No")
         }
+    }
+    
+    public func setSemesters(_semesters: [JSON]) {
+        self.studentSemesters = _semesters
+    }
+    
+    public func setSemestersNameList(_semestersNameList: [String]) {
+        self.semestersNamesList = _semestersNameList
     }
     
     func sortBydate() {
@@ -360,6 +308,57 @@ class Student {
     
     public func setPassword(password: String) {
         self.password = password
+    }
+    
+    public func saveInfosToUserDefaults() {
+        userDefaults.set(self.name, forKey: "studentName")
+        userDefaults.set(self.birthDate, forKey: "studentBirthDate")
+        userDefaults.set(self.city, forKey: "studentCity")
+        userDefaults.set(self.address, forKey: "studentAddress")
+        userDefaults.set(self.phone, forKey: "studentPhone")
+        userDefaults.set(self.email, forKey: "studentEmail")
+    }
+    
+    public func saveSemesters() {
+        userDefaults.setValue(self.studentSemesters.count, forKey: "numberSemesters")
+        var i = 0
+        for semester in studentSemesters {
+            userDefaults.setValue(semester.rawString()!, forKey: "semester\(i)")
+            i += 1
+        }
+    }
+    
+    public func loadInfosFromUserDefaults() {
+        if userDefaults.string(forKey: "studentName") != nil {
+            self.name = userDefaults.string(forKey: "studentName")!
+        }
+        if userDefaults.string(forKey: "studentBirthDate") != nil {
+            self.birthDate = userDefaults.string(forKey: "studentBirthDate")!
+        }
+        if userDefaults.string(forKey: "studentCity") != nil {
+            self.city = userDefaults.string(forKey: "studentCity")!
+        }
+        if userDefaults.string(forKey: "studentAddress") != nil {
+            self.address = userDefaults.string(forKey: "studentAddress")!
+        }
+        if userDefaults.string(forKey: "studentPhone") != nil {
+            self.phone = userDefaults.string(forKey: "studentPhone")!
+        }
+        if userDefaults.string(forKey: "studentEmail") != nil {
+            self.email = userDefaults.string(forKey: "studentEmail")!
+        }
+        
+    }
+    
+    public func loadSemestersFromUserDefaults() {
+        var n = 0
+        if userDefaults.integer(forKey: "numberSemesters") != 0 {
+            n = userDefaults.integer(forKey: "numberSemesters")
+            self.studentSemesters.removeAll()
+            for i in 0..<(n-1) {
+                self.studentSemesters.append(JSON.parse(userDefaults.value(forKey: "semester\(i)") as! String))
+            }
+        }
     }
     
     

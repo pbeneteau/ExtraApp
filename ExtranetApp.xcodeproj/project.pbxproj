@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0060A0291EE9796900D74811 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0060A0281EE9796900D74811 /* Reachability.swift */; };
 		006CE2591EE81194001F156A /* SemesterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE2581EE81194001F156A /* SemesterViewController.swift */; };
 		006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE25A1EE811F1001F156A /* ModulesViewController.swift */; };
 		006DD1D31EE7243400E71768 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D21EE7243400E71768 /* Student.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0060A0281EE9796900D74811 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		006CE2581EE81194001F156A /* SemesterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterViewController.swift; sourceTree = "<group>"; };
 		006CE25A1EE811F1001F156A /* ModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModulesViewController.swift; sourceTree = "<group>"; };
 		006DD1D21EE7243400E71768 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
 				382027941EDF5BA90092D384 /* Info.plist */,
+				0060A0281EE9796900D74811 /* Reachability.swift */,
 			);
 			path = ExtranetApp;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */,
 				006DD1D31EE7243400E71768 /* Student.swift in Sources */,
 				006CE2591EE81194001F156A /* SemesterViewController.swift in Sources */,
+				0060A0291EE9796900D74811 /* Reachability.swift in Sources */,
 				382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

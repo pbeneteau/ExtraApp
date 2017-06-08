@@ -19,27 +19,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let manager = NetworkReachabilityManager(host: "http://extranet.groupe-efrei.fr")
-//        
-//        manager?.listener = { status in
-//            print("Network Status Changed: \(status)\n")
-//        }
-//        
-//        manager?.startListening()
-//        
-//        logIn { success in
-//            self.getVnCodes{ vnCodes in
-//                self.studentVnCodes = vnCodes
-//                self.getStudentPhoto()
-//                for vnCode in self.studentVnCodes {
-//                    self.getStudentMarks(vn: vnCode){ marksDict in
-//                        self.studentMarks.append(JSON(marksDict))
-//                        self.listMarks(jsonFile: JSON(marksDict))
-//                    }
-//                }
-//                self.getInfos()
-//            }
-//        }
+
     }
     
     override func didReceiveMemoryWarning() {

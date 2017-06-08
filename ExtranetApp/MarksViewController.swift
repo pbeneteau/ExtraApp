@@ -166,17 +166,24 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
-        // Do some reloading of data and update the table view's data source
-        // Fetch more objects from a web service, for example...
-        
-        student.refreshMarks { success in
-            if success {
-                self.initCourses(semester: self.selectedSemester)
-                
-            } else {
-                print("error while refreshing")
+        if Reachability.isConnectedToNetwork() == true
+        {
+            // Do some reloading of data and update the table view's data source
+            // Fetch more objects from a web service, for example...
+            
+            student.refreshMarks { success in
+                if success {
+                    self.initCourses(semester: self.selectedSemester)
+                    
+                } else {
+                    print("error while refreshing")
+                }
+                refreshControl.endRefreshing()
             }
-            refreshControl.endRefreshing()
+        } else {
+            let alert = UIAlertController(title: "Pas d'internet", message: "Verifiez votre connection", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in refreshControl.endRefreshing()}))
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }
