@@ -42,6 +42,9 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setToolbarHidden(true, animated: false)
+        
         self.tableview.rowHeight = 90
         backButton.alpha = 0
         courseJSON = semesterJSON[courseSelected]["children"][0]
@@ -240,6 +243,9 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             })
             detailViewOpen = true
         }
+    }
+    @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
 

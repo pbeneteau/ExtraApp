@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProfileViewController: UIViewController {
     
@@ -29,6 +30,8 @@ class ProfileViewController: UIViewController {
         cityLabel.text = student.getCity()
         phoneLabel.text = student.getPhone()
         emailLabel.text = student.getEmail()
+        //picture.image = student.studentPicture
+
 
     }
 

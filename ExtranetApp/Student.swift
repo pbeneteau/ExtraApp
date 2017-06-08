@@ -32,7 +32,7 @@ class Student {
     private var studentVnCodes = [String]()
     private var studentMarks = [JSON]()
     private var studentSemesters = [JSON]()
-    private var studentPicture = UIImage()
+    var studentPicture = UIImage()
     private var semestersNamesList = [String]()
     
     
@@ -56,6 +56,10 @@ class Student {
                 self.city = JSON(dict!)["items"][0]["items"][0]["items"][3]["value"].stringValue
                 self.phone = JSON(dict!)["items"][0]["items"][0]["items"][4]["value"].stringValue
                 self.email = JSON(dict!)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
+                
+                self.downloadPicture { picture in
+                    self.studentPicture = picture
+                }
             }
         }
     }
@@ -204,6 +208,14 @@ class Student {
             }
         } else {
             print("No")
+        }
+    }
+    
+    public func downloadPicture(completionHandler: @escaping (_ picture: UIImage) -> ()) {
+        Alamofire.download("https://extranet.groupe-efrei.fr/Student/Home/Photo").responseData { response in
+            if let data = response.result.value {
+                completionHandler(UIImage(data: data)!)
+            }
         }
     }
     
@@ -365,6 +377,11 @@ class Student {
                 self.studentSemesters.append(JSON.init(parseJSON: userDefaults.value(forKey: "semester\(i)") as! String))
             }
         }
+    }
+    
+    
+    public func downloadFile() {
+        
     }
     
     
