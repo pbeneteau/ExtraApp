@@ -87,12 +87,12 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         for i in 0..<course.count {
             
-            let exam = course[i]["Title"].stringValue
-            var examString = exam.replacingOccurrences(of: subjectName, with: "")
-            examString = exam.replacingOccurrences(of: "(", with: "")
-            examString = exam.replacingOccurrences(of: ")", with: "")
+            var exam = removeSubjectName(text: (course[i]["Title"].stringValue))
             
-            exams.append(examString)
+            exam = exam.replacingOccurrences(of: "(", with: "")
+            exam = exam.replacingOccurrences(of: ")", with: "")
+            
+            exams.append(exam)
         }
         print(exams)
         
@@ -130,12 +130,13 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func removeSubjectName(text: String) -> String {
-        var str = text
+        let str = text
+        let p = str.indexDistance(of: "(")
         
-        if let dotRange = str.range(of: "(") {
-           // str.substring(to: dotRange)
-        }
-        return str
+        let endIndex = str.index(str.startIndex, offsetBy: p!)
+        let truncated = str.substring(from: endIndex)
+        
+        return truncated 
     }
     @IBAction func showDetailviewAction(_ sender: Any) {
         
