@@ -12,6 +12,8 @@ import Alamofire
 import SwiftyJSON
 
 class Student {
+    
+    let configuration = URLSessionConfiguration.default
         
     enum BackendError: Error {
         case network(error: Error) // Capture any underlying Error from the URLSession API
@@ -36,7 +38,9 @@ class Student {
     private var semestersNamesList = [String]()
     
     init() {
-        
+        configuration.timeoutIntervalForRequest = 10 // seconds
+        configuration.timeoutIntervalForResource = 10
+        self.alamoFireManager = Alamofire.Manager(configuration: configuration)
     }
     
     
@@ -356,7 +360,7 @@ class Student {
             n = userDefaults.integer(forKey: "numberSemesters")
             self.studentSemesters.removeAll()
             for i in 0..<(n-1) {
-                self.studentSemesters.append(JSON.parse(userDefaults.value(forKey: "semester\(i)") as! String))
+                self.studentSemesters.append(JSON.init(parseJSON: userDefaults.value(forKey: "semester\(i)") as! String))
             }
         }
     }
