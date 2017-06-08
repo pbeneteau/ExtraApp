@@ -154,6 +154,18 @@ class Student {
         }
     }
     
+    public func refreshMarks(completionHandler: @escaping (_ success: Bool) -> ()) {
+        self.getVnCodes { vnCodes in
+            self.studentVnCodes = vnCodes
+            self.getStudentMarks() { marks in
+                self.setMarks(marks: marks)
+                self.sortBydate()
+                self.initSemester()
+                completionHandler(true)
+            }
+        }
+    }
+    
     
     func getStudentMarks(completionHandler: @escaping (_ marks: [JSON]) -> ()) {
         var marks = [JSON]()
