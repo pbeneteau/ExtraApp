@@ -11,19 +11,57 @@ import SwiftyJSON
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var firstLabel: UILabel!
+    @IBOutlet weak var secondLabel: UILabel!
     
     @IBOutlet weak var loginButton: UIButton!
     
     
-    let defaults = UserDefaults.standard
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        passwordTextField.text! = defaults.string(forKey: "password")!
-        usernameTextField.text! = defaults.string(forKey: "username")!
+        
+        if userDefaults.string(forKey: "password") != nil || userDefaults.string(forKey: "username") != nil{
+            passwordTextField.text! = userDefaults.string(forKey: "password")!
+            usernameTextField.text! = userDefaults.string(forKey: "username")!
+        }
+        
+        if userDefaults.string(forKey: "isLogged") == nil {
+            userDefaults.set("loggedIn", forKey: "notLogged")
+        } else {
+            if userDefaults.string(forKey: "isLogged")! == "loggedIn" {
+                loginButton.isHidden = true
+                firstLabel.isHidden = true
+                secondLabel.isHidden = true
+                usernameTextField.isHidden = true
+                passwordTextField.isHidden = true
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+                
+                if Reachability.isConnectedToNetwork() == true {
+                    log { success in
+                        if success {
+                            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                            let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
+                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                            appDelegate.window?.rootViewController = naviVC
+                            self.activityIndicator.stopAnimating()
+                        }
+                    }
+                } else {
+                    student.loadInfosFromUserDefaults()
+                    student.loadSemestersFromUserDefaults()
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = naviVC
+                    self.activityIndicator.stopAnimating()
+                }
+            }
+        }
         
     }
     
@@ -34,20 +72,42 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: Any) {
         
-        student.setPassword(password: self.passwordTextField.text!)
-        student.setUsername(username: self.usernameTextField.text!)
-        
-        defaults.set(self.passwordTextField.text!, forKey: "password")
-        defaults.set(self.usernameTextField.text!, forKey: "username")
-        
-        student.logIn { success in
+        log { success in
             if success {
-                self.performSegue(withIdentifier: "loginSucceed", sender: nil)
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = naviVC
             } else {
-                print("Bad entries")
+                let alert = UIAlertController(title: "Pas d'internet", message: "Verifiez votre connection", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Fermer", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
     
+    
+    func log(completionHandler: @escaping (_ success: Bool) -> ()) {
+        student.setPassword(password: self.passwordTextField.text!)
+        student.setUsername(username: self.usernameTextField.text!)
+        
+        userDefaults.set(self.passwordTextField.text!, forKey: "password")
+        userDefaults.set(self.usernameTextField.text!, forKey: "username")
+        
+        
+        if Reachability.isConnectedToNetwork() == true
+        {
+            student.logIn { success in
+                if success {
+                    userDefaults.set("loggedIn", forKey: "isLogged")
+                    completionHandler(true)
+                } else {
+                    print("Bad entries")
+                }
+            }
+        } else {
+            completionHandler(false)
+        }
+    }
     
 }

@@ -141,6 +141,7 @@
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
 				382027941EDF5BA90092D384 /* Info.plist */,
+				0060A0281EE9796900D74811 /* Reachability.swift */,
 			);
 			path = ExtranetApp;
 			sourceTree = "<group>";
