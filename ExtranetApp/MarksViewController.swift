@@ -84,7 +84,16 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let detailController = segue.destination as? CourseViewController
         {
             detailController.courseSelected = indexSelected
-            detailController.semesterJSON = student.getSemesters()[selectedSemester]
+            
+            var semesterN = 0
+            
+            if selectedSemester == 1 {
+                semesterN = 0
+            } else {
+                semesterN = 1
+            }
+            
+            detailController.semesterJSON = student.getSemesters()[semesterN]
         }
     }
     

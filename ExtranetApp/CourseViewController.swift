@@ -75,7 +75,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         subjectLabel.text = subjectName
         marksNumberLabel.text = "\(courseJSON["children"].count)"
-        averageMarksLabel.text = "\(courseJSON["AverageMark"].stringValue)"
+        averageMarksLabel.text = "\(courseJSON["GradePoint"].stringValue)"
         subjectWeightLabel.text = "\(courseJSON["Weight"].stringValue)"
     }
     
