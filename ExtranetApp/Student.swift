@@ -12,8 +12,6 @@ import Alamofire
 import SwiftyJSON
 
 class Student {
-    
-    let configuration = URLSessionConfiguration.default
         
     enum BackendError: Error {
         case network(error: Error) // Capture any underlying Error from the URLSession API
@@ -114,17 +112,19 @@ class Student {
                 
                 Alamofire.request(url).responseString { response in
                     
+                    
                     var dataString: String = (response.result.value)!
                     
                     dataString = cleanMarksJSON(string: dataString)
                     
-                    let dict = convertToDictionary(text: dataString)
-                    
-                    marks.append(JSON(dict as Any))
-                    
-                    if (self.studentVnCodes.count == marks.count) {
-                        completionHandler(marks)
+                    if let dict = convertToDictionary(text: dataString) {
+                        marks.append(JSON(dict as Any))
+                        
+                        if (self.studentVnCodes.count == marks.count) {
+                            completionHandler(marks)
+                        }
                     }
+                    
                 }
             }
         }
@@ -137,11 +137,14 @@ class Student {
             var vnCodes = [String]()
             
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
-                for i in 0..<JSON(result.value!)["data"].count {
-                    let enscapedString = self.encodeEscapeUrl(string: JSON(result.value!)["data"][i]["vn"].stringValue)
-                    vnCodes.append(enscapedString)
+                
+                if result.value != nil {
+                    for i in 0..<JSON(result.value!)["data"].count {
+                        let enscapedString = self.encodeEscapeUrl(string: JSON(result.value!)["data"][i]["vn"].stringValue)
+                        vnCodes.append(enscapedString)
+                    }
+                    completionHandler(vnCodes)
                 }
-                completionHandler(vnCodes)
             }
         }
     }
