@@ -36,8 +36,7 @@ class Student {
     private var semestersNamesList = [String]()
     
     init() {
-        configuration.timeoutIntervalForRequest = 10 // seconds
-        configuration.timeoutIntervalForResource = 10
+        
     }
     
     
