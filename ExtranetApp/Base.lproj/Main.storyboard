@@ -456,6 +456,11 @@
                                     <outlet property="delegate" destination="v2e-sR-E0c" id="aIv-TY-NZn"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2A-wo-25U">
+                                <rect key="frame" x="4" y="34" width="31" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backButton"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -463,10 +468,12 @@
                     <connections>
                         <outlet property="averageLabel" destination="oEK-Ow-6ak" id="XA1-dM-Jvj"/>
                         <outlet property="averageMarksLabel" destination="MUt-BB-xmH" id="DFC-Oe-fnd"/>
+                        <outlet property="backButton" destination="o2A-wo-25U" id="kAF-FO-HG1"/>
                         <outlet property="detailView" destination="h8q-zF-flY" id="EQq-jQ-aTI"/>
                         <outlet property="lineView" destination="SRB-Yg-zov" id="UDy-sv-PHX"/>
                         <outlet property="marksLabel" destination="zBA-KQ-W0d" id="Ttp-S9-xQd"/>
                         <outlet property="marksNumberLabel" destination="AbZ-mU-AzU" id="dgB-nj-cXf"/>
+                        <outlet property="matiereLabel" destination="hQ8-um-2PT" id="CoU-Pt-r5x"/>
                         <outlet property="showDetailButton" destination="okb-SM-GQG" id="MqD-mw-XRI"/>
                         <outlet property="subjectLabel" destination="JMU-Ri-46W" id="loc-Wc-SvU"/>
                         <outlet property="subjectWeightLabel" destination="SNN-co-3Ud" id="9hd-CC-VLE"/>
@@ -544,5 +551,6 @@
     <resources>
         <image name="Logo" width="268" height="353"/>
         <image name="avatar" width="198" height="198"/>
+        <image name="backButton" width="10" height="29"/>
     </resources>
 </document>

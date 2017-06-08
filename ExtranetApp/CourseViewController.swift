@@ -23,6 +23,8 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var detailViewOpen: Bool = false
     
     @IBOutlet weak var subjectLabel: UILabel!
+    @IBOutlet weak var matiereLabel: UILabel!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var tableview: UITableView!
     
     @IBOutlet weak var detailView: UIView!
@@ -41,13 +43,21 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         self.tableview.rowHeight = 90
-        
+        backButton.alpha = 0
         courseJSON = semesterJSON[courseSelected]["children"][0]
         
         initDetailview()
         
         initCourses()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            self.matiereLabel.frame.origin.x += 20
+            self.subjectLabel.frame.origin.x += 20
+            self.backButton.alpha = 1
+        })
     }
     
     override func didReceiveMemoryWarning() {

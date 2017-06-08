@@ -14,8 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var firstLabel: UILabel!
-    @IBOutlet weak var secondLabel: UILabel!
+
     
     @IBOutlet weak var loginButton: UIButton!
     
@@ -34,8 +33,7 @@ class LoginViewController: UIViewController {
         } else {
             if userDefaults.string(forKey: "isLogged")! == "loggedIn" {
                 loginButton.isHidden = true
-                firstLabel.isHidden = true
-                secondLabel.isHidden = true
+
                 usernameTextField.isHidden = true
                 passwordTextField.isHidden = true
                 activityIndicator.isHidden = false
