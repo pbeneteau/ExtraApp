@@ -14,7 +14,6 @@ import Alamofire
 let userDefaults = UserDefaults.standard
 var student = Student()
 
-let manager = NetworkReachabilityManager(host: "http://extranet.groupe-efrei.fr")
 
 
 public func cleanMarksJSON(string: String) -> String {
