@@ -245,7 +245,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     @IBAction func backButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 
