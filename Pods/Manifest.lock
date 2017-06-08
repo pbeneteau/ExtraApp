@@ -1,18 +1,21 @@
 PODS:
   - Alamofire (4.4.0)
+  - CZPicker (0.4.3)
   - Ono (1.2.2)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire
+  - CZPicker
   - Ono
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  CZPicker: 55aa1751ea26e209814552da1a9a08cba8bbf72a
   Ono: 80b1c686777d3f6d5d5ce6fcac8a74afef4ca197
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 2a718b0f35cece38613e5ce4d961c2ee6998b9bd
+PODFILE CHECKSUM: df304d9869e8baa43a672c987a93b4fac4d84416
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

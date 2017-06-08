@@ -43,8 +43,8 @@ class SemesterViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
             ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-        
-        (cell.viewWithTag(1) as! UILabel).text = semesterJSON[0]["Title"].stringValue
+                
+        cell.textLabel?.text = semesterJSON[0]["Title"].stringValue
         
         return cell
     }

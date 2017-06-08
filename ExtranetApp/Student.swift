@@ -31,7 +31,9 @@ class Student {
     private var password = "";
     private var studentVnCodes = [String]()
     private var studentMarks = [JSON]()
+    private var studentSemesters = [JSON]()
     private var studentPicture = UIImage()
+    private var semestersNamesList = [String]()
     
     init() {
         
@@ -43,7 +45,9 @@ class Student {
         newString = newString.replacingOccurrences(of: "\"leaf\":true", with: "\"leaf\":\"true\"")
         newString = newString.replacingOccurrences(of: "\"leaf\":false", with: "\"leaf\":\"false\"")
         newString = newString.replacingOccurrences(of: " \"total\": 0", with: "\"total\": \"0\"")
-        
+        newString = newString.replacingOccurrences(of: "Ã©", with: "é")
+        newString = newString.replacingOccurrences(of: "Ã¨", with: "è")
+        newString = newString.replacingOccurrences(of: "Ã", with: "à")
         
         return newString
     }
@@ -84,10 +88,9 @@ class Student {
         newString = newString.replacingOccurrences(of: "City : ", with: "")
         newString = newString.replacingOccurrences(of: "Mobile Phone : ", with: "")
         
-        
-        
         return newString
     }
+    
     
     public func convertToDictionary(text: String) -> Any? {
         if let data = text.data(using: .utf8) {
@@ -128,7 +131,7 @@ class Student {
     
     func logIn(completionHandler: @escaping (_ success: Bool) -> ()) {
         
-        Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(self.username)&password=\(self.password)", method: .get).responseString { response in
+        Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(self.username)&password=\(self.password)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
             
             let string = String(describing: response.response)
             if string.range(of:"extranet_db") != nil{
@@ -138,6 +141,8 @@ class Student {
                     self.studentVnCodes = vnCodes
                     self.getStudentMarks() { marks in
                         self.setMarks(marks: marks)
+                        self.sortBydate()
+                        self.initSemester()
                         completionHandler(true)
                     }
                 }
@@ -157,11 +162,11 @@ class Student {
             
             Alamofire.request(url).responseString { response in
                 
-                var dataString = response.result.value
+                var dataString: String = (response.result.value)!
                 
-                dataString = self.cleanMarksJSON(string: dataString!)
+                dataString = self.cleanMarksJSON(string: dataString)
                 
-                let dict = self.convertToDictionary(text: dataString!)
+                let dict = self.convertToDictionary(text: dataString)
                 
                 marks.append(JSON(dict as Any))
                 
@@ -193,7 +198,17 @@ class Student {
         return escapedString
     }
     
-    
+    public func initSemester() {
+        
+        for json in studentMarks {
+            let year = json["children"][0]
+            for i in 0..<year["children"].count {
+                let semester = year["children"][i]["children"]
+                studentSemesters.append(semester)
+                semestersNamesList.append(year["children"][i]["Title"].stringValue)
+            }
+        }
+    }
     
     func listMarks(jsonFile: JSON) {
         
@@ -232,6 +247,19 @@ class Student {
         } else {
             print("No")
         }
+    }
+    
+    func sortBydate() {
+        
+        studentMarks.sort { ($0["children"][0]["Title"].stringValue) < ($1["children"][0]["Title"].stringValue)}
+    }
+    
+    public func getSemesters() -> [JSON] {
+        return self.studentSemesters
+    }
+    
+    public func getSemestersNamesList() -> [String] {
+        return self.semestersNamesList
     }
     
     public func getUsername() -> String {
@@ -324,3 +352,6 @@ class Student {
     
     
 }
+
+
+

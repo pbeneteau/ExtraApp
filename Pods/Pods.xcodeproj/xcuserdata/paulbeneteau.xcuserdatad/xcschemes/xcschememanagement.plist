@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CZPicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Ono.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,12 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3D7C54F16AE9E2DE48387A4FA31FCB38</key>
+		<key>2FBBBE89B39D42DB9323E8622F8291AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3DF848FA9CA43C930304A593FDA42630</key>
+		<key>3D7C54F16AE9E2DE48387A4FA31FCB38</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>964CCF18E5C5C1B28C0B467697AAF387</key>
+		<key>B00F017B4F38F258C9F9EF403296AF2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B00F017B4F38F258C9F9EF403296AF2D</key>
+		<key>D5822AB94F246FFE47403902905308C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD0EA4E3DD886BC6C7B27855C4BCD3EC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
