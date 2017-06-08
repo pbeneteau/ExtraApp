@@ -136,7 +136,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let endIndex = str.index(str.startIndex, offsetBy: p!)
         let truncated = str.substring(from: endIndex)
         
-        return truncated 
+        return truncated
     }
     @IBAction func showDetailviewAction(_ sender: Any) {
         

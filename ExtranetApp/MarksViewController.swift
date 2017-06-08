@@ -36,7 +36,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initCourses(semester: 0)
+        initCourses()
         initFilterView()
 
         tableview.addSubview(self.refreshControl)
@@ -88,15 +88,23 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    func initCourses(semester: Int) {
+    func initCourses() {
         
-        selectedSemester = semester
+        var semesterN = 0
+        
+        if selectedSemester == 1 {
+            semesterN = 0
+        } else {
+            semesterN = 1
+        }
         
         coursesArray.removeAll()
         modulesArray.removeAll()
         tableview.reloadData()
         
-        let semesterP = student.getSemesters()[semester]
+        let semesterP = student.getSemesters()[semesterN]
+        
+        print(student.getSemesters())
         
         for d in 0..<semesterP.count { // modules
             
@@ -115,7 +123,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             coursesArray.append(moduleCourses)
             moduleCourses.removeAll()
         }
-        semestreLabel.text = "Semestre \(semester+1)"
+        semestreLabel.text = "Semestre \(selectedSemester+1)"
         
         self.tableview.reloadData()
     }
@@ -158,8 +166,9 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
-        
-        initCourses(semester: row)
+        print(row)
+        selectedSemester = row
+        initCourses()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -175,7 +184,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             student.refreshMarks { success in
                 if success {
-                    self.initCourses(semester: self.selectedSemester)
+                    self.initCourses()
                     
                 } else {
                     print("error while refreshing")
