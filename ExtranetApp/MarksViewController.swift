@@ -19,6 +19,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private var coursesArray: [Array<String>] = []
     private var picker: CZPickerView?
     private var semesters = [String]()
+    private var selectedSemester: Int = 0
 
     
     @IBOutlet weak var semestreLabel: UILabel!
@@ -38,9 +39,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         initCourses(semester: 0)
         initFilterView()
 
-        self.tableView.addSubview(self.refreshControl)
-
-        
+        tableview.addSubview(self.refreshControl)
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,6 +90,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func initCourses(semester: Int) {
         
+        selectedSemester = semester
+        
         coursesArray.removeAll()
         modulesArray.removeAll()
         tableview.reloadData()
@@ -114,7 +115,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             coursesArray.append(moduleCourses)
             moduleCourses.removeAll()
         }
-        
+        semestreLabel.text = "Semestre \(semester+1)"
         
         self.tableview.reloadData()
     }
@@ -157,7 +158,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
         
         initCourses(semester: row)
-        semestreLabel.text = "Semestre \(row+1)"
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -168,13 +168,16 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         // Do some reloading of data and update the table view's data source
         // Fetch more objects from a web service, for example...
-
-        movies.append(newMovie)
         
-        movies.sort() { $0.title < $1.title }
-        
-        self.tableView.reloadData()
-        refreshControl.endRefreshing()
+        student.refreshMarks { success in
+            if success {
+                self.initCourses(semester: self.selectedSemester)
+                
+            } else {
+                print("error while refreshing")
+            }
+            refreshControl.endRefreshing()
+        }
     }
 }
 
