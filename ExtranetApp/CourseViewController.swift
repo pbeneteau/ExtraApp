@@ -17,6 +17,8 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var courseJSON: JSON!
     var subjectName: String = ""
     var exams = [String]()
+    var marks = [String]()
+    var weights = [String]()
     
     var detailViewOpen: Bool = false
     
@@ -38,6 +40,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableview.rowHeight = 90
         
         courseJSON = semesterJSON[courseSelected]["children"][0]
         
@@ -92,9 +95,16 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             exam = exam.replacingOccurrences(of: "(", with: "")
             exam = exam.replacingOccurrences(of: ")", with: "")
             
+            let mark = course[i]["MarkCode"].stringValue
+            let weight = course[i]["Weight"].stringValue
+            
             exams.append(exam)
+            marks.append(mark)
+            weights.append(weight)
         }
         print(exams)
+        print(marks)
+        print(weights)
         
         self.tableview.reloadData()
     }
@@ -109,13 +119,14 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellIdentifier = "yearCell"
+        let cellIdentifier = "examCell"
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-            ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! CourseTableViewCell
         
-        cell.textLabel?.text = exams[indexPath.row]
-        cell.frame.size.height = 90
+        cell.examTitleLabel.text = exams[indexPath.row]
+        
+        cell.examMarkLabel.text = marks[indexPath.row]
+        cell.examCoeffLabel.text = "Coeff. \(0)"
         
         return cell
     }

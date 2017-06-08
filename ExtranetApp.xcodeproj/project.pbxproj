@@ -21,6 +21,7 @@
 		382027931EDF5BA90092D384 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 382027911EDF5BA90092D384 /* LaunchScreen.storyboard */; };
 		3820279E1EDF5BA90092D384 /* ExtranetAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3820279D1EDF5BA90092D384 /* ExtranetAppTests.swift */; };
 		382027A91EDF5BA90092D384 /* ExtranetAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382027A81EDF5BA90092D384 /* ExtranetAppUITests.swift */; };
+		38283FD31EE9B17000A9DE49 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38283FD21EE9B17000A9DE49 /* CourseTableViewCell.swift */; };
 		38B6DBF01EE98D2E00E592BB /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B6DBEF1EE98D2E00E592BB /* Reachability.swift */; };
 		4308C4C08547E5A369D46C55 /* Pods_ExtranetAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A4694A4E085201FB81B6CA /* Pods_ExtranetAppTests.framework */; };
 		CDD7D5E890A9042A41D52BD9 /* Pods_ExtranetAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D29F3410D68F1CC38FD218E4 /* Pods_ExtranetAppUITests.framework */; };
@@ -66,6 +67,7 @@
 		382027A41EDF5BA90092D384 /* ExtranetAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExtranetAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		382027A81EDF5BA90092D384 /* ExtranetAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtranetAppUITests.swift; sourceTree = "<group>"; };
 		382027AA1EDF5BA90092D384 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38283FD21EE9B17000A9DE49 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		38B6DBEF1EE98D2E00E592BB /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		47A4694A4E085201FB81B6CA /* Pods_ExtranetAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExtranetAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB7D9248F386D74EABADDB3 /* Pods-ExtranetAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExtranetAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExtranetAppTests/Pods-ExtranetAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				006DD1D61EE737F300E71768 /* ProfileViewController.swift */,
 				006DD1DA1EE741E800E71768 /* MarksViewController.swift */,
 				006CE2581EE81194001F156A /* CourseViewController.swift */,
+				38283FD21EE9B17000A9DE49 /* CourseTableViewCell.swift */,
 				006CE25A1EE811F1001F156A /* ModulesViewController.swift */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
@@ -483,6 +486,7 @@
 				006CE2591EE81194001F156A /* CourseViewController.swift in Sources */,
 				38B6DBF01EE98D2E00E592BB /* Reachability.swift in Sources */,
 				382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */,
+				38283FD31EE9B17000A9DE49 /* CourseTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
