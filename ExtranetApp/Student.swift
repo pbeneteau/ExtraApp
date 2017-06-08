@@ -40,7 +40,6 @@ class Student {
     init() {
         configuration.timeoutIntervalForRequest = 10 // seconds
         configuration.timeoutIntervalForResource = 10
-        self.alamoFireManager = Alamofire.Manager(configuration: configuration)
     }
     
     
