@@ -126,7 +126,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.examTitleLabel.text = exams[indexPath.row]
         
         cell.examMarkLabel.text = marks[indexPath.row]
-        cell.examCoeffLabel.text = "Coeff. \(0)"
+        cell.examCoeffLabel.text = "Coeff. \(weights[indexPath.row])"
         
         return cell
     }
