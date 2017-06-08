@@ -25,11 +25,20 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableview: UITableView!
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(MarksViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initCourses(semester: 0)
         initFilterView()
+
+        self.tableView.addSubview(self.refreshControl)
 
         
     }
@@ -146,7 +155,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
-        print(semesters[row])
+        
         initCourses(semester: row)
         semestreLabel.text = "Semestre \(row+1)"
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -156,7 +165,17 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+
+        movies.append(newMovie)
+        
+        movies.sort() { $0.title < $1.title }
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
 }
 
 
