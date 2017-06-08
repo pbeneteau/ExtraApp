@@ -78,8 +78,17 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         subjectLabel.text = subjectName
         marksNumberLabel.text = "\(courseJSON["children"].count)"
+        if marksNumberLabel.text == "" {
+            marksNumberLabel.text = "-"
+        }
         averageMarksLabel.text = "\(courseJSON["GradePoint"].stringValue)"
+        if averageMarksLabel.text == "" {
+            averageMarksLabel.text = "-"
+        }
         subjectWeightLabel.text = "\(courseJSON["Weight"].stringValue)"
+        if subjectWeightLabel.text == "" {
+            subjectWeightLabel.text = "-"
+        }
     }
     
     func initCourses() {
@@ -95,9 +104,15 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             exam = exam.replacingOccurrences(of: "(", with: "")
             exam = exam.replacingOccurrences(of: ")", with: "")
             
-            let mark = course[i]["MarkCode"].stringValue
-            let weight = course[i]["Weight"].stringValue
+            var mark = course[i]["MarkCode"].stringValue
+            var weight = course[i]["Weight"].stringValue
             
+            if weight == "" {
+                weight = "-"
+            }
+            if mark == "" {
+                mark = "-"
+            }
             exams.append(exam)
             marks.append(mark)
             weights.append(weight)
