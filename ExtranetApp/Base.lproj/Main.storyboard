@@ -254,6 +254,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="bookmarks" id="Lpe-Wg-7gq"/>
                     <connections>
+                        <outlet property="semestreLabel" destination="VF9-Xe-zYI" id="YTQ-Vp-Ebp"/>
                         <outlet property="tableview" destination="aYU-wF-LNT" id="qeF-yB-NWQ"/>
                         <segue destination="v2e-sR-E0c" kind="show" identifier="semesterSegue" id="dUY-iO-I9W"/>
                     </connections>

@@ -21,6 +21,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private var semesters = [String]()
 
     
+    @IBOutlet weak var semestreLabel: UILabel!
+    
     @IBOutlet weak var tableview: UITableView!
     
     override func viewDidLoad() {
@@ -146,6 +148,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
         print(semesters[row])
         initCourses(semester: row)
+        semestreLabel.text = "Semestre \(row+1)"
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
