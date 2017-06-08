@@ -35,6 +35,7 @@ class Student {
     private var studentPicture = UIImage()
     private var semestersNamesList = [String]()
     
+    
     init() {
         
     }
