@@ -183,7 +183,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         for d in 0..<semesterP.count { // modules
             
-            
             let module = semesterP[d]["Title"].stringValue
             modulesArray.append(removeOptionalInfos(text: module))
             
@@ -211,7 +210,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let course = courses[e]["Title"].stringValue
                 moduleCourses.append(removeOptionalInfos(text: course))
                 
-                let average = semesterP[d]["MarkCode"].stringValue
+                let average = courses[e]["MarkCode"].stringValue
                 if average == "" {
                     averageSection.append("-")
                 } else {

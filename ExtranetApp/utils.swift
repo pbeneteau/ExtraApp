@@ -16,6 +16,7 @@ var student = Student()
 var notificationsUtils = NotificationsUtils()
 
 
+
 public func cleanMarksJSON(string: String) -> String {
     
     var newString = string.replacingOccurrences(of: "X.net.RM.getIcon(\"BulletWhite\")", with: "\"\"")

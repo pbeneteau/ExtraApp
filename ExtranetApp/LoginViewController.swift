@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class LoginViewController: UIViewController {
     
@@ -21,7 +22,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         if userDefaults.string(forKey: "password") != nil || userDefaults.string(forKey: "username") != nil{
             passwordTextField.text! = userDefaults.string(forKey: "password")!

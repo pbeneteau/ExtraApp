@@ -8,9 +8,12 @@
 
 import UIKit
 import Alamofire
+import UserNotificationsUI
+import UserNotifications
 
 class ProfileViewController: UIViewController {
     
+    let requestIdentifier = "SampleRequest"
 
     @IBOutlet weak var containerView: UIView!
     
@@ -21,14 +24,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        containerView.layer.shadowColor = UIColor.black.cgColor
-        containerView.layer.shadowOpacity = 0.18
-        containerView.layer.shadowRadius = 10
-        containerView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
-        
-        nameLabel.text = student.getName()
-        //picture.image = student.studentPicture
+
 
 
     }
@@ -39,3 +35,4 @@ class ProfileViewController: UIViewController {
     }
     
 }
+
