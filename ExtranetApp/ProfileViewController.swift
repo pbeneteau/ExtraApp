@@ -25,13 +25,23 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        nameLabel.text = student.getName()
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
+    }
+    @IBAction func logOutButtonPressed(_ sender: Any) {
+        if (userDefaults.string(forKey: "isLogged") != nil) {
+            userDefaults.set("notLogged", forKey: "isLogged")
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let naviVC = storyBoard.instantiateViewController(withIdentifier: "LoginView")
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = naviVC
+        }
     }
     
 }

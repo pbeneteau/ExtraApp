@@ -22,7 +22,7 @@ class ProfileDetailsViewController: TabmanViewController, PageboyViewControllerD
             appearance.style.background = .clear
         })
         bar.style = .bar
-        bar.location = .bottom
+        bar.location = .top
     }
 
     override func didReceiveMemoryWarning() {

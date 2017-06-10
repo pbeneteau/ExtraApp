@@ -49,7 +49,6 @@ class Student {
                 self.phone = JSON(dict!)["items"][0]["items"][0]["items"][4]["value"].stringValue
                 self.email = JSON(dict!)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
                 
-                self.saveInfosToUserDefaults()
 
                 completionHandler(true)
             }

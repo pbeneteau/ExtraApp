@@ -39,7 +39,18 @@ class LoginViewController: UIViewController {
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
                 
-                student.loadInfosFromUserDefaults()
+                if userDefaults.string(forKey: "studentName") != nil {
+                    if userDefaults.string(forKey: "studentName") != "" {
+                        student.loadInfosFromUserDefaults()
+                    }
+                } else {
+                    student.initInfos { success in
+                        if success {
+                            student.saveInfosToUserDefaults()
+                        }
+                    }
+                }
+                
                 
                 if Reachability.isConnectedToNetwork() == true {
                     log { success in
