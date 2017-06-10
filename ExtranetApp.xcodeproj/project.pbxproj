@@ -13,6 +13,7 @@
 		006DD1D71EE737F300E71768 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D61EE737F300E71768 /* ProfileViewController.swift */; };
 		006DD1D91EE73F0500E71768 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D81EE73F0500E71768 /* utils.swift */; };
 		006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1DA1EE741E800E71768 /* MarksViewController.swift */; };
+		00EC49931EEC1BBA00443ACD /* ModuleSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */; };
 		00FB5E911EE9AE900080D172 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E851EE9AE900080D172 /* Roboto-Black.ttf */; };
 		00FB5E921EE9AE900080D172 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E861EE9AE900080D172 /* Roboto-BlackItalic.ttf */; };
 		00FB5E931EE9AE900080D172 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E871EE9AE900080D172 /* Roboto-Bold.ttf */; };
@@ -67,6 +68,7 @@
 		006DD1D61EE737F300E71768 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		006DD1D81EE73F0500E71768 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		006DD1DA1EE741E800E71768 /* MarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MarksViewController.swift; sourceTree = "<group>"; };
+		00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleSectionView.xib; sourceTree = "<group>"; };
 		00FB5E851EE9AE900080D172 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		00FB5E861EE9AE900080D172 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		00FB5E871EE9AE900080D172 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				00FB5E841EE9AE760080D172 /* Fonts */,
+				3813AC671EEB1029004D8813 /* Profile */,
 				382027881EDF5BA90092D384 /* AppDelegate.swift */,
 				38B6DBEF1EE98D2E00E592BB /* Reachability.swift */,
 				3813AC681EEBFA8C004D8813 /* NotificationsUtils.swift */,
@@ -200,11 +203,11 @@
 				006DD1D21EE7243400E71768 /* Student.swift */,
 				006DD1D41EE7274D00E71768 /* LoginViewController.swift */,
 				006DD1D81EE73F0500E71768 /* utils.swift */,
-				3813AC671EEB1029004D8813 /* Profile */,
 				006DD1DA1EE741E800E71768 /* MarksViewController.swift */,
 				006CE2581EE81194001F156A /* CourseViewController.swift */,
 				38283FD21EE9B17000A9DE49 /* CourseTableViewCell.swift */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
+				00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */,
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
 				382027941EDF5BA90092D384 /* Info.plist */,
@@ -384,6 +387,7 @@
 				00FB5E951EE9AE900080D172 /* Roboto-Italic.ttf in Resources */,
 				00FB5E941EE9AE900080D172 /* Roboto-BoldItalic.ttf in Resources */,
 				00FB5E981EE9AE900080D172 /* Roboto-Medium.ttf in Resources */,
+				00EC49931EEC1BBA00443ACD /* ModuleSectionView.xib in Resources */,
 				00FB5E9A1EE9AE900080D172 /* Roboto-Regular.ttf in Resources */,
 				00FB5E911EE9AE900080D172 /* Roboto-Black.ttf in Resources */,
 				00FB5E961EE9AE900080D172 /* Roboto-Light.ttf in Resources */,

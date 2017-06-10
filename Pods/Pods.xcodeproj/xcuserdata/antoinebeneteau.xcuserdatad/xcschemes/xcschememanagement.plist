@@ -29,6 +29,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>Pageboy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 		<key>Pods-ExtranetApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -44,10 +49,20 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>PureLayout.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
+		</dict>
+		<key>Tabman.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -72,6 +87,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4F00142B1E06D36E9B8D58BA6DBFB69C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>79F65E4B9FA0DC39597F1A90F10990A9</key>
 		<dict>
 			<key>primary</key>
@@ -82,12 +102,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>89AE5F8A00C71B444BC831D57DB2DBAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>964CCF18E5C5C1B28C0B467697AAF387</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>AB28DBAE95F960A2816DA35404755F48</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B00F017B4F38F258C9F9EF403296AF2D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B931B98EF1A8BFB0ACAF73A12FC0C0C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,6 +138,11 @@
 			<true/>
 		</dict>
 		<key>D5822AB94F246FFE47403902905308C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FAD66DCAA452FAE1A114E857FAFEADFC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

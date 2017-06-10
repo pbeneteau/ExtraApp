@@ -47,7 +47,6 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.setToolbarHidden(true, animated: false)
         
         backButton.alpha = 0
-        print(semesterJSON)
         courseJSON = semesterJSON[subjectSelected]["children"][courseSelected]
         
         initDetailview()
@@ -95,7 +94,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if marksNumberLabel.text == "" {
             marksNumberLabel.text = "-"
         }
-        averageMarksLabel.text = "\(courseJSON["GradePoint"].stringValue)"
+        averageMarksLabel.text = "\(courseJSON["MarkCode"].stringValue)"
         if averageMarksLabel.text == "" {
             averageMarksLabel.text = "-"
         }

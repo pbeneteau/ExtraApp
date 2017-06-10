@@ -21,6 +21,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private var picker: CZPickerView?
     private var semesters = [String]()
     private var selectedSemester: Int = 0
+    private var averageArray = [String]()
+    private var averagesArray: [Array<String>] = []
     
     var indicatorView: UIActivityIndicatorView! = nil
     
@@ -118,10 +120,29 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cellIdentifier = "yearCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
-        cell.textLabel?.text = coursesArray[indexPath.section][indexPath.row]
+        (cell.viewWithTag(2) as! UILabel).text = coursesArray[indexPath.section][indexPath.row]
+        //(cell.viewWithTag(4) as! UILabel).text = averagesArray[indexPath.section][indexPath.row]
         cell.selectionStyle = .none
         
+        (cell.viewWithTag(10)! as UIView).layer.shadowColor = UIColor.black.cgColor
+        (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0, height: 10)
+        (cell.viewWithTag(10)! as UIView).layer.shadowOpacity = 0.1
+        (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 5
+        
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = (Bundle.main.loadNibNamed("ModuleSectionView", owner: self, options: nil)?[0] as? UIView)
+        
+        (view?.viewWithTag(4) as! UILabel).text = modulesArray[section]
+        
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -143,8 +164,13 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         for d in 0..<semesterP.count { // modules
             
+            print(semesterP[d])
+            
             let module = semesterP[d]["Title"].stringValue
             modulesArray.append(removeOptionalInfos(text: module))
+            
+            let average = semesterP[d]["MarkCode"].stringValue
+            averageArray.append(average)
             
             let courses = semesterP[d]["children"]
             
@@ -155,6 +181,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let course = courses[e]["Title"].stringValue
                 moduleCourses.append(removeOptionalInfos(text: course))
             }
+            averagesArray.append(averageArray)
             coursesArray.append(moduleCourses)
             moduleCourses.removeAll()
         }
