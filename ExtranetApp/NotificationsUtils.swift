@@ -28,7 +28,7 @@ class NotificationsUtils {
         }
     }
     
-    func isNewMarkLoaded(marks1: [JSON], marks2: [JSON]) -> Bool {
+    public func isNewMarkLoaded(marks1: [JSON], marks2: [JSON]) -> Bool {
         
         if marks1.count != marks2.count {
             return true
@@ -41,7 +41,7 @@ class NotificationsUtils {
         return false
     }
     
-    func findNewMarks(marks1: [JSON], marks2: [JSON]) {
+    public func findNewMarks(marks1: [JSON], marks2: [JSON]) {
         newNotesPath.removeAll()
         
         for a in 0..<marks1.count { // semestres

@@ -74,7 +74,7 @@ class Student {
         }
     }
     
-    func loadStudentData(completionHandler: @escaping (_ success: Bool) -> ()) {
+    public func loadStudentData(completionHandler: @escaping (_ success: Bool) -> ()) {
         if Reachability.isConnectedToNetwork() == true {
             self.getVnCodes { vnCodes in
                 self.studentVnCodes = vnCodes
@@ -89,6 +89,23 @@ class Student {
             completionHandler(false)
         }
     }
+    
+    public func loadStudentDataForRefresh(completionHandler: @escaping (_ success: Bool) -> ()) {
+        if Reachability.isConnectedToNetwork() == true {
+            self.getVnCodes { vnCodes in
+                self.studentVnCodes = vnCodes
+                self.getStudentMarks() { dict in
+                    self.setMarks(marks: dict)
+                    self.initSemester()
+                    completionHandler(true)
+                }
+            }
+        } else {
+            completionHandler(false)
+        }
+    }
+    
+    
     
     public func refreshMarks(completionHandler: @escaping (_ success: Bool) -> ()) {
         self.getVnCodes { vnCodes in
