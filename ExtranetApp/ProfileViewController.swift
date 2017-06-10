@@ -23,9 +23,9 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         containerView.layer.shadowColor = UIColor.black.cgColor
-        containerView.layer.shadowOffset = CGSize(width: 0, height: 10)
-        containerView.layer.shadowOpacity = 0.1
-        containerView.layer.shadowRadius = 5
+        containerView.layer.shadowOpacity = 0.18
+        containerView.layer.shadowRadius = 10
+        containerView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
         
         nameLabel.text = student.getName()
         //picture.image = student.studentPicture
