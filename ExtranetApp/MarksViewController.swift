@@ -62,7 +62,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         student.loadSemestersFromUserDefaults()
         
-        notificationsUtils.setLoadedmarks(json: student.getMarks())
+        notificationsUtils.setLoadedmarks(json: student.getSemesters())
         
         student.loadStudentData { success in
             if success {

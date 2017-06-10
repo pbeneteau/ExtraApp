@@ -154,6 +154,9 @@ class Student {
     
     public func initSemester() {
         
+        studentSemesters.removeAll()
+        semestersNamesList.removeAll()
+        
         for json in studentMarks {
             let year = json["children"][0]
             for i in 0..<year["children"].count {
@@ -377,10 +380,10 @@ class Student {
         if userDefaults.integer(forKey: "numberSemesters") != 0 {
             n = userDefaults.integer(forKey: "numberSemesters")
             self.studentSemesters.removeAll()
-            for i in 0..<(n-1) {
+            for i in 0..<(n) {
                 self.studentSemesters.append(JSON.init(parseJSON: userDefaults.value(forKey: "semester\(i)") as! String))
             }
-            for i in 0..<(n-1) {
+            for i in 0..<(n) {
                 self.semestersNamesList.append(userDefaults.value(forKey: "semesterName\(i)") as! String)
             }
         } else {
