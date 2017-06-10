@@ -21,8 +21,9 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private var picker: CZPickerView?
     private var semesters = [String]()
     private var selectedSemester: Int = 0
-    private var averageArray = [String]()
-    private var averagesArray: [Array<String>] = []
+    private var averagesArray = [String]()
+    private var averagesSectionArray: [Array<String>] = []
+    private var coeffSesctionArray = [String]()
     
     var indicatorView: UIActivityIndicatorView! = nil
     
@@ -85,7 +86,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.view.addSubview(indicatorView)
         indicatorView.color = UIColor.black
-
+        
     }
     
     
@@ -121,7 +122,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         (cell.viewWithTag(2) as! UILabel).text = coursesArray[indexPath.section][indexPath.row]
-        //(cell.viewWithTag(4) as! UILabel).text = averagesArray[indexPath.section][indexPath.row]
+        (cell.viewWithTag(4) as! UILabel).text = averagesSectionArray[indexPath.section][indexPath.row]
         cell.selectionStyle = .none
         
         (cell.viewWithTag(10)! as UIView).layer.shadowColor = UIColor.black.cgColor
@@ -137,12 +138,13 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let view = (Bundle.main.loadNibNamed("ModuleSectionView", owner: self, options: nil)?[0] as? UIView)
         
         (view?.viewWithTag(4) as! UILabel).text = modulesArray[section]
+        (view?.viewWithTag(5) as! UILabel).text = "Crédits: \(coeffSesctionArray[section])"
         
         return view
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 80
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -158,32 +160,56 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         coursesArray.removeAll()
         modulesArray.removeAll()
+        averagesSectionArray.removeAll()
+        averagesArray.removeAll()
         tableview.reloadData()
+        coeffSesctionArray.removeAll()
         
         let semesterP = student.getSemesters()[selectedSemester]
         
         for d in 0..<semesterP.count { // modules
             
-            print(semesterP[d])
             
             let module = semesterP[d]["Title"].stringValue
             modulesArray.append(removeOptionalInfos(text: module))
             
             let average = semesterP[d]["MarkCode"].stringValue
-            averageArray.append(average)
+            if average == "" {
+                averagesArray.append("-")
+            } else {
+                averagesArray.append(average)
+            }
+            
+            let coeff = semesterP[d]["CreditsAttempt"].stringValue
+            if coeff == "" {
+                coeffSesctionArray.append("-")
+            } else {
+                coeffSesctionArray.append(coeff)
+            }
             
             let courses = semesterP[d]["children"]
             
             var moduleCourses = [String]()
+            var averageSection = [String]()
             
             for e in 0..<courses.count { // courses
                 
                 let course = courses[e]["Title"].stringValue
                 moduleCourses.append(removeOptionalInfos(text: course))
+                
+                let average = semesterP[d]["MarkCode"].stringValue
+                if average == "" {
+                    averageSection.append("-")
+                } else {
+                    averageSection.append(average)
+                }
+                
             }
-            averagesArray.append(averageArray)
+            
+            averagesSectionArray.append(averageSection)
             coursesArray.append(moduleCourses)
             moduleCourses.removeAll()
+            averageSection.removeAll()
         }
         let semesterList = student.getSemestersNamesList()
         semestreLabel.text = "\(semesterList[selectedSemester])"
