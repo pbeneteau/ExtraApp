@@ -24,13 +24,12 @@ class ProfileNotificationsViewController: UIViewController {
         containerView.layer.shadowOpacity = 0.1
         containerView.layer.shadowRadius = 5
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(initTableview), name: NSNotification.Name(rawValue: "reloadNotificationsTableView"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(initTableview), name: NSNotification.Name(rawValue: "reloadNotificationsTableView"), object: nil)
-        
+        initTableview()        
     }
     
     func initTableview() {

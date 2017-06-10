@@ -8,6 +8,8 @@
 
 import Foundation
 import SwiftyJSON
+import UserNotifications
+
 
 class NotificationsUtils {
     
@@ -15,20 +17,15 @@ class NotificationsUtils {
     var studentMarksLoaded = [JSON]()
     var newNotesPath = [[Int]]()
     
-    
     // Internet connexion needed
     func initNotifications() {
         
         notificationsArray.removeAll()
         
         if isNewMarkLoaded(marks1: studentMarksLoaded, marks2: student.getSemesters()) {
-            findNewMarks(marks1: studentMarksLoaded, marks2: student.getSemesters())
-            
             print("There are new marks!")
-            let notif = "Nouvelles notes!"
-            notificationsArray.append(notif)
+            findNewMarks(marks1: studentMarksLoaded, marks2: student.getSemesters())
         }
-        
     }
     
     func isNewMarkLoaded(marks1: [JSON], marks2: [JSON]) -> Bool {
@@ -45,8 +42,7 @@ class NotificationsUtils {
     }
     
     func findNewMarks(marks1: [JSON], marks2: [JSON]) {
-        
-        var y = 0
+        newNotesPath.removeAll()
         
         for a in 0..<marks1.count { // semestres
             
@@ -68,22 +64,25 @@ class NotificationsUtils {
                         let exam1 = course1[d]
                         let exam2 = course2[d]
                         
-                        print(exam1)
-                        print(exam2)
-                        
                         if exam1["GradePoint"].stringValue != exam2["GradePoint"].stringValue {
                             
                             print("Nouvelle note:\(exam2["Title"].stringValue) : \(exam2["GradePoint"].stringValue)")
                             
-                            newNotesPath[y] = [a,b,c,d]
-                            
-                            y = y + 1
+                            newNotesPath.append([a,b,c,d])
                         }
                     }
                 }
             }
         }
-        UIApplication.shared.applicationIconBadgeNumber = newNotesPath.count
+        
+        let badgeCount: Int = newNotesPath.count
+        let application = UIApplication.shared
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+        }
+        application.registerForRemoteNotifications()
+        application.applicationIconBadgeNumber = badgeCount
     }
     
     func getNotifications() -> [String] {

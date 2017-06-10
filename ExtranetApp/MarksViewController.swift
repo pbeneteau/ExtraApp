@@ -12,7 +12,6 @@ import CZPicker
 
 class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CZPickerViewDelegate, CZPickerViewDataSource {
     
-    
     private var rows = [String]()
     private var indexSelected = 0
     private var sectionSelected = 0
@@ -24,6 +23,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private var averagesArray = [String]()
     private var averagesSectionArray: [Array<String>] = []
     private var coeffSesctionArray = [String]()
+    private var newMarksNotifications = [[Int]]()
     
     var indicatorView: UIActivityIndicatorView! = nil
     
@@ -67,14 +67,16 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         student.loadStudentData { success in
             if success {
-                self.initCourses()
                 self.initFilterView()
                 notificationsUtils.initNotifications()
+                self.initCourses()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadNotificationsTableView"), object: nil)
             } else {
                 print("loadStudentData: No internet connexion")
                 
                 self.initCourses()
                 self.initFilterView()
+                
             }
             self.indicatorView.stopAnimating()
         }
@@ -129,8 +131,17 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0, height: 10)
         (cell.viewWithTag(10)! as UIView).layer.shadowOpacity = 0.1
         (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 5
+        (cell.viewWithTag(6)! as UIView).isHidden = true
         
-        
+        for i in 0..<newMarksNotifications.count {
+            if newMarksNotifications[i][0] == selectedSemester{
+                if newMarksNotifications[i][1] == indexPath.section {
+                    if newMarksNotifications[i][2] == indexPath.row {
+                        (cell.viewWithTag(6)! as UIView).isHidden = false
+                    }
+                }
+            }
+        }
         return cell
     }
     
@@ -164,6 +175,9 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         averagesArray.removeAll()
         tableview.reloadData()
         coeffSesctionArray.removeAll()
+        newMarksNotifications.removeAll()
+        
+        newMarksNotifications = notificationsUtils.getNewMarksPath()
         
         let semesterP = student.getSemesters()[selectedSemester]
         
@@ -203,7 +217,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 } else {
                     averageSection.append(average)
                 }
-                
             }
             
             averagesSectionArray.append(averageSection)
