@@ -39,19 +39,22 @@ class LoginViewController: UIViewController {
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
                 
+                student.loadInfosFromUserDefaults()
+                
                 if Reachability.isConnectedToNetwork() == true {
                     log { success in
                         if success {
+                            print("User successfuly logged in")
                             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                             let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
                             let appDelegate = UIApplication.shared.delegate as! AppDelegate
                             appDelegate.window?.rootViewController = naviVC
                             self.activityIndicator.stopAnimating()
+                        } else {
+                            print("Error while trying to login")
                         }
                     }
                 } else {
-                    student.loadInfosFromUserDefaults()
-                    student.loadSemestersFromUserDefaults()
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -77,7 +80,7 @@ class LoginViewController: UIViewController {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.window?.rootViewController = naviVC
             } else {
-                let alert = UIAlertController(title: "Pas d'internet", message: "Verifiez votre connection", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Pas de connexion internet", message: "Verifiez votre connection", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Fermer", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }

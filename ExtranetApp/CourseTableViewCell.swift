@@ -10,13 +10,19 @@ import UIKit
 
 class CourseTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var examTitleLabel: UILabel!
     @IBOutlet weak var examCoeffLabel: UILabel!
     @IBOutlet weak var examMarkLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        containerView.layer.shadowColor = UIColor.black.cgColor
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 10)
+        containerView.layer.shadowOpacity = 0.1
+        containerView.layer.shadowRadius = 5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

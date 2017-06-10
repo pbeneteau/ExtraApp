@@ -4,7 +4,12 @@ PODS:
   - DynamicButton (4.0.0)
   - FZAccordionTableView (0.2.3)
   - Ono (1.2.2)
+  - Pageboy (1.1.0)
+  - PureLayout (3.0.2)
   - SwiftyJSON (3.1.4)
+  - Tabman (0.5.2):
+    - Pageboy (= 1.1.0)
+    - PureLayout (~> 3.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -13,6 +18,7 @@ DEPENDENCIES:
   - FZAccordionTableView
   - Ono
   - SwiftyJSON
+  - Tabman
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -20,8 +26,11 @@ SPEC CHECKSUMS:
   DynamicButton: ddc1e8d79e37f2761ab64df0c02e89061b05d812
   FZAccordionTableView: e64f49c71c32d750feda14025b088bcd25d1a71f
   Ono: 80b1c686777d3f6d5d5ce6fcac8a74afef4ca197
+  Pageboy: 148f353304deb45dda732863aebd2bb575426e8b
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Tabman: f25dc5456b98e8738177d98a6cb540d5d21fed35
 
-PODFILE CHECKSUM: aaaf0ca4d9ccd1c10bf8fd42e2a5445086b45e11
+PODFILE CHECKSUM: b5a1870a587d6bd01021f9c7538ff61060a50155
 
 COCOAPODS: 1.2.1

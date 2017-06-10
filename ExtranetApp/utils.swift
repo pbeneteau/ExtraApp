@@ -13,7 +13,7 @@ import Alamofire
 
 let userDefaults = UserDefaults.standard
 var student = Student()
-
+var notificationsUtils = NotificationsUtils()
 
 
 public func cleanMarksJSON(string: String) -> String {

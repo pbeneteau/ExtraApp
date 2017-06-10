@@ -12,6 +12,7 @@ import DynamicButton
 
 class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var subjectSelected = 0
     var courseSelected = 0
     var semesterJSON: JSON!
     var courseJSON: JSON!
@@ -45,9 +46,9 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
         
-        self.tableview.rowHeight = 90
         backButton.alpha = 0
-        courseJSON = semesterJSON[courseSelected]["children"][0]
+        print(semesterJSON)
+        courseJSON = semesterJSON[subjectSelected]["children"][courseSelected]
         
         initDetailview()
         
@@ -108,7 +109,8 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let course = courseJSON["children"]
         
-        print(courseJSON)
+        //print(courseJSON)
+        
         
         for i in 0..<course.count {
             
@@ -130,9 +132,9 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             marks.append(mark)
             weights.append(weight)
         }
-        print(exams)
-        print(marks)
-        print(weights)
+        //print(exams)
+        //print(marks)
+        //print(weights)
         
         self.tableview.reloadData()
     }
@@ -155,6 +157,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.examMarkLabel.text = marks[indexPath.row]
         cell.examCoeffLabel.text = "Coeff. \(weights[indexPath.row])"
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -182,8 +185,6 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let labels = [marksLabel, marksNumberLabel, averageLabel, averageMarksLabel, weightLabel, subjectWeightLabel]
         
-        
-        
         if detailViewOpen == true {
             
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
@@ -193,8 +194,6 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     
                 }
                 self.lineView.alpha = 0
-                
-                
             })
             UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
                 
@@ -245,7 +244,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
 }
 

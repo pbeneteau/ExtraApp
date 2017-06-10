@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		006CE2591EE81194001F156A /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE2581EE81194001F156A /* CourseViewController.swift */; };
-		006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE25A1EE811F1001F156A /* ModulesViewController.swift */; };
 		006DD1D31EE7243400E71768 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D21EE7243400E71768 /* Student.swift */; };
 		006DD1D51EE7274D00E71768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D41EE7274D00E71768 /* LoginViewController.swift */; };
 		006DD1D71EE737F300E71768 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D61EE737F300E71768 /* ProfileViewController.swift */; };
@@ -26,6 +25,10 @@
 		00FB5E9A1EE9AE900080D172 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E8E1EE9AE900080D172 /* Roboto-Regular.ttf */; };
 		00FB5E9B1EE9AE900080D172 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E8F1EE9AE900080D172 /* Roboto-Thin.ttf */; };
 		00FB5E9C1EE9AE900080D172 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E901EE9AE900080D172 /* Roboto-ThinItalic.ttf */; };
+		3813AC621EE9FBD1004D8813 /* ProfileDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813AC611EE9FBD1004D8813 /* ProfileDetailsViewController.swift */; };
+		3813AC641EEA01A5004D8813 /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813AC631EEA01A5004D8813 /* ProfileInfoViewController.swift */; };
+		3813AC661EEABCA8004D8813 /* ProfileNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813AC651EEABCA8004D8813 /* ProfileNotificationsViewController.swift */; };
+		3813AC691EEBFA8C004D8813 /* NotificationsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813AC681EEBFA8C004D8813 /* NotificationsUtils.swift */; };
 		382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382027881EDF5BA90092D384 /* AppDelegate.swift */; };
 		3820278B1EDF5BA90092D384 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3820278A1EDF5BA90092D384 /* ViewController.swift */; };
 		3820278E1EDF5BA90092D384 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3820278C1EDF5BA90092D384 /* Main.storyboard */; };
@@ -59,7 +62,6 @@
 
 /* Begin PBXFileReference section */
 		006CE2581EE81194001F156A /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
-		006CE25A1EE811F1001F156A /* ModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModulesViewController.swift; sourceTree = "<group>"; };
 		006DD1D21EE7243400E71768 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		006DD1D41EE7274D00E71768 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		006DD1D61EE737F300E71768 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,10 @@
 		00FB5E8F1EE9AE900080D172 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		00FB5E901EE9AE900080D172 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		16AE405F965644DD7E64E6DC /* Pods-ExtranetApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExtranetApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExtranetApp/Pods-ExtranetApp.debug.xcconfig"; sourceTree = "<group>"; };
+		3813AC611EE9FBD1004D8813 /* ProfileDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetailsViewController.swift; sourceTree = "<group>"; };
+		3813AC631EEA01A5004D8813 /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
+		3813AC651EEABCA8004D8813 /* ProfileNotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileNotificationsViewController.swift; sourceTree = "<group>"; };
+		3813AC681EEBFA8C004D8813 /* NotificationsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsUtils.swift; sourceTree = "<group>"; };
 		382027851EDF5BA90092D384 /* ExtranetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExtranetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		382027881EDF5BA90092D384 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3820278A1EDF5BA90092D384 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +156,17 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		3813AC671EEB1029004D8813 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				006DD1D61EE737F300E71768 /* ProfileViewController.swift */,
+				3813AC611EE9FBD1004D8813 /* ProfileDetailsViewController.swift */,
+				3813AC651EEABCA8004D8813 /* ProfileNotificationsViewController.swift */,
+				3813AC631EEA01A5004D8813 /* ProfileInfoViewController.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		3820277C1EDF5BA90092D384 = {
 			isa = PBXGroup;
 			children = (
@@ -176,17 +193,17 @@
 			isa = PBXGroup;
 			children = (
 				00FB5E841EE9AE760080D172 /* Fonts */,
-				38B6DBEF1EE98D2E00E592BB /* Reachability.swift */,
 				382027881EDF5BA90092D384 /* AppDelegate.swift */,
+				38B6DBEF1EE98D2E00E592BB /* Reachability.swift */,
+				3813AC681EEBFA8C004D8813 /* NotificationsUtils.swift */,
 				3820278A1EDF5BA90092D384 /* ViewController.swift */,
 				006DD1D21EE7243400E71768 /* Student.swift */,
 				006DD1D41EE7274D00E71768 /* LoginViewController.swift */,
 				006DD1D81EE73F0500E71768 /* utils.swift */,
-				006DD1D61EE737F300E71768 /* ProfileViewController.swift */,
+				3813AC671EEB1029004D8813 /* Profile */,
 				006DD1DA1EE741E800E71768 /* MarksViewController.swift */,
 				006CE2581EE81194001F156A /* CourseViewController.swift */,
 				38283FD21EE9B17000A9DE49 /* CourseTableViewCell.swift */,
-				006CE25A1EE811F1001F156A /* ModulesViewController.swift */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
@@ -537,10 +554,13 @@
 				006DD1D71EE737F300E71768 /* ProfileViewController.swift in Sources */,
 				006DD1D91EE73F0500E71768 /* utils.swift in Sources */,
 				006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */,
-				006CE25B1EE811F1001F156A /* ModulesViewController.swift in Sources */,
+				3813AC621EE9FBD1004D8813 /* ProfileDetailsViewController.swift in Sources */,
 				006DD1D31EE7243400E71768 /* Student.swift in Sources */,
 				006CE2591EE81194001F156A /* CourseViewController.swift in Sources */,
+				3813AC691EEBFA8C004D8813 /* NotificationsUtils.swift in Sources */,
+				3813AC661EEABCA8004D8813 /* ProfileNotificationsViewController.swift in Sources */,
 				38B6DBF01EE98D2E00E592BB /* Reachability.swift in Sources */,
+				3813AC641EEA01A5004D8813 /* ProfileInfoViewController.swift in Sources */,
 				382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */,
 				38283FD31EE9B17000A9DE49 /* CourseTableViewCell.swift in Sources */,
 			);

@@ -12,14 +12,6 @@ import Alamofire
 import SwiftyJSON
 
 class Student {
-        
-    enum BackendError: Error {
-        case network(error: Error) // Capture any underlying Error from the URLSession API
-        case dataSerialization(error: Error)
-        case jsonSerialization(error: Error)
-        case xmlSerialization(error: Error)
-        case objectSerialization(reason: String)
-    }
     
     private var name = "";
     private var birthDate = "";
@@ -41,9 +33,8 @@ class Student {
     }
     
     
-    public func initInfos() {
-        if Reachability.isConnectedToNetwork() == true
-        {
+    public func initInfos(completionHandler: @escaping (_ success: Bool) -> ()) {
+        if Reachability.isConnectedToNetwork() == true {
             let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
             
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { result in
@@ -51,84 +42,85 @@ class Student {
                 let dict = convertToDictionary(text: dataString)
                 
                 self.name = JSON(dict!)["items"][0]["items"][0]["items"][0]["value"].stringValue
+                self.name = self.name.replacingOccurrences(of: ",", with: " ")
                 self.birthDate = JSON(dict!)["items"][0]["items"][0]["items"][1]["value"].stringValue
                 self.address = JSON(dict!)["items"][0]["items"][0]["items"][2]["value"].stringValue
                 self.city = JSON(dict!)["items"][0]["items"][0]["items"][3]["value"].stringValue
                 self.phone = JSON(dict!)["items"][0]["items"][0]["items"][4]["value"].stringValue
                 self.email = JSON(dict!)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
                 
-                self.downloadPicture { picture in
-                    self.studentPicture = picture
-                }
+                self.saveInfosToUserDefaults()
+
+                completionHandler(true)
             }
+        } else {
+            print("Error at initInfos: No internet connexion")
+            completionHandler(false)
         }
     }
     
     func logIn(completionHandler: @escaping (_ success: Bool) -> ()) {
-        
         
         Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(self.username)&password=\(self.password)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
             
             let string = String(describing: response.response)
             if string.range(of:"extranet_db") != nil{
                 
-                self.initInfos()
-                self.getVnCodes { vnCodes in
-                    self.studentVnCodes = vnCodes
-                    self.getStudentMarks() { marks in
-                        self.setMarks(marks: marks)
-                        self.sortBydate()
-                        self.initSemester()
-                        
-                        self.saveInfosToUserDefaults()
-                        self.saveSemesters()
-                        completionHandler(true)
-                    }
-                }
-                
+                completionHandler(true)
             } else {
                 completionHandler(false)
             }
             
         }
     }
-
+    
+    func loadStudentData(completionHandler: @escaping (_ success: Bool) -> ()) {
+        if Reachability.isConnectedToNetwork() == true {
+            self.getVnCodes { vnCodes in
+                self.studentVnCodes = vnCodes
+                self.getStudentMarks() { dict in
+                    self.setMarks(marks: dict)
+                    self.initSemester()
+                    self.saveSemesters()
+                    completionHandler(true)
+                }
+            }
+        } else {
+            completionHandler(false)
+        }
+    }
     
     public func refreshMarks(completionHandler: @escaping (_ success: Bool) -> ()) {
         self.getVnCodes { vnCodes in
             self.studentVnCodes = vnCodes
-            self.getStudentMarks() { marks in
-                self.setMarks(marks: marks)
-                self.sortBydate()
+            self.getStudentMarks() { dict in
+                self.setMarks(marks: dict)
                 self.initSemester()
                 completionHandler(true)
             }
         }
     }
     
-    
-    func getStudentMarks(completionHandler: @escaping (_ marks: [JSON]) -> ()) {
-        if Reachability.isConnectedToNetwork() == true
-        {
-            var marks = [JSON]()
+    func getStudentMarks(completionHandler: @escaping (_ marks: [String:JSON]) -> ()) {
+        if Reachability.isConnectedToNetwork() == true {
+            
+            var dictionnary = [String:JSON]()
+            let vnCount = studentVnCodes.count
+            
             for vn in studentVnCodes {
                 let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
                 
                 Alamofire.request(url).responseString { response in
                     
-                    
                     var dataString: String = (response.result.value)!
-                    
                     dataString = cleanMarksJSON(string: dataString)
                     
                     if let dict = convertToDictionary(text: dataString) {
-                        marks.append(JSON(dict as Any))
-                        
-                        if (self.studentVnCodes.count == marks.count) {
-                            completionHandler(marks)
-                        }
+                        dictionnary[vn] = (JSON(dict as Any))
                     }
-                    
+                    if (vnCount == dictionnary.count) {
+                        completionHandler(dictionnary)
+                    }
                 }
             }
         }
@@ -227,11 +219,6 @@ class Student {
         self.semestersNamesList = _semestersNameList
     }
     
-    func sortBydate() {
-        
-        studentMarks.sort { ($0["children"][0]["Title"].stringValue) < ($1["children"][0]["Title"].stringValue)}
-    }
-    
     public func getSemesters() -> [JSON] {
         return self.studentSemesters
     }
@@ -312,8 +299,10 @@ class Student {
         self.studentVnCodes = vnCodes
     }
     
-    public func setMarks(marks: [JSON]) {
-        self.studentMarks = marks
+    public func setMarks(marks: [String:JSON]) {
+        for vn in studentVnCodes {
+            studentMarks.append(marks[vn]!)
+        }
     }
     
     public func setPicture(picture: UIImage) {
@@ -337,11 +326,26 @@ class Student {
         userDefaults.set(self.email, forKey: "studentEmail")
     }
     
+    public func isUserInfosSavedinUserDefaults() -> Bool {
+        let keys = ["studentName", "studentBirthDate", "studentCity", "studentAddress", "studentPhone", "studentEmail"]
+        for key in keys {
+            if userDefaults.value(forKey: key) as? String == nil || userDefaults.value(forKey: key) as? String == "" {
+                return false
+            }
+        }
+        return true
+    }
+    
     public func saveSemesters() {
         userDefaults.setValue(self.studentSemesters.count, forKey: "numberSemesters")
         var i = 0
         for semester in studentSemesters {
             userDefaults.setValue(semester.rawString()!, forKey: "semester\(i)")
+            i += 1
+        }
+        i = 0
+        for semester in semestersNamesList {
+            userDefaults.setValue(semester, forKey: "semesterName\(i)")
             i += 1
         }
     }
@@ -376,9 +380,13 @@ class Student {
             for i in 0..<(n-1) {
                 self.studentSemesters.append(JSON.init(parseJSON: userDefaults.value(forKey: "semester\(i)") as! String))
             }
+            for i in 0..<(n-1) {
+                self.semestersNamesList.append(userDefaults.value(forKey: "semesterName\(i)") as! String)
+            }
+        } else {
+            print("loadSemestersFromUserDefaults: No userDefaults data")
         }
     }
-    
     
     public func downloadFile() {
         

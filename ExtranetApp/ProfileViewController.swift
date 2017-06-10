@@ -12,24 +12,22 @@ import Alamofire
 class ProfileViewController: UIViewController {
     
 
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var birthDateLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        containerView.layer.shadowColor = UIColor.black.cgColor
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 10)
+        containerView.layer.shadowOpacity = 0.1
+        containerView.layer.shadowRadius = 5
+        
         nameLabel.text = student.getName()
-        birthDateLabel.text = student.getBirthDate()
-        addressLabel.text = student.getAddress()
-        cityLabel.text = student.getCity()
-        phoneLabel.text = student.getPhone()
-        emailLabel.text = student.getEmail()
         //picture.image = student.studentPicture
 
 

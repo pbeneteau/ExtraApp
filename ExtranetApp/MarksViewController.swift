@@ -15,12 +15,14 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     private var rows = [String]()
     private var indexSelected = 0
+    private var sectionSelected = 0
     private var modulesArray = [String]()
     private var coursesArray: [Array<String>] = []
     private var picker: CZPickerView?
     private var semesters = [String]()
     private var selectedSemester: Int = 0
-
+    
+    var indicatorView: UIActivityIndicatorView! = nil
     
     @IBOutlet weak var semestreLabel: UILabel!
     
@@ -36,12 +38,13 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initActivityIndicatorView()
+        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
         
-        initCourses()
-        initFilterView()
-
+        loadData()
+        
         tableview.addSubview(self.refreshControl)
     }
     
@@ -50,9 +53,48 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Dispose of any resources that can be recreated.
     }
     
+    func loadData() {
+        
+        indicatorView.startAnimating()
+        indicatorView.isHidden = false
+        
+        student.loadSemestersFromUserDefaults()
+        
+        notificationsUtils.setLoadedmarks(json: student.getMarks())
+        
+        student.loadStudentData { success in
+            if success {
+                self.initCourses()
+                self.initFilterView()
+                notificationsUtils.initNotifications()
+            } else {
+                print("loadStudentData: No internet connexion")
+                
+                self.initCourses()
+                self.initFilterView()
+            }
+            self.indicatorView.stopAnimating()
+        }
+    }
+    
+    func initActivityIndicatorView() {
+        
+        self.indicatorView = UIActivityIndicatorView(frame: CGRect(x: UIScreen.main.bounds.size.width / 2 - 10, y: UIScreen.main.bounds.size.height / 2 - 10, width: 20, height: 20))
+        
+        self.view.addSubview(indicatorView)
+        indicatorView.color = UIColor.black
+
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        indexSelected = indexPath.row
+        if let indexPath = self.tableview.indexPathForSelectedRow {
+            
+            sectionSelected = indexPath.section
+            indexSelected = indexPath.row
+            
+            print("Section: \(sectionSelected), indexSelected: \(indexSelected)")
+        }
         performSegue(withIdentifier: "semesterSegue", sender: nil)
     }
     
@@ -63,13 +105,11 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // Sections number
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return modulesArray.count
     }
     
     // Cells per section number
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return coursesArray[section].count
     }
     
@@ -79,6 +119,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         cell.textLabel?.text = coursesArray[indexPath.section][indexPath.row]
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -86,37 +127,19 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailController = segue.destination as? CourseViewController
         {
+            detailController.semesterJSON = student.getSemesters()[selectedSemester]
+            detailController.subjectSelected = sectionSelected
             detailController.courseSelected = indexSelected
-            
-            var semesterN = 0
-            
-            if selectedSemester == 1 {
-                semesterN = 0
-            } else {
-                semesterN = 1
-            }
-            
-            detailController.semesterJSON = student.getSemesters()[semesterN]
         }
     }
     
     func initCourses() {
         
-        var semesterN = 0
-        
-        if selectedSemester == 1 {
-            semesterN = 0
-        } else {
-            semesterN = 1
-        }
-        
         coursesArray.removeAll()
         modulesArray.removeAll()
         tableview.reloadData()
         
-        let semesterP = student.getSemesters()[semesterN]
-        
-        print(student.getSemesters())
+        let semesterP = student.getSemesters()[selectedSemester]
         
         for d in 0..<semesterP.count { // modules
             
@@ -135,7 +158,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             coursesArray.append(moduleCourses)
             moduleCourses.removeAll()
         }
-        semestreLabel.text = "Semestre \(selectedSemester+1)"
+        let semesterList = student.getSemestersNamesList()
+        semestreLabel.text = "\(semesterList[selectedSemester])"
         
         self.tableview.reloadData()
     }
@@ -145,8 +169,22 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let semesterNames = student.getSemestersNamesList()
         
         for i in 0..<semesterNames.count {
-            semesters.append("\(i+1) - \(removeOptionalInfos(text:semesterNames[i]))")
+            
+            var semesterName = "\(semesterNames.count - i) - \(removeOptionalInfos(text:semesterNames[i]))"
+            semesterName = semesterName.replacingOccurrences(of: " Groupe Efrei", with: "")
+            semesterName = semesterName.replacingOccurrences(of: " Efrei", with: "")
+            
+            semesters.append(semesterName)
         }
+        
+        picker = CZPickerView(headerTitle: "Semestres", cancelButtonTitle: "Annuler", confirmButtonTitle: "Confirmer")
+        picker?.headerBackgroundColor = UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0)
+        picker?.checkmarkColor = UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0)
+        picker?.confirmButtonBackgroundColor = UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0)
+        picker?.allowMultipleSelection = false
+        picker?.needFooterView = true
+        picker?.delegate = self
+        picker?.dataSource = self
     }
     
     func removeOptionalInfos(text: String) -> String {
@@ -158,16 +196,11 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return str
     }
     
+    // Semester Pikcer View
     @IBAction func showWithFooter(_ sender: AnyObject) {
-        let picker = CZPickerView(headerTitle: "Semestres", cancelButtonTitle: "Annuler", confirmButtonTitle: "Confirmer")
-        picker?.needFooterView = true
-        picker?.delegate = self
-        picker?.dataSource = self
+        picker?.setSelectedRows([selectedSemester])
         picker?.show()
     }
-    
-    
-    // Semester Pikcer View
     
     func numberOfRows(in pickerView: CZPickerView!) -> Int {
         return semesters.count
@@ -178,7 +211,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
-        print(row)
         selectedSemester = row
         initCourses()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -191,9 +223,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         if Reachability.isConnectedToNetwork() == true
         {
-            // Do some reloading of data and update the table view's data source
-            // Fetch more objects from a web service, for example...
-            
             student.refreshMarks { success in
                 if success {
                     self.initCourses()

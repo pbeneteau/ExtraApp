@@ -11,6 +11,7 @@ target 'ExtranetApp' do
     pod 'CZPicker'
     pod 'FZAccordionTableView'
     pod 'DynamicButton'
+    pod 'Tabman'
     
     target 'ExtranetAppTests' do
         inherit! :search_paths
