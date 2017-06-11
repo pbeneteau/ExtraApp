@@ -60,14 +60,12 @@ class Student {
                     if error._code == NSURLErrorTimedOut {
                         completionHandler(false,true)
                     }
-                    print("\n\nAuth request failed with error:\n \(error)")
                     completionHandler(false,false)
                     break
                 }
                 
             }
         } else {
-            print("Error at initInfos: No internet connexion")
             completionHandler(false,false)
         }
     }
@@ -106,8 +104,13 @@ class Student {
                         if success {
                             self.setMarks(marks: dict)
                             self.initSemester()
-                            self.saveSemesters()
-                            completionHandler(true, false)
+                            self.saveSemesters { success in
+                                if success {
+                                    completionHandler(true, false)
+                                } else {
+                                    completionHandler(false, false)
+                                }
+                            }
                         } else if isTimedOut {
                             completionHandler(false, true)
                         } else {
@@ -296,8 +299,6 @@ class Student {
                     }
                 }
             }
-        } else {
-            print("No")
         }
     }
     

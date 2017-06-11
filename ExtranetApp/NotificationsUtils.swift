@@ -30,8 +30,6 @@ class NotificationsUtils: NSObject {
         notificationsArray.removeAll()
         
         if isNewMarkLoaded(marks1: studentMarksLoaded, marks2: student.getSemesters()) {
-            print("There are new marks!")
-            
             var murmur = Murmur(title: "Des notes ont été ajoutées!")
             murmur.backgroundColor = UIColor(red:0.16, green:0.50, blue:0.73, alpha:1.0)
             murmur.titleColor = UIColor.white
