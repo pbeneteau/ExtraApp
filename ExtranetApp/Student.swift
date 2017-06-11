@@ -33,91 +33,143 @@ class Student {
     }
     
     
-    public func initInfos(completionHandler: @escaping (_ success: Bool) -> ()) {
+    public func initInfos(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
         if Reachability.isConnectedToNetwork() == true {
             let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { result in
-                let dataString = cleanMarksJSONinfos(string: result.value!)
-                print(dataString)
-                let dict = convertToDictionary(text: dataString)
+            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
                 
-                self.name = JSON(dict!)["items"][0]["items"][0]["items"][0]["value"].stringValue
-                self.name = self.name.replacingOccurrences(of: ",", with: " ")
-                self.birthDate = JSON(dict!)["items"][0]["items"][0]["items"][1]["value"].stringValue
-                self.address = JSON(dict!)["items"][0]["items"][0]["items"][2]["value"].stringValue
-                self.city = JSON(dict!)["items"][0]["items"][0]["items"][3]["value"].stringValue
-                self.phone = JSON(dict!)["items"][0]["items"][0]["items"][4]["value"].stringValue
-                self.email = JSON(dict!)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
+                switch (response.result) {
+                case .success:
+                    let dataString = cleanMarksJSONinfos(string: response.result.value!)
+                    if let dict = convertToDictionary(text: dataString) {
+                        self.name = JSON(dict)["items"][0]["items"][0]["items"][0]["value"].stringValue
+                        self.name = self.name.replacingOccurrences(of: ",", with: " ")
+                        self.birthDate = JSON(dict)["items"][0]["items"][0]["items"][1]["value"].stringValue
+                        self.address = JSON(dict)["items"][0]["items"][0]["items"][2]["value"].stringValue
+                        self.city = JSON(dict)["items"][0]["items"][0]["items"][3]["value"].stringValue
+                        self.phone = JSON(dict)["items"][0]["items"][0]["items"][4]["value"].stringValue
+                        self.email = JSON(dict)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
+                        
+                        completionHandler(true,false)
+                    } else {
+                        completionHandler(false,false)
+                    }
+                    break
+                case .failure(let error):
+                    if error._code == NSURLErrorTimedOut {
+                        completionHandler(false,true)
+                    }
+                    print("\n\nAuth request failed with error:\n \(error)")
+                    completionHandler(false,false)
+                    break
+                }
                 
-                completionHandler(true)
             }
         } else {
             print("Error at initInfos: No internet connexion")
-            completionHandler(false)
+            completionHandler(false,false)
         }
     }
     
-    func logIn(completionHandler: @escaping (_ success: Bool) -> ()) {
+    func logIn(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
         
         Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(self.username)&password=\(self.password)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
             
-            let string = String(describing: response.response)
-            if string.range(of:"extranet_db") != nil{
+            switch (response.result) {
+            case .success:
+                let string = String(describing: response.response)
                 
-                completionHandler(true)
-            } else {
-                completionHandler(false)
+                if string.range(of:"extranet_db") != nil {
+                    completionHandler(true,false)
+                } else {
+                    completionHandler(false,false)
+                }
+                break
+            case .failure(let error):
+                if error._code == NSURLErrorTimedOut {
+                    completionHandler(false,true)
+                }
+                completionHandler(false,false)
+                break
             }
             
         }
     }
     
-    public func loadStudentData(completionHandler: @escaping (_ success: Bool) -> ()) {
+    public func loadStudentData(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
         if Reachability.isConnectedToNetwork() == true {
-            self.getVnCodes { vnCodes in
-                self.studentVnCodes = vnCodes
-                self.getStudentMarks() { dict in
-                    self.setMarks(marks: dict)
-                    self.initSemester()
-                    self.saveSemesters()
-                    completionHandler(true)
+            self.getVnCodes { (success,vnCodes, isTimedOut) in
+                if success {
+                    self.studentVnCodes = vnCodes
+                    self.getStudentMarks() { (success,dict, isTimedOut) in
+                        if success {
+                            self.setMarks(marks: dict)
+                            self.initSemester()
+                            self.saveSemesters()
+                            completionHandler(true, false)
+                        } else if isTimedOut {
+                            completionHandler(false, true)
+                        } else {
+                            completionHandler(false,false)
+                        }
+                    }
+                } else if isTimedOut {
+                    completionHandler(false,true)
                 }
             }
         } else {
-            completionHandler(false)
+            completionHandler(false,false)
         }
     }
     
-    public func loadStudentDataForRefresh(completionHandler: @escaping (_ success: Bool) -> ()) {
+    public func loadStudentDataForRefresh(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
         if Reachability.isConnectedToNetwork() == true {
-            self.getVnCodes { vnCodes in
-                self.studentVnCodes = vnCodes
-                self.getStudentMarks() { dict in
-                    self.setMarks(marks: dict)
-                    self.initSemester()
-                    completionHandler(true)
+            self.getVnCodes { (success,vnCodes, isTimedOut) in
+                if success {
+                    self.studentVnCodes = vnCodes
+                    self.getStudentMarks() { (success,dict, isTimedOut) in
+                        if success {
+                            self.setMarks(marks: dict)
+                            self.initSemester()
+                            completionHandler(true, false)
+                        } else if isTimedOut {
+                            completionHandler(false,true)
+                        } else {
+                            completionHandler(false, false)
+                        }
+                    }
+                } else if isTimedOut {
+                    completionHandler(false,true)
                 }
             }
         } else {
-            completionHandler(false)
+            completionHandler(false, false)
         }
     }
     
     
     
-    public func refreshMarks(completionHandler: @escaping (_ success: Bool) -> ()) {
-        self.getVnCodes { vnCodes in
-            self.studentVnCodes = vnCodes
-            self.getStudentMarks() { dict in
-                self.setMarks(marks: dict)
-                self.initSemester()
-                completionHandler(true)
+    public func refreshMarks(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
+        self.getVnCodes { (success,vnCodes, isTimedOut) in
+            if success {
+                self.studentVnCodes = vnCodes
+                self.getStudentMarks() { (success,dict,isTimedOut) in
+                    if success {
+                        self.setMarks(marks: dict)
+                        self.initSemester()
+                        completionHandler(true,false)
+                    } else if isTimedOut {
+                        completionHandler(false,true)
+                    } else {
+                        completionHandler(false,false)
+                    }
+                }
             }
         }
     }
     
-    func getStudentMarks(completionHandler: @escaping (_ marks: [String:JSON]) -> ()) {
+    func getStudentMarks(completionHandler: @escaping (_ success: Bool, _ marks: [String:JSON], _ isTimedOut: Bool) -> ()) {
         if Reachability.isConnectedToNetwork() == true {
             
             var dictionnary = [String:JSON]()
@@ -128,34 +180,61 @@ class Student {
                 
                 Alamofire.request(url).responseString { response in
                     
-                    var dataString: String = (response.result.value)!
-                    dataString = cleanMarksJSON(string: dataString)
-                    
-                    if let dict = convertToDictionary(text: dataString) {
-                        dictionnary[vn] = (JSON(dict as Any))
+                    switch (response.result) {
+                    case .success:
+                        var dataString: String = (response.result.value)!
+                        
+                        dataString = cleanMarksJSON(string: dataString)
+                        
+                        if let dict = convertToDictionary(text: dataString) {
+                            dictionnary[vn] = (JSON(dict as Any))
+                            
+                            if (vnCount == dictionnary.count) {
+                                completionHandler(true, dictionnary, false)
+                            }
+                        } else {
+                            completionHandler(false, dictionnary, false)
+                        }
+                        break
+                    case .failure(let error):
+                        if error._code == NSURLErrorTimedOut {
+                            completionHandler(false,dictionnary, true)
+                        }
+                        completionHandler(false,dictionnary, false)
+                        break
                     }
-                    if (vnCount == dictionnary.count) {
-                        completionHandler(dictionnary)
-                    }
+
                 }
             }
         }
     }
     
-    func getVnCodes(completionHandler: @escaping (_ vnCodes: [String]) -> ()) {
+    func getVnCodes(completionHandler: @escaping (_ success: Bool, _ vnCodes: [String], _ isTimedOut: Bool) -> ()) {
         if Reachability.isConnectedToNetwork() == true
         {
             let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
             var vnCodes = [String]()
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { result in
+            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
                 
-                if result.value != nil {
-                    for i in 0..<JSON(result.value!)["data"].count {
-                        let enscapedString = self.encodeEscapeUrl(string: JSON(result.value!)["data"][i]["vn"].stringValue)
-                        vnCodes.append(enscapedString)
+                switch (response.result) {
+                case .success:
+                    if response.result.value != nil {
+                        for i in 0..<JSON(response.result.value!)["data"].count {
+                            let enscapedString = self.encodeEscapeUrl(string: JSON(response.result.value!)["data"][i]["vn"].stringValue)
+                            vnCodes.append(enscapedString)
+                        }
+                        completionHandler(true, vnCodes, false)
+                    } else {
+                        completionHandler(false,vnCodes, false)
                     }
-                    completionHandler(vnCodes)
+                    break
+                case .failure(let error):
+                    if error._code == NSURLErrorTimedOut {
+                        completionHandler(false,vnCodes, true)
+                    }
+                    completionHandler(false,vnCodes, false)
+                    break
                 }
             }
         }

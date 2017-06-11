@@ -88,9 +88,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CZPicker/CZPicker.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DynamicButton/DynamicButton.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FZAccordionTableView/FZAccordionTableView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/JSSAlertView/JSSAlertView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Ono/Ono.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Pageboy/Pageboy.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PureLayout/PureLayout.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftSpinner/SwiftSpinner.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Tabman/Tabman.framework"
 fi
@@ -99,9 +101,11 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CZPicker/CZPicker.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DynamicButton/DynamicButton.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FZAccordionTableView/FZAccordionTableView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/JSSAlertView/JSSAlertView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Ono/Ono.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Pageboy/Pageboy.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PureLayout/PureLayout.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftSpinner/SwiftSpinner.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Tabman/Tabman.framework"
 fi

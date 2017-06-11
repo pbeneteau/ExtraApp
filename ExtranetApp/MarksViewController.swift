@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import CZPicker
+import JSSAlertView
 
 class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CZPickerViewDelegate, CZPickerViewDataSource {
     
@@ -65,12 +66,14 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         notificationsUtils.setLoadedmarks(json: student.getSemesters())
         
-        student.loadStudentData { success in
+        student.loadStudentData { (success, isTimedOut) in
             if success {
                 self.initFilterView()
                 notificationsUtils.initNotifications()
                 self.initCourses()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadNotificationsTableView"), object: nil)
+            } else if isTimedOut {
+                print("Time Out")
             } else {
                 print("loadStudentData: No internet connexion")
                 
@@ -130,7 +133,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         (cell.viewWithTag(10)! as UIView).layer.shadowColor = UIColor.black.cgColor
         (cell.viewWithTag(10)! as UIView).layer.shadowOpacity = 0.18
         (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 10
-        (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
+        (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         (cell.viewWithTag(6)! as UIView).isHidden = true
         
         for i in 0..<newMarksNotifications.count {
@@ -288,12 +291,12 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         if Reachability.isConnectedToNetwork() == true
         {
-            student.refreshMarks { success in
+            student.refreshMarks { (success, isTimedOut) in
                 if success {
                     self.initCourses()
                     
-                } else {
-                    print("error while refreshing")
+                } else if isTimedOut {
+                    print("Time Out")
                 }
                 refreshControl.endRefreshing()
             }

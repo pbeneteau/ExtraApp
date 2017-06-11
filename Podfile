@@ -12,6 +12,8 @@ target 'ExtranetApp' do
     pod 'FZAccordionTableView'
     pod 'DynamicButton'
     pod 'Tabman'
+    pod 'JSSAlertView'
+    pod "SwiftSpinner"
     
     target 'ExtranetAppTests' do
         inherit! :search_paths

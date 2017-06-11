@@ -30,11 +30,13 @@ class ProfileInfoViewController: UIViewController {
             print("Using userDefaults data")
             self.initProfileLabels()
         } else {
-            student.initInfos { success in
+            student.initInfos { (success,isTimedOut) in
                 if success {
                     self.initProfileLabels()
+                } else if isTimedOut {
+                    print("initInfos: TimeOut")
                 } else {
-                    print("initInfos: No internet connexion")
+                    print("initInfos: No connection")
                 }
             }
         }
