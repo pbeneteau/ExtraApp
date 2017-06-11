@@ -757,7 +757,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = D8J97J3MM9;
 				INFOPLIST_FILE = ExtranetApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tastyapp.extranetefrei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -774,7 +774,7 @@
 				CODE_SIGN_ENTITLEMENTS = ExtranetApp/ExtranetApp.entitlements;
 				DEVELOPMENT_TEAM = D8J97J3MM9;
 				INFOPLIST_FILE = ExtranetApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tastyapp.extranetefrei;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -38,15 +38,12 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var subjectWeightLabel: UILabel!
     
-    @IBOutlet weak var showDetailButton: DynamicButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
         
-        backButton.alpha = 0
         courseJSON = semesterJSON[subjectSelected]["children"][courseSelected]
         
         initDetailview()
@@ -56,11 +53,13 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        /*
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
             self.matiereLabel.frame.origin.x += 20
             self.subjectLabel.frame.origin.x += 20
-            self.backButton.alpha = 1
         })
+        
+        */
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,6 +69,8 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func initDetailview() {
         
+        /*
+        
         let labels = [marksLabel, marksNumberLabel, averageLabel, averageMarksLabel, weightLabel, subjectWeightLabel]
         
         for label in labels {
@@ -78,12 +79,13 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         lineView.isHidden = true
         lineView.alpha = 0
-        
+    
         detailView.frame.size.height = 110
         showDetailButton.frame.origin.y = 80
         showDetailButton.setStyle(.caretDown, animated: false)
         showDetailButton.alpha = 0.7
         tableview.frame.origin.y = 110
+        */
         
         // Values
         
@@ -108,9 +110,6 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let course = courseJSON["children"]
         
-        //print(courseJSON)
-        
-        
         for i in 0..<course.count {
             
             var exam = removeSubjectName(text: (course[i]["Title"].stringValue))
@@ -131,10 +130,6 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             marks.append(mark)
             weights.append(weight)
         }
-        //print(exams)
-        //print(marks)
-        //print(weights)
-        
         self.tableview.reloadData()
     }
     
@@ -180,6 +175,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return truncated
     }
+    /*
     @IBAction func showDetailviewAction(_ sender: Any) {
         
         let labels = [marksLabel, marksNumberLabel, averageLabel, averageMarksLabel, weightLabel, subjectWeightLabel]
@@ -241,7 +237,8 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             })
             detailViewOpen = true
         }
-    }
+    }*/
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         _ = self.navigationController?.popToRootViewController(animated: true)
     }

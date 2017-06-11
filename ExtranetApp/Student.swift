@@ -39,6 +39,7 @@ class Student {
             
             Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { result in
                 let dataString = cleanMarksJSONinfos(string: result.value!)
+                print(dataString)
                 let dict = convertToDictionary(text: dataString)
                 
                 self.name = JSON(dict!)["items"][0]["items"][0]["items"][0]["value"].stringValue
@@ -49,7 +50,6 @@ class Student {
                 self.phone = JSON(dict!)["items"][0]["items"][0]["items"][4]["value"].stringValue
                 self.email = JSON(dict!)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
                 
-
                 completionHandler(true)
             }
         } else {
