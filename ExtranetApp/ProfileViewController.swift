@@ -10,29 +10,39 @@ import UIKit
 import Alamofire
 import UserNotificationsUI
 import UserNotifications
+import Whisper
 
 class ProfileViewController: UIViewController {
     
-    let requestIdentifier = "SampleRequest"
-
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         nameLabel.text = student.getName()
-
+        
+        if Reachability.isConnectedToNetwork() == false {
+            
+            var murmur = Murmur(title: "Pas de connexion: Mode hors ligne")
+            murmur.backgroundColor = UIColor(red:0.20, green:0.29, blue:0.37, alpha:1.0)
+            murmur.titleColor = UIColor.white
+            
+            // Show and hide a message after delay
+            Whisper.show(whistle: murmur, action: .show(5))
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
     }
+    
     @IBAction func logOutButtonPressed(_ sender: Any) {
         if (userDefaults.string(forKey: "isLogged") != nil) {
             userDefaults.set("notLogged", forKey: "isLogged")

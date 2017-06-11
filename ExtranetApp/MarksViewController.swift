@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import CZPicker
+import Whisper
 
 class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CZPickerViewDelegate, CZPickerViewDataSource {
     
@@ -40,6 +41,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         initActivityIndicatorView()
         
@@ -101,7 +103,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.view.addSubview(indicatorView)
         indicatorView.color = UIColor.black
-        
     }
     
     
@@ -110,6 +111,15 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             sectionSelected = indexPath.section
             indexSelected = indexPath.row
+            var i = 0
+            for path in newMarksNotifications {
+
+                if path[1] == sectionSelected && path[2] == indexSelected {
+                    newMarksNotifications.remove(at: i)
+                    self.tableview.reloadData()
+                }
+                i += 1
+            }
         }
         performSegue(withIdentifier: "semesterSegue", sender: nil)
     }
@@ -142,6 +152,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         (cell.viewWithTag(10)! as UIView).layer.shadowOpacity = 0.18
         (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 6
         (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0, height: 5.0)
+        (cell.viewWithTag(6)! as UIView).layer.cornerRadius = (cell.viewWithTag(6)! as UIView).frame.height / 2
         (cell.viewWithTag(6)! as UIView).isHidden = true
         
         for i in 0..<newMarksNotifications.count {
