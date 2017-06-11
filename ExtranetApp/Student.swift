@@ -37,7 +37,7 @@ class Student {
         if Reachability.isConnectedToNetwork() == true {
             let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
+            manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
                 
                 switch (response.result) {
                 case .success:
@@ -74,7 +74,7 @@ class Student {
     
     func logIn(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
         
-        Alamofire.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(self.username)&password=\(self.password)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
+        manager.request("https://extranet.groupe-efrei.fr/Users/Account/DoLogin?username=\(self.username)&password=\(self.password)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
             
             switch (response.result) {
             case .success:
@@ -215,7 +215,7 @@ class Student {
             let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
             var vnCodes = [String]()
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+            manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
                 
                 switch (response.result) {
                 case .success:
@@ -302,7 +302,7 @@ class Student {
     }
     
     public func downloadPicture(completionHandler: @escaping (_ picture: UIImage) -> ()) {
-        Alamofire.download("https://extranet.groupe-efrei.fr/Student/Home/Photo").responseData { response in
+        manager.download("https://extranet.groupe-efrei.fr/Student/Home/Photo").responseData { response in
             if let data = response.result.value {
                 completionHandler(UIImage(data: data)!)
             }
@@ -415,13 +415,14 @@ class Student {
         self.password = password
     }
     
-    public func saveInfosToUserDefaults() {
+    public func saveInfosToUserDefaults(completionHandler: @escaping (_ success: Bool) -> ()) {
         userDefaults.set(self.name, forKey: "studentName")
         userDefaults.set(self.birthDate, forKey: "studentBirthDate")
         userDefaults.set(self.city, forKey: "studentCity")
         userDefaults.set(self.address, forKey: "studentAddress")
         userDefaults.set(self.phone, forKey: "studentPhone")
         userDefaults.set(self.email, forKey: "studentEmail")
+        completionHandler(true)
     }
     
     public func isUserInfosSavedinUserDefaults() -> Bool {

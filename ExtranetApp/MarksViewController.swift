@@ -9,7 +9,6 @@
 import UIKit
 import SwiftyJSON
 import CZPicker
-import JSSAlertView
 
 class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CZPickerViewDelegate, CZPickerViewDataSource {
     
@@ -100,8 +99,6 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             sectionSelected = indexPath.section
             indexSelected = indexPath.row
-            
-            print("Section: \(sectionSelected), indexSelected: \(indexSelected)")
         }
         performSegue(withIdentifier: "semesterSegue", sender: nil)
     }

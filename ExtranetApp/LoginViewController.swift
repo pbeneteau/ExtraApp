@@ -24,11 +24,17 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton2: UIButton!
     
     @IBOutlet weak var helpButton: UIButton!
+    @IBOutlet weak var mainView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager.session.configuration.timeoutIntervalForRequest = 10
+        configuration.timeoutIntervalForRequest = 6 // seconds
+        configuration.timeoutIntervalForResource = 6
+        
+        manager = Alamofire.SessionManager(configuration: configuration)
+        
+        
         
         loginView.layer.cornerRadius = 10
         loginButton2.layer.borderWidth = 2
@@ -42,6 +48,12 @@ class LoginViewController: UIViewController {
         if userDefaults.string(forKey: "password") != nil || userDefaults.string(forKey: "username") != nil{
             passwordTextField.text! = userDefaults.string(forKey: "password")!
             usernameTextField.text! = userDefaults.string(forKey: "username")!
+        }
+        
+        if userDefaults.string(forKey: "isLogged") != nil {
+            if userDefaults.string(forKey: "isLogged") == "loggedIn" {
+                self.mainView.isHidden = true
+            }
         }
         
         if userDefaults.string(forKey: "isLogged") == nil {
@@ -58,11 +70,12 @@ class LoginViewController: UIViewController {
                         if success {
                             student.initInfos { (success,isTimedOut) in
                                 if success {
-                                    student.saveInfosToUserDefaults()
-                                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                                    let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
-                                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                    appDelegate.window?.rootViewController = naviVC
+                                    student.saveInfosToUserDefaults { success in
+                                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                                        let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
+                                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                        appDelegate.window?.rootViewController = naviVC
+                                    }
                                 } else if isTimedOut {
                                     print("Time Out")
                                 } else {
@@ -70,7 +83,6 @@ class LoginViewController: UIViewController {
                                 }
                             }
                             
-                            print("User successfuly logged in")
                         } else if isTimedOut {
                             let alertview = JSSAlertView().show(self,
                                                                 title: "Attention",
@@ -120,7 +132,6 @@ class LoginViewController: UIViewController {
     }
     
     func loginButtonPressed() {
-        
         log { (success, isTimedOut) in
             if success {
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)

@@ -14,7 +14,8 @@ import Alamofire
 let userDefaults = UserDefaults.standard
 var student = Student()
 var notificationsUtils = NotificationsUtils()
-let manager = Alamofire.SessionManager.default
+var manager = Alamofire.SessionManager.default
+var configuration = URLSessionConfiguration.default
 
 
 public func cleanMarksJSON(string: String) -> String {

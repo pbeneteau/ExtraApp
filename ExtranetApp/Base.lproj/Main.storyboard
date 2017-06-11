@@ -136,6 +136,7 @@
                         <outlet property="backgroundView" destination="2jE-qT-sZz" id="7aA-bR-jjY"/>
                         <outlet property="loginButton2" destination="xqR-EJ-GWx" id="uCd-Mg-1he"/>
                         <outlet property="loginView" destination="WpZ-t8-gLj" id="GUd-j8-UCg"/>
+                        <outlet property="mainView" destination="WpZ-t8-gLj" id="eNF-iZ-LFI"/>
                         <outlet property="passwordTextField" destination="SHu-Cf-3OG" id="xou-15-CiB"/>
                         <outlet property="usernameTextField" destination="uj4-MB-Al0" id="wAn-j7-JFr"/>
                         <segue destination="XDZ-Q9-445" kind="show" identifier="loginSucceed" id="11j-SC-xtp"/>
