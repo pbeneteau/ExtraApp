@@ -61,27 +61,35 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         indicatorView.startAnimating()
         indicatorView.isHidden = false
         
+        student.loadSemestersFromUserDefaults { success in
+            if success { // Bien load
+                if student.getSemesters().count > 0 {
+                    notificationsUtils.setLoadedmarks(json: student.getSemesters())
+                }
+            } else { // Pas load ou rien a Load
+                
+            }
+        }
         
         student.loadStudentData { (success, isTimedOut) in
             if success {
                 self.initFilterView()
+                if student.getSemesters().count > 0 {
+                    notificationsUtils.initNotifications()
+                }
+                self.initCourses()
+            } else if isTimedOut {
+                showAlert(title: "Attention", message: "Mauvaise connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+            } else {
                 student.loadSemestersFromUserDefaults { success in
                     if success { // Bien load
-                        notificationsUtils.setLoadedmarks(json: student.getSemesters())
-                        notificationsUtils.initNotifications()
+                        showAlert(title: "Remarque", message: "Vous n'avez pas de connexion internet \n Les notes ne sont donc pas mises à jour", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
                         self.initCourses()
+                        self.initFilterView()
                     } else { // Pas load ou rien a Load
-                        self.initCourses()
+                        showAlert(title: "Attention", message: "Pas de connection \n Et aucune note chargée", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
                     }
                 }
-            } else if isTimedOut {
-                print("Time Out")
-            } else {
-                
-                showAlert(title: "Remarque", message: "Vous n'avez pas de connexion internet \n Les notes ne sont donc pas mises à jour", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
-                self.initCourses()
-                self.initFilterView()
-                
             }
             self.indicatorView.stopAnimating()
         }
@@ -233,9 +241,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func initFilterView() {
-        
         let semesterNames = student.getSemestersNamesList()
-        
         for i in 0..<semesterNames.count {
             
             var semesterName = "\(semesterNames.count - i) - \(removeOptionalInfos(text:semesterNames[i]))"

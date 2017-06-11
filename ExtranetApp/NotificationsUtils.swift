@@ -88,7 +88,7 @@ class NotificationsUtils: NSObject {
                     }
                 }
             }
-            
+            newNotesPath.append([0,0,0,0])
             let badgeCount: Int = newNotesPath.count
             let application = UIApplication.shared
             let center = UNUserNotificationCenter.current()
