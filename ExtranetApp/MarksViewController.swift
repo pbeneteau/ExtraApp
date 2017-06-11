@@ -61,9 +61,11 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         indicatorView.startAnimating()
         indicatorView.isHidden = false
         
-        student.loadSemestersFromUserDefaults()
-        
-        notificationsUtils.setLoadedmarks(json: student.getSemesters())
+        student.loadSemestersFromUserDefaults { success in
+            if success {
+                notificationsUtils.setLoadedmarks(json: student.getSemesters())
+            }
+        }
         
         student.loadStudentData { (success, isTimedOut) in
             if success {

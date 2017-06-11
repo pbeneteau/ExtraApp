@@ -422,7 +422,12 @@ class Student {
         userDefaults.set(self.address, forKey: "studentAddress")
         userDefaults.set(self.phone, forKey: "studentPhone")
         userDefaults.set(self.email, forKey: "studentEmail")
-        completionHandler(true)
+        
+        if userDefaults.string(forKey: "studentName") != nil && userDefaults.string(forKey: "studentBirthDate") != nil && userDefaults.string(forKey: "studentCity") != nil && userDefaults.string(forKey: "studentAddress") != nil && userDefaults.string(forKey: "studentPhone") != nil && userDefaults.string(forKey: "studentEmail") != nil{
+            completionHandler(true)
+        } else {
+            completionHandler(false)
+        }
     }
     
     public func isUserInfosSavedinUserDefaults() -> Bool {
@@ -435,43 +440,64 @@ class Student {
         return true
     }
     
-    public func saveSemesters() {
+    public func saveSemesters(completionHandler: @escaping (_ success: Bool) -> ()) {
         userDefaults.setValue(self.studentSemesters.count, forKey: "numberSemesters")
         var i = 0
         for semester in studentSemesters {
             userDefaults.setValue(semester.rawString()!, forKey: "semester\(i)")
+            if userDefaults.value(forKey: "semester\(i)") == nil {
+                completionHandler(false)
+            }
             i += 1
         }
         i = 0
         for semester in semestersNamesList {
             userDefaults.setValue(semester, forKey: "semesterName\(i)")
+            if userDefaults.value(forKey: "semesterName\(i)") == nil {
+                completionHandler(false)
+            }
             i += 1
         }
+        completionHandler(true)
     }
     
-    public func loadInfosFromUserDefaults() {
+    public func loadInfosFromUserDefaults(completionHandler: @escaping (_ success: Bool) -> ()) {
         if userDefaults.string(forKey: "studentName") != nil {
             self.name = userDefaults.string(forKey: "studentName")!
+        } else {
+            completionHandler(false)
         }
         if userDefaults.string(forKey: "studentBirthDate") != nil {
             self.birthDate = userDefaults.string(forKey: "studentBirthDate")!
+        } else {
+            completionHandler(false)
         }
         if userDefaults.string(forKey: "studentCity") != nil {
             self.city = userDefaults.string(forKey: "studentCity")!
+        } else {
+            completionHandler(false)
         }
         if userDefaults.string(forKey: "studentAddress") != nil {
             self.address = userDefaults.string(forKey: "studentAddress")!
+        } else {
+            completionHandler(false)
         }
         if userDefaults.string(forKey: "studentPhone") != nil {
             self.phone = userDefaults.string(forKey: "studentPhone")!
+        } else {
+            completionHandler(false)
         }
         if userDefaults.string(forKey: "studentEmail") != nil {
             self.email = userDefaults.string(forKey: "studentEmail")!
+        } else {
+            completionHandler(false)
         }
+        
+        completionHandler(true)
         
     }
     
-    public func loadSemestersFromUserDefaults() {
+    public func loadSemestersFromUserDefaults(completionHandler: @escaping (_ success: Bool) -> ()) {
         var n = 0
         if userDefaults.integer(forKey: "numberSemesters") != 0 {
             n = userDefaults.integer(forKey: "numberSemesters")
@@ -479,16 +505,17 @@ class Student {
             for i in 0..<(n) {
                 self.studentSemesters.append(JSON.init(parseJSON: userDefaults.value(forKey: "semester\(i)") as! String))
             }
+            
+            if self.studentSemesters.count == n {
+                completionHandler(false)
+            }
             for i in 0..<(n) {
                 self.semestersNamesList.append(userDefaults.value(forKey: "semesterName\(i)") as! String)
             }
+            completionHandler(true)
         } else {
-            print("loadSemestersFromUserDefaults: No userDefaults data")
+            completionHandler(false)
         }
-    }
-    
-    public func downloadFile() {
-        
     }
     
     

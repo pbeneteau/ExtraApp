@@ -43,75 +43,42 @@ class LoginViewController: UIViewController {
         
         usernameTextField.layer.cornerRadius = 8
         passwordTextField.layer.cornerRadius = 8
-    
         
+        
+        // Auto completion des textFields
         if userDefaults.string(forKey: "password") != nil || userDefaults.string(forKey: "username") != nil{
             passwordTextField.text! = userDefaults.string(forKey: "password")!
             usernameTextField.text! = userDefaults.string(forKey: "username")!
         }
         
+        // Si deja login
         if userDefaults.string(forKey: "isLogged") != nil {
             if userDefaults.string(forKey: "isLogged") == "loggedIn" {
                 self.mainView.isHidden = true
-            }
-        }
-        
-        if userDefaults.string(forKey: "isLogged") == nil {
-            userDefaults.set("loggedIn", forKey: "notLogged")
-        } else {
-            if userDefaults.string(forKey: "isLogged")! == "loggedIn" {
-                
-                if userDefaults.string(forKey: "studentName") != nil || userDefaults.string(forKey: "studentName") != ""{
-                    student.loadInfosFromUserDefaults()
-                }
-                
                 if Reachability.isConnectedToNetwork() == true {
-                    log { (success,isTimedOut) in
+                    autoLogin { (success,isTimedOut) in
                         if success {
-                            student.initInfos { (success,isTimedOut) in
+                            self.initInformations { (success,isTimedOut) in
                                 if success {
-                                    student.saveInfosToUserDefaults { success in
-                                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                                        let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
-                                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                        appDelegate.window?.rootViewController = naviVC
-                                    }
+                                    moveToProfile()
                                 } else if isTimedOut {
-                                    print("Time Out")
+                                    showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                                 } else {
-                                    print("No connection")
+                                    showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                                 }
                             }
-                            
                         } else if isTimedOut {
-                            let alertview = JSSAlertView().show(self,
-                                                                title: "Attention",
-                                                                text: "Mauvaise connection internet",
-                                                                buttonText: "Fermer",
-                                                                color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0))
-                            alertview.setTitleFont("Roboto-Bold")
-                            alertview.setTextFont("Roboto-Regular")
-                            alertview.setButtonFont("Roboto-Medium")
-                            alertview.setTextTheme(.light)
+                            showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                         } else {
-                            let alertview = JSSAlertView().show(self,
-                                                                title: "Attention",
-                                                                text: "Pas de connection internet",
-                                                                buttonText: "Fermer",
-                                                                color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0))
-                            alertview.setTitleFont("Roboto-Bold")
-                            alertview.setTextFont("Roboto-Regular")
-                            alertview.setButtonFont("Roboto-Medium")
-                            alertview.setTextTheme(.light)
+                            showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                         }
                     }
                 } else {
-                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController = naviVC
+                    // Pas de connexion -> offline
                 }
             }
+        } else {
+            userDefaults.set("loggedIn", forKey: "notLogged")
         }
         
     }
@@ -132,62 +99,100 @@ class LoginViewController: UIViewController {
     }
     
     func loginButtonPressed() {
-        log { (success, isTimedOut) in
-            if success {
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.window?.rootViewController = naviVC
-            } else if isTimedOut {
-                let alertview = JSSAlertView().show(self,
-                                                    title: "Attention",
-                                                    text: "Mauvaise connection internet",
-                                                    buttonText: "Fermer",
-                                                    color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0))
-                alertview.setTitleFont("Roboto-Bold")
-                alertview.setTextFont("Roboto-Regular")
-                alertview.setButtonFont("Roboto-Medium")
-                alertview.setTextTheme(.light)
+        
+        if self.passwordTextField.text! != "" {
+            if self.usernameTextField.text! != "" {
+                student.setPassword(password: self.passwordTextField.text!)
+                student.setUsername(username: self.usernameTextField.text!)
+                
+                userDefaults.set(self.passwordTextField.text!, forKey: "password")
+                userDefaults.set(self.usernameTextField.text!, forKey: "username")
+                
+                log { (success, isTimedOut) in
+                    if success { // Redirection Profile
+                        self.initInformations { (success,isTimedOut) in
+                            if success {
+                                moveToProfile()
+                            } else if isTimedOut {
+                                showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                            } else {
+                                showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                            }
+                        }
+                    } else if isTimedOut { // Time Out
+                        showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                    } else { // Pas de connection
+                        showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                    }
+                }
+                
             } else {
-                let alertview = JSSAlertView().show(self,
-                                                    title: "Attention",
-                                                    text: "Pas de connection internet",
-                                                    buttonText: "Fermer",
-                                                    color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0))
-                alertview.setTitleFont("Roboto-Bold")
-                alertview.setTextFont("Roboto-Regular")
-                alertview.setButtonFont("Roboto-Medium")
-                alertview.setTextTheme(.light)
+                showAlert(title: "Attention", message: "Veuillez entrer correctement vos Ids", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
             }
+        } else {
+            showAlert(title: "Attention", message: "Veuillez entrer correctement vos Ids", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
         }
     }
     
     
     func log(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
-        student.setPassword(password: self.passwordTextField.text!)
-        student.setUsername(username: self.usernameTextField.text!)
-        
-        userDefaults.set(self.passwordTextField.text!, forKey: "password")
-        userDefaults.set(self.usernameTextField.text!, forKey: "username")
         
         
         if Reachability.isConnectedToNetwork() == true
         {
             student.logIn { (success, isTimedOut) in
-                if success {
-                    userDefaults.set("loggedIn", forKey: "isLogged")
+                if success { // Connection réussie
+                    userDefaults.set("loggedIn", forKey: "isLogged") // Pour retser connecté
                     completionHandler(true, false)
-                } else if isTimedOut {
+                } else if isTimedOut { // Connection Time Out
                     completionHandler(false,true)
-                
-                } else {
-                    print("Bad entries")
+                } else { // Autre erreur
                     completionHandler(false,false)
-                
                 }
             }
-        } else {
+        } else { // Pas de connection internet
             completionHandler(false, false)
+        }
+    }
+    
+    func autoLogin(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
+        if userDefaults.string(forKey: "username") != nil && userDefaults.string(forKey: "password") != nil {
+            if userDefaults.string(forKey: "username")! != "" && userDefaults.string(forKey: "password")! != "" {
+                
+                student.setPassword(password: userDefaults.string(forKey: "password")!)
+                student.setUsername(username: userDefaults.string(forKey: "username")!)
+                
+                student.logIn { (success, isTimedOut) in
+                    if success { // Connection réussie
+                        completionHandler(true, false)
+                    } else if isTimedOut { // Connection Time Out
+                        completionHandler(false,true)
+                    } else { // Autre erreur
+                        completionHandler(false,false)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    func initInformations(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
+        student.loadInfosFromUserDefaults() { success in
+            if success { // Deja dans UserDefaults
+                completionHandler(true, false)
+            } else { // Pas dans UserDefaults
+                student.initInfos { (success, isTimedOut) in
+                    if success {
+                        student.saveInfosToUserDefaults { success in
+                            completionHandler(true,false)
+                        }
+                    } else if isTimedOut {
+                        completionHandler(false,true)
+                    } else {
+                        completionHandler(false, false)
+                    }
+                }
+            }
         }
     }
 }
