@@ -10,21 +10,20 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import JSSAlertView
+import TextFieldEffects
+import TKSubmitTransitionSwift3
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var usernameTextField: KaedeTextField!
+    @IBOutlet weak var passwordTextField: KaedeTextField!
     
     
     @IBOutlet weak var backgroundView: UIImageView!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var loginView: UIView!
     
-    @IBOutlet weak var loginButton2: UIButton!
+    @IBOutlet weak var loginButton2: TKTransitionSubmitButton!
     
     @IBOutlet weak var helpButton: UIButton!
-    @IBOutlet weak var mainView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,16 +33,7 @@ class LoginViewController: UIViewController {
         
         manager = Alamofire.SessionManager(configuration: configuration)
         
-        
-        
-        loginView.layer.cornerRadius = 10
-        loginButton2.layer.borderWidth = 2
-        loginButton2.layer.borderColor = UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0).cgColor
-        loginButton2.layer.cornerRadius = 8
-        
-        usernameTextField.layer.cornerRadius = 8
-        passwordTextField.layer.cornerRadius = 8
-        
+        loginButton2.layer.cornerRadius = loginButton2.frame.size.height / 2
         
         // Auto completion des textFields
         if userDefaults.string(forKey: "password") != nil || userDefaults.string(forKey: "username") != nil{
@@ -54,7 +44,6 @@ class LoginViewController: UIViewController {
         // Si deja login
         if userDefaults.string(forKey: "isLogged") != nil {
             if userDefaults.string(forKey: "isLogged") == "loggedIn" {
-                self.mainView.isHidden = true
                 if Reachability.isConnectedToNetwork() == true {
                     autoLogin { (success,isTimedOut) in
                         if success {
@@ -97,16 +86,12 @@ class LoginViewController: UIViewController {
         
     }
     
-    @IBAction func firstLoginButtonPressed(_ sender: Any) {
-        
-    }
-    
-    
     @IBAction func loginButtonPressed(_ sender: Any) {
         loginButtonPressed()
     }
     
     func loginButtonPressed() {
+        
         
         if self.passwordTextField.text! != "" {
             if self.usernameTextField.text! != "" {
@@ -116,11 +101,15 @@ class LoginViewController: UIViewController {
                 userDefaults.set(self.passwordTextField.text!, forKey: "password")
                 userDefaults.set(self.usernameTextField.text!, forKey: "username")
                 
+                loginButton2.startLoadingAnimation()
+                
                 log { (success, isTimedOut) in
                     if success { // Redirection Profile
                         self.initInformations { (success,isTimedOut) in
                             if success {
-                                moveToProfile()
+                                self.loginButton2.startFinishAnimation(0) {
+                                    moveToProfile()
+                                }
                             } else if isTimedOut {
                                 showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                             } else {
@@ -144,7 +133,6 @@ class LoginViewController: UIViewController {
     
     
     func log(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
-        
         
         if Reachability.isConnectedToNetwork() == true
         {

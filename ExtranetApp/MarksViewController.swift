@@ -50,6 +50,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         loadData()
         
+        
         tableview.addSubview(self.refreshControl)
     }
     

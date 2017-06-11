@@ -29,7 +29,6 @@ class NotificationsUtils: NSObject {
         
         notificationsArray.removeAll()
         
-        
         if isNewMarkLoaded(marks1: studentMarksLoaded, marks2: student.getSemesters()) {
             
             var murmur = Murmur(title: "Des notes ont été ajoutées!")
@@ -41,9 +40,6 @@ class NotificationsUtils: NSObject {
             
             findNewMarks(marks1: studentMarksLoaded, marks2: student.getSemesters())
         }
-        
-        newNotesPath.append([0,3,0,0])
-
     }
     
     public func isNewMarkLoaded(marks1: [JSON], marks2: [JSON]) -> Bool {

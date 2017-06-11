@@ -14,7 +14,9 @@ target 'ExtranetApp' do
     pod 'JSSAlertView'
     pod 'SwiftSpinner'
     pod 'Whisper'
-    
+    pod 'TextFieldEffects'
+    pod 'TKSubmitTransitionSwift3'
+
     target 'ExtranetAppTests' do
         inherit! :search_paths
         # Pods for testing

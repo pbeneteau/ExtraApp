@@ -64,7 +64,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TKSubmitTransitionSwift3.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Tabman.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TextFieldEffects.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -77,17 +87,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>191B973181F250085952F4E820EDDCB9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>25755376B164310EA3CDA19F40374F6D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3158A44FA461EE74336348A3645CC315</key>
+		<key>2C7B5CAC7D60E54D9981AF607F147E37</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +102,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>507056406F947F3E217196A1BE9A5DBC</key>
+		<key>41BC5810846C96A29E081A11D2E1ECB6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>653C7A1EBD69F976B2D9C5D7D3FB2AEB</key>
+		<key>444926FD1519DA8CCFFB97B873F2B58F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4CAA1B68D16487A0B9C2245588F42356</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F089E1A721B44F32E3DC0F5D4BAE28C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +127,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B202DF324D5C673CC980DDE5AED251A1</key>
+		<key>9F509338C36E51E9F4827A8AE144EDD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,12 +142,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D17CB87868A2F52142C09B943AA946DD</key>
+		<key>D368184BEED712B6A15E4767FE420BE5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D368184BEED712B6A15E4767FE420BE5</key>
+		<key>E9CCFC6EE734FA88ADE695BE639AD7EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ECAABD9B7D962EA13DAD956E554812CA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
