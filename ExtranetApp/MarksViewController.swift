@@ -85,7 +85,14 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             } else {
                 student.loadSemestersFromUserDefaults { success in
                     if success { // Bien load
-                        showAlert(title: "Remarque", message: "Vous n'avez pas de connexion internet \n Les notes ne sont donc pas mises à jour", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
+                        if (userDefaults.string(forKey: "noConnectionModeAlready") != nil) {
+                            if (userDefaults.string(forKey: "noConnectionModeAlready")! != "yes") {
+                                showAlert(title: "Remarque", message: "Vous n'avez pas de connexion internet \n Les notes ne sont donc pas mises à jour", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
+                            }
+                        } else {
+                            userDefaults.set("yes", forKey: "noConnectionModeAlready")
+                            showAlert(title: "Remarque", message: "Vous n'avez pas de connexion internet \n Les notes ne sont donc pas mises à jour", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
+                        }
                         self.initCourses()
                         self.initFilterView()
                     } else { // Pas load ou rien a Load
