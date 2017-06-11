@@ -61,20 +61,28 @@ class LoginViewController: UIViewController {
                             self.initInformations { (success,isTimedOut) in
                                 if success {
                                     moveToProfile()
-                                } else if isTimedOut {
-                                    showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                                 } else {
-                                    showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                                    self.initInformations { (success,isTimedOut) in
+                                        if success {
+                                            moveToProfile()
+                                        }
+                                    }
                                 }
                             }
-                        } else if isTimedOut {
-                            showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                         } else {
-                            showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                            self.initInformations { (success,isTimedOut) in
+                                if success {
+                                    moveToProfile()
+                                }
+                            }
                         }
                     }
                 } else {
-                    // Pas de connexion -> offline
+                    self.initInformations { (success,isTimedOut) in
+                        if success {
+                            moveToProfile()
+                        }
+                    }
                 }
             }
         } else {

@@ -500,16 +500,15 @@ class Student {
     
     public func loadSemestersFromUserDefaults(completionHandler: @escaping (_ success: Bool) -> ()) {
         var n = 0
-        if userDefaults.integer(forKey: "numberSemesters") != 0 {
+        semestersNamesList.removeAll()
+        studentSemesters.removeAll()
+        if userDefaults.integer(forKey: "numberSemesters") > 0 {
             n = userDefaults.integer(forKey: "numberSemesters")
             self.studentSemesters.removeAll()
             for i in 0..<(n) {
                 self.studentSemesters.append(JSON.init(parseJSON: userDefaults.value(forKey: "semester\(i)") as! String))
             }
             
-            if self.studentSemesters.count == n {
-                completionHandler(false)
-            }
             for i in 0..<(n) {
                 self.semestersNamesList.append(userDefaults.value(forKey: "semesterName\(i)") as! String)
             }
