@@ -131,8 +131,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         (cell.viewWithTag(10)! as UIView).layer.shadowColor = UIColor.black.cgColor
         (cell.viewWithTag(10)! as UIView).layer.shadowOpacity = 0.18
-        (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 10
-        (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 6
+        (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0, height: 5.0)
         (cell.viewWithTag(6)! as UIView).isHidden = true
         
         for i in 0..<newMarksNotifications.count {

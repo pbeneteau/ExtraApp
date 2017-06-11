@@ -7,13 +7,13 @@ target 'ExtranetApp' do
     
     pod 'Alamofire'
     pod 'SwiftyJSON'
-    pod 'Ono'
     pod 'CZPicker'
     pod 'FZAccordionTableView'
     pod 'DynamicButton'
     pod 'Tabman'
     pod 'JSSAlertView'
-    pod "SwiftSpinner"
+    pod 'SwiftSpinner'
+    pod 'Whisper'
     
     target 'ExtranetAppTests' do
         inherit! :search_paths
