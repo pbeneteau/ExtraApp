@@ -30,6 +30,7 @@ class NotificationsUtils: NSObject {
         notificationsArray.removeAll()
         
         if isNewMarkLoaded(marks1: studentMarksLoaded, marks2: student.getSemesters()) {
+            
             var murmur = Murmur(title: "Des notes ont été ajoutées!")
             murmur.backgroundColor = UIColor(red:0.16, green:0.50, blue:0.73, alpha:1.0)
             murmur.titleColor = UIColor.white
@@ -39,6 +40,9 @@ class NotificationsUtils: NSObject {
             
             findNewMarks(marks1: studentMarksLoaded, marks2: student.getSemesters())
         }
+        
+        newNotesPath.append([0,3,0,0])
+
     }
     
     public func isNewMarkLoaded(marks1: [JSON], marks2: [JSON]) -> Bool {
@@ -57,46 +61,49 @@ class NotificationsUtils: NSObject {
     public func findNewMarks(marks1: [JSON], marks2: [JSON]) {
         newNotesPath.removeAll()
         
-        if marks1.count > 0  && marks2.count > 0{
-            for a in 0..<marks1.count { // semestres
+        if marks1.count > 0  && marks2.count > 0 {
+            
+            if marks1.count == marks2.count {
                 
-                let semester1 = marks1[a]
-                let semester2 = marks2[a]
-                
-                for b in 0..<semester1.count { // modules
+                for a in 0..<marks1.count { // semestres
                     
-                    let courses1 = semester1[b]["children"]
-                    let courses2 = semester2[b]["children"]
+                    let semester1 = marks1[a]
+                    let semester2 = marks2[a]
                     
-                    for c in 0..<courses1.count { // courses
+                    for b in 0..<semester1.count { // modules
                         
-                        let course1 = courses1[c]["children"]
-                        let course2 = courses2[c]["children"]
+                        let courses1 = semester1[b]["children"]
+                        let courses2 = semester2[b]["children"]
                         
-                        for d in 0..<course1.count {
+                        for c in 0..<courses1.count { // courses
                             
-                            let exam1 = course1[d]
-                            let exam2 = course2[d]
+                            let course1 = courses1[c]["children"]
+                            let course2 = courses2[c]["children"]
                             
-                            if exam1["GradePoint"].stringValue != exam2["GradePoint"].stringValue {
+                            for d in 0..<course1.count {
                                 
-                                print("Nouvelle note:\(exam2["Title"].stringValue) : \(exam2["GradePoint"].stringValue)")
+                                let exam1 = course1[d]
+                                let exam2 = course2[d]
                                 
-                                newNotesPath.append([a,b,c,d])
+                                if exam1["GradePoint"].stringValue != exam2["GradePoint"].stringValue {
+                                    
+                                    print("Nouvelle note:\(exam2["Title"].stringValue) : \(exam2["GradePoint"].stringValue)")
+                                    
+                                    newNotesPath.append([a,b,c,d])
+                                }
                             }
                         }
                     }
                 }
+                let badgeCount: Int = newNotesPath.count
+                let application = UIApplication.shared
+                let center = UNUserNotificationCenter.current()
+                center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+                    // Enable or disable features based on authorization.
+                }
+                application.registerForRemoteNotifications()
+                application.applicationIconBadgeNumber = badgeCount
             }
-            newNotesPath.append([0,0,0,0])
-            let badgeCount: Int = newNotesPath.count
-            let application = UIApplication.shared
-            let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
-                // Enable or disable features based on authorization.
-            }
-            application.registerForRemoteNotifications()
-            application.applicationIconBadgeNumber = badgeCount
         }
     }
     
