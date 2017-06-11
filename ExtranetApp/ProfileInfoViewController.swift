@@ -26,20 +26,7 @@ class ProfileInfoViewController: UIViewController {
         containerView.layer.shadowRadius = 10
         containerView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
         
-        if student.isUserInfosSavedinUserDefaults() == true {
-            print("Using userDefaults data")
-            self.initProfileLabels()
-        } else {
-            student.initInfos { (success,isTimedOut) in
-                if success {
-                    self.initProfileLabels()
-                } else if isTimedOut {
-                    print("initInfos: TimeOut")
-                } else {
-                    print("initInfos: No connection")
-                }
-            }
-        }
+        self.initProfileLabels()
     }
 
     override func didReceiveMemoryWarning() {

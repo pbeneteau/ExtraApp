@@ -61,21 +61,24 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         indicatorView.startAnimating()
         indicatorView.isHidden = false
         
-        student.loadSemestersFromUserDefaults()
-        
-        notificationsUtils.setLoadedmarks(json: student.getSemesters())
         
         student.loadStudentData { (success, isTimedOut) in
             if success {
                 self.initFilterView()
-                notificationsUtils.initNotifications()
-                self.initCourses()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadNotificationsTableView"), object: nil)
+                student.loadSemestersFromUserDefaults { success in
+                    if success { // Bien load
+                        notificationsUtils.setLoadedmarks(json: student.getSemesters())
+                        notificationsUtils.initNotifications()
+                        self.initCourses()
+                    } else { // Pas load ou rien a Load
+                        self.initCourses()
+                    }
+                }
             } else if isTimedOut {
                 print("Time Out")
             } else {
-                print("loadStudentData: No internet connexion")
                 
+                showAlert(title: "Remarque", message: "Vous n'avez pas de connexion internet \n Les notes ne sont donc pas mises à jour", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
                 self.initCourses()
                 self.initFilterView()
                 

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SwiftyJSON
 import Alamofire
+import JSSAlertView
 
 let userDefaults = UserDefaults.standard
 var student = Student()
@@ -91,6 +92,34 @@ public func nsdataToJSON(data: NSData) -> Any? {
         print(myJSONError)
     }
     return nil
+}
+
+
+public func moveToLogin() {
+    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+    let naviVC = storyBoard.instantiateViewController(withIdentifier: "LoginView")
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    appDelegate.window?.rootViewController = naviVC
+}
+
+public func moveToProfile() {
+    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+    let naviVC = storyBoard.instantiateViewController(withIdentifier: "MainView")
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    appDelegate.window?.rootViewController = naviVC
+}
+
+
+public func showAlert(title: String, message: String, color: UIColor, sender: UIViewController) {
+    let alertview = JSSAlertView().show(sender,
+                                        title: title,
+                                        text: message,
+                                        buttonText: "Fermer",
+                                        color: color)
+    alertview.setTitleFont("Roboto-Bold")
+    alertview.setTextFont("Roboto-Regular")
+    alertview.setButtonFont("Roboto-Medium")
+    alertview.setTextTheme(.light)
 }
 
 extension String {

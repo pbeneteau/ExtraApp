@@ -37,10 +37,7 @@ class ProfileViewController: UIViewController {
         if (userDefaults.string(forKey: "isLogged") != nil) {
             userDefaults.set("notLogged", forKey: "isLogged")
             
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let naviVC = storyBoard.instantiateViewController(withIdentifier: "LoginView")
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window?.rootViewController = naviVC
+            moveToLogin()
         }
     }
     
