@@ -9,6 +9,7 @@
 import Foundation
 import SwiftyJSON
 import UserNotifications
+import Whisper
 
 
 class NotificationsUtils: NSObject {
@@ -26,11 +27,18 @@ class NotificationsUtils: NSObject {
     // Internet connexion needed
     func initNotifications() {
         
-        
         notificationsArray.removeAll()
         
         if isNewMarkLoaded(marks1: studentMarksLoaded, marks2: student.getSemesters()) {
             print("There are new marks!")
+            
+            var murmur = Murmur(title: "Des notes ont été ajoutées!")
+            murmur.backgroundColor = UIColor(red:0.16, green:0.50, blue:0.73, alpha:1.0)
+            murmur.titleColor = UIColor.white
+            
+            // Show and hide a message after delay
+            Whisper.show(whistle: murmur, action: .show(4))
+            
             findNewMarks(marks1: studentMarksLoaded, marks2: student.getSemesters())
         }
     }

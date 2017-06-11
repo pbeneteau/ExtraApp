@@ -4,7 +4,6 @@ PODS:
   - DynamicButton (4.0.0)
   - FZAccordionTableView (0.2.3)
   - JSSAlertView (3.0.4)
-  - Ono (1.2.2)
   - Pageboy (1.1.0)
   - PureLayout (3.0.2)
   - SwiftSpinner (1.2.1)
@@ -12,6 +11,7 @@ PODS:
   - Tabman (0.5.2):
     - Pageboy (= 1.1.0)
     - PureLayout (~> 3.0.0)
+  - Whisper (5.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -19,10 +19,10 @@ DEPENDENCIES:
   - DynamicButton
   - FZAccordionTableView
   - JSSAlertView
-  - Ono
   - SwiftSpinner
   - SwiftyJSON
   - Tabman
+  - Whisper
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -30,13 +30,13 @@ SPEC CHECKSUMS:
   DynamicButton: ddc1e8d79e37f2761ab64df0c02e89061b05d812
   FZAccordionTableView: e64f49c71c32d750feda14025b088bcd25d1a71f
   JSSAlertView: 7d8345c88e6fd8b515bc49f0fc8d8c69f6776b9c
-  Ono: 80b1c686777d3f6d5d5ce6fcac8a74afef4ca197
   Pageboy: 148f353304deb45dda732863aebd2bb575426e8b
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   SwiftSpinner: 62a28bbb4035f252a1e91b0e17fc40bdbbfa0aab
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   Tabman: f25dc5456b98e8738177d98a6cb540d5d21fed35
+  Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
 
-PODFILE CHECKSUM: 4692d85093159761bc7b7bb0a706ac39ecb8e265
+PODFILE CHECKSUM: b0f4eeafe43b3ab9f20c71f848edb22ee06e2ca9
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1
