@@ -29,6 +29,7 @@ class NotificationsUtils: NSObject {
         
         notificationsArray.removeAll()
         
+        
         if isNewMarkLoaded(marks1: studentMarksLoaded, marks2: student.getSemesters()) {
             
             var murmur = Murmur(title: "Des notes ont été ajoutées!")
