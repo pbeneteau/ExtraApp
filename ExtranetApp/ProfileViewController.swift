@@ -19,12 +19,18 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    var msgDisplayed = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         nameLabel.text = student.getName()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
-        if Reachability.isConnectedToNetwork() == false {
+        if Reachability.isConnectedToNetwork() == false && msgDisplayed == 0{
             
             var murmur = Murmur(title: "Pas de connexion: Mode hors ligne")
             murmur.backgroundColor = UIColor(red:0.20, green:0.29, blue:0.37, alpha:1.0)
@@ -32,10 +38,9 @@ class ProfileViewController: UIViewController {
             
             // Show and hide a message after delay
             Whisper.show(whistle: murmur, action: .show(5))
+            
+            msgDisplayed = 1
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
     }
 
     override func didReceiveMemoryWarning() {
