@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController {
 
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         
         if Reachability.isConnectedToNetwork() == false && msgDisplayed == 0{
