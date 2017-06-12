@@ -303,9 +303,16 @@ class Student {
     }
     
     public func downloadPicture(completionHandler: @escaping (_ picture: UIImage) -> ()) {
-        manager.download("https://extranet.groupe-efrei.fr/Student/Home/Photo").responseData { response in
-            if let data = response.result.value {
-                completionHandler(UIImage(data: data)!)
+        
+        let destination = DownloadRequest.suggestedDownloadDestination()
+        let url = "https://extranet.groupe-efrei.fr/Student/Home/Photo/"
+        
+        Alamofire.download(url, to: destination).validate().responseData { response in
+            if response.error != nil {
+            } else {
+                if let data = response.result.value {
+                    completionHandler(UIImage(data: data)!)
+                }
             }
         }
     }
