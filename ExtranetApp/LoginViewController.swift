@@ -50,12 +50,6 @@ class LoginViewController: UIViewController {
                             self.initInformations { (success,isTimedOut) in
                                 if success {
                                     moveToProfile()
-                                } else {
-                                    self.initInformations { (success,isTimedOut) in
-                                        if success {
-                                            moveToProfile()
-                                        }
-                                    }
                                 }
                             }
                         } else {
@@ -98,30 +92,48 @@ class LoginViewController: UIViewController {
                 student.setPassword(password: self.passwordTextField.text!)
                 student.setUsername(username: self.usernameTextField.text!)
                 
+                if userDefaults.string(forKey: "username") != nil {
+                    if userDefaults.string(forKey: "username") !=  self.usernameTextField.text!{
+                        if let bundle = Bundle.main.bundleIdentifier {
+                            UserDefaults.standard.removePersistentDomain(forName: bundle)
+                        }
+                    }
+                }
                 userDefaults.set(self.passwordTextField.text!, forKey: "password")
                 userDefaults.set(self.usernameTextField.text!, forKey: "username")
                 
                 loginButton2.startLoadingAnimation()
                 
-                log { (success, isTimedOut) in
-                    if success { // Redirection Profile
-                        self.initInformations { (success,isTimedOut) in
-                            if success {
-                                self.loginButton2.startFinishAnimation(0) {
-                                    moveToProfile()
+                if Reachability.isConnectedToNetwork() == true
+                {
+                    log { (success, isTimedOut) in
+                        if success { // Redirection Profile
+                            self.initInformations { (success,isTimedOut) in
+                                if success {
+                                    self.loginButton2.startFinishAnimation(0) {
+                                        moveToProfile()
+                                    }
+                                } else if isTimedOut {
+                                    self.loginButton2.returnToOriginalState()
+                                    showAlert(title: "Attention", message: "Mauvaise connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                                } else {
+                                    self.loginButton2.returnToOriginalState()
+                                    showAlert(title: "Attention", message: "Pas de connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                                 }
-                            } else if isTimedOut {
-                                showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
-                            } else {
-                                showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                             }
+                        } else if isTimedOut { // Time Out
+                            self.loginButton2.returnToOriginalState()
+                            showAlert(title: "Attention", message: "Mauvaise connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
+                        } else { // Mauvaise combinaison
+                            self.loginButton2.returnToOriginalState()
+                            showAlert(title: "Attention", message: "Mauvaise combinaison", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                         }
-                    } else if isTimedOut { // Time Out
-                        showAlert(title: "Attention", message: "Mauvaise connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
-                    } else { // Pas de connection
-                        showAlert(title: "Attention", message: "Pas de connection internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                     }
+                } else { // Pas de connection
+                    self.loginButton2.returnToOriginalState()
+                    showAlert(title: "Attention", message: "Pas de connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                 }
+                
                 
             } else {
                 showAlert(title: "Attention", message: "Veuillez entrer correctement vos Ids", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
@@ -133,21 +145,25 @@ class LoginViewController: UIViewController {
     
     
     func log(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
-        
-        if Reachability.isConnectedToNetwork() == true
-        {
-            student.logIn { (success, isTimedOut) in
-                if success { // Connection réussie
-                    userDefaults.set("loggedIn", forKey: "isLogged") // Pour retser connecté
-                    completionHandler(true, false)
-                } else if isTimedOut { // Connection Time Out
-                    completionHandler(false,true)
-                } else { // Autre erreur
-                    completionHandler(false,false)
+        student.logIn { (success, isTimedOut) in
+            if success { // Connection réussie
+                userDefaults.set("loggedIn", forKey: "isLogged") // Pour retser connecté
+                student.initInfos { (success, isTimedOut) in
+                    if success {
+                        student.saveInfosToUserDefaults { success in
+                            completionHandler(true,false)
+                        }
+                    } else if isTimedOut {
+                        completionHandler(false,true)
+                    } else {
+                        completionHandler(false, false)
+                    }
                 }
+            } else if isTimedOut { // Connection Time Out
+                completionHandler(false,true)
+            } else { // Autre erreur
+                completionHandler(false,false)
             }
-        } else { // Pas de connection internet
-            completionHandler(false, false)
         }
     }
     
@@ -160,6 +176,7 @@ class LoginViewController: UIViewController {
                 
                 student.logIn { (success, isTimedOut) in
                     if success { // Connection réussie
+                        
                         completionHandler(true, false)
                     } else if isTimedOut { // Connection Time Out
                         completionHandler(false,true)

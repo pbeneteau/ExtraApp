@@ -14,6 +14,7 @@
 		006DD1D91EE73F0500E71768 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D81EE73F0500E71768 /* utils.swift */; };
 		006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1DA1EE741E800E71768 /* MarksViewController.swift */; };
 		00715F661EECA14600EEB714 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00715F651EECA14600EEB714 /* TabBarViewController.swift */; };
+		008118551EEE8FEF003BF37E /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008118541EEE8FEF003BF37E /* CalendarViewController.swift */; };
 		00DB83891EEC80B30023A505 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB83881EEC80B30023A505 /* UserNotifications.framework */; };
 		00EC49931EEC1BBA00443ACD /* ModuleSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */; };
 		00FB5E911EE9AE900080D172 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E851EE9AE900080D172 /* Roboto-Black.ttf */; };
@@ -70,6 +71,7 @@
 		006DD1D81EE73F0500E71768 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		006DD1DA1EE741E800E71768 /* MarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MarksViewController.swift; sourceTree = "<group>"; };
 		00715F651EECA14600EEB714 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		008118541EEE8FEF003BF37E /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		00DB83871EEC7EC70023A505 /* ExtranetApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExtranetApp.entitlements; sourceTree = "<group>"; };
 		00DB83881EEC80B30023A505 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleSectionView.xib; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				38E168F71EEC4B7D001B6657 /* Marks */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
 				00715F651EECA14600EEB714 /* TabBarViewController.swift */,
+				008118541EEE8FEF003BF37E /* CalendarViewController.swift */,
 				00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */,
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
@@ -583,6 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				008118551EEE8FEF003BF37E /* CalendarViewController.swift in Sources */,
 				006DD1D51EE7274D00E71768 /* LoginViewController.swift in Sources */,
 				006DD1D71EE737F300E71768 /* ProfileViewController.swift in Sources */,
 				006DD1D91EE73F0500E71768 /* utils.swift in Sources */,

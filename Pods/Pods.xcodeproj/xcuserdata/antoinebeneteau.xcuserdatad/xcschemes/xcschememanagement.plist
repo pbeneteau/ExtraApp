@@ -8,71 +8,109 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>CZPicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>DynamicButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>FZAccordionTableView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>JSSAlertView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pageboy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>Pods-ExtranetApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>Pods-ExtranetAppTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>Pods-ExtranetAppUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 		<key>PureLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 		<key>SwiftSpinner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>TKSubmitTransitionSwift3.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
 		</dict>
 		<key>Tabman.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>TextFieldEffects.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 		<key>Whisper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>15</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -87,12 +125,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2C7B5CAC7D60E54D9981AF607F147E37</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3158A44FA461EE74336348A3645CC315</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>3D7C54F16AE9E2DE48387A4FA31FCB38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>41BC5810846C96A29E081A11D2E1ECB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>444926FD1519DA8CCFFB97B873F2B58F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4CAA1B68D16487A0B9C2245588F42356</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F089E1A721B44F32E3DC0F5D4BAE28C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -108,6 +171,11 @@
 			<true/>
 		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9F509338C36E51E9F4827A8AE144EDD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -133,6 +201,16 @@
 			<true/>
 		</dict>
 		<key>D368184BEED712B6A15E4767FE420BE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9CCFC6EE734FA88ADE695BE639AD7EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ECAABD9B7D962EA13DAD956E554812CA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

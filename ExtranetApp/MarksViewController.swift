@@ -97,7 +97,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.initCourses()
                         self.initFilterView()
                     } else { // Pas load ou rien a Load
-                        showAlert(title: "Attention", message: "Pas de connection \n Et aucune note chargée", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
+                        showAlert(title: "Attention", message: "Pas de connexion \n Et aucune note chargée", color: UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0), sender: self)
                     }
                 }
             }
@@ -326,7 +326,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 refreshControl.endRefreshing()
             }
         } else {
-            let alert = UIAlertController(title: "Pas d'internet", message: "Verifiez votre connection", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Pas d'internet", message: "Verifiez votre connexion", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in refreshControl.endRefreshing()}))
             self.present(alert, animated: true, completion: nil)
         }

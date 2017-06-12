@@ -26,7 +26,7 @@ class Student {
     private var studentSemesters = [JSON]()
     var studentPicture = UIImage()
     private var semestersNamesList = [String]()
-    
+    private var calendarLink: String = ""
     
     init() {
         
@@ -34,11 +34,10 @@ class Student {
     
     
     public func initInfos(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
-        if Reachability.isConnectedToNetwork() == true {
+        
             let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
             
             manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
-                
                 switch (response.result) {
                 case .success:
                     let dataString = cleanMarksJSONinfos(string: response.result.value!)
@@ -63,11 +62,8 @@ class Student {
                     completionHandler(false,false)
                     break
                 }
-                
             }
-        } else {
-            completionHandler(false,false)
-        }
+        
     }
     
     func logIn(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
@@ -377,6 +373,10 @@ class Student {
         return self.studentPicture
     }
     
+    public func getCalendarLink() -> String {
+        return self.calendarLink
+    }
+    
     public func setName(name: String) {
         self.name = name
     }
@@ -522,6 +522,29 @@ class Student {
             completionHandler(true)
         } else {
             completionHandler(false)
+        }
+    }
+    
+    public func initCalendarLink(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
+        let url = "https://extranet.groupe-efrei.fr/Student/Calendar/Display"
+        
+        manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
+            
+            switch (response.result) {
+            case .success:
+                if (response.result.value?.slice(from: "OpenCalendar?key=", to: "%3D%3D")) != nil {
+                    let str = response.result.value?.slice(from: "OpenCalendar?key=", to: "%3D%3D")!
+                    self.calendarLink = "https://extranet.groupe-efrei.fr/Student/OpenCalendar?key=\(String(str!)!)%3D%3D&langue=FR"
+                }
+                break
+            case .failure(let error):
+                if error._code == NSURLErrorTimedOut {
+                    completionHandler(false,true)
+                }
+                completionHandler(false,false)
+                break
+            }
+            
         }
     }
     
