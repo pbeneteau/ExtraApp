@@ -19,6 +19,7 @@ class TabBarViewController: UITabBarController {
         self.tabBar.items![1].image = UIImage(named: "cup")
         self.tabBar.items![1].selectedImage = UIImage(named: "cup")
         self.tabBar.items![1].title = "Notes"
+        
     }
 
     override func didReceiveMemoryWarning() {

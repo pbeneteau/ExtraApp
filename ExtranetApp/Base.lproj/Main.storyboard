@@ -222,24 +222,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9DT-wp-icH">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DT-wp-icH">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calendrier" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVc-kY-XGj">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendrier" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVc-kY-XGj">
                                         <rect key="frame" x="15" y="42" width="188" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="188" id="KZd-Z9-5KL"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.21176470589999999" green="0.94509803920000002" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="8gT-q4-ONs"/>
+                                    <constraint firstItem="TVc-kY-XGj" firstAttribute="leading" secondItem="9DT-wp-icH" secondAttribute="leading" constant="15" id="OBL-4w-C4a"/>
+                                    <constraint firstItem="TVc-kY-XGj" firstAttribute="top" secondItem="9DT-wp-icH" secondAttribute="top" constant="42" id="f6x-XI-bpC"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cg-VS-odw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cg-VS-odw">
                                 <rect key="frame" x="90" y="261" width="141" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.21176470589999999" green="0.94509803920000002" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="XBw-rv-bdM"/>
+                                    <constraint firstAttribute="width" constant="141" id="dKe-di-MMt"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="19"/>
                                 <state key="normal" title="Telecharger">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -249,17 +258,27 @@
                                     <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d2v-pC-kUX"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enregistrez votre calendrier sur votre iphone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfq-zd-QKM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enregistrez votre calendrier sur votre iphone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfq-zd-QKM">
                                 <rect key="frame" x="29" y="184" width="263" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                 <color key="textColor" red="0.20392156859999999" green="0.28627450980000002" blue="0.36862745099999999" alpha="0.96324454699999995" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4cg-VS-odw" firstAttribute="centerX" secondItem="3v2-mG-GSH" secondAttribute="centerX" id="3st-Vw-6OA"/>
+                            <constraint firstItem="9DT-wp-icH" firstAttribute="leading" secondItem="3v2-mG-GSH" secondAttribute="leading" id="9VB-C5-Q4z"/>
+                            <constraint firstItem="Vfq-zd-QKM" firstAttribute="leading" secondItem="3v2-mG-GSH" secondAttribute="leadingMargin" constant="13" id="FHi-1e-Qho"/>
+                            <constraint firstItem="Vfq-zd-QKM" firstAttribute="top" secondItem="9DT-wp-icH" secondAttribute="bottom" constant="99" id="Mqf-Yf-OfW"/>
+                            <constraint firstItem="9DT-wp-icH" firstAttribute="top" secondItem="3v2-mG-GSH" secondAttribute="top" id="UaP-6v-drU"/>
+                            <constraint firstItem="Vfq-zd-QKM" firstAttribute="centerX" secondItem="4cg-VS-odw" secondAttribute="centerX" id="VIt-Xv-CRX"/>
+                            <constraint firstItem="9DT-wp-icH" firstAttribute="centerX" secondItem="Vfq-zd-QKM" secondAttribute="centerX" id="i00-OC-rnI"/>
+                            <constraint firstItem="4cg-VS-odw" firstAttribute="centerY" secondItem="3v2-mG-GSH" secondAttribute="centerY" id="qfk-nt-NwB"/>
+                            <constraint firstItem="4cg-VS-odw" firstAttribute="top" secondItem="Vfq-zd-QKM" secondAttribute="bottom" constant="28" id="v6O-X8-Wkq"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Calendrier" id="LYN-6J-5BD"/>
+                    <tabBarItem key="tabBarItem" title="Calendrier" image="calendar-1" selectedImage="calendar-1" id="LYN-6J-5BD"/>
                     <connections>
                         <outlet property="downloadButton" destination="4cg-VS-odw" id="XoR-CS-hQO"/>
                     </connections>
@@ -327,7 +346,7 @@
                                                 <rect key="frame" x="73" y="8" width="79" height="73"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EFREI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mll-nX-w6B">
-                                                <rect key="frame" x="94" y="116" width="39" height="21"/>
+                                                <rect key="frame" x="93.5" y="116" width="39" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="DjO-Jp-xje"/>
                                                 </constraints>
@@ -336,7 +355,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paul BÉNÉTEAU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIg-2w-2Id">
-                                                <rect key="frame" x="44" y="89" width="138" height="28"/>
+                                                <rect key="frame" x="44.5" y="89" width="137.5" height="28"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="19"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1047,6 +1066,7 @@
         <image name="avatar" width="79" height="79"/>
         <image name="backButton" width="10" height="29"/>
         <image name="calendar" width="67" height="69"/>
+        <image name="calendar-1" width="30" height="30"/>
         <image name="close-envelope" width="116" height="83"/>
         <image name="filter" width="54" height="55"/>
         <image name="home" width="106" height="84"/>
@@ -1054,7 +1074,7 @@
         <image name="off-button" width="24" height="26"/>
         <image name="passwordIcon" width="18" height="22"/>
         <image name="phone-receiver" width="91" height="91"/>
-        <image name="user" width="20" height="26"/>
+        <image name="user" width="30" height="30"/>
         <image name="userIcon" width="18" height="21"/>
     </resources>
 </document>

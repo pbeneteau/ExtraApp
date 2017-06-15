@@ -92,13 +92,6 @@ class LoginViewController: UIViewController {
                 student.setPassword(password: self.passwordTextField.text!)
                 student.setUsername(username: self.usernameTextField.text!)
                 
-                if userDefaults.string(forKey: "username") != nil {
-                    if userDefaults.string(forKey: "username") !=  self.usernameTextField.text!{
-                        if let bundle = Bundle.main.bundleIdentifier {
-                            UserDefaults.standard.removePersistentDomain(forName: bundle)
-                        }
-                    }
-                }
                 userDefaults.set(self.passwordTextField.text!, forKey: "password")
                 userDefaults.set(self.usernameTextField.text!, forKey: "username")
                 
@@ -108,6 +101,13 @@ class LoginViewController: UIViewController {
                 {
                     log { (success, isTimedOut) in
                         if success { // Redirection Profile
+                            if userDefaults.string(forKey: "username") != nil {
+                                if userDefaults.string(forKey: "username") !=  self.usernameTextField.text!{
+                                    if let bundle = Bundle.main.bundleIdentifier {
+                                        UserDefaults.standard.removePersistentDomain(forName: bundle)
+                                    }
+                                }
+                            }
                             self.initInformations { (success,isTimedOut) in
                                 if success {
                                     self.loginButton2.startFinishAnimation(0) {
