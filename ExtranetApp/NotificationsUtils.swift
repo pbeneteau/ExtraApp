@@ -92,14 +92,6 @@ class NotificationsUtils: NSObject {
                         }
                     }
                 }
-                let badgeCount: Int = newNotesPath.count
-                let application = UIApplication.shared
-                let center = UNUserNotificationCenter.current()
-                center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
-                    // Enable or disable features based on authorization.
-                }
-                application.registerForRemoteNotifications()
-                application.applicationIconBadgeNumber = badgeCount
             }
         }
     }

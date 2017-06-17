@@ -16,6 +16,7 @@ target 'ExtranetApp' do
     pod 'Whisper'
     pod 'TextFieldEffects'
     pod 'TKSubmitTransitionSwift3'
+    pod 'NVActivityIndicatorView'
 
     target 'ExtranetAppTests' do
         inherit! :search_paths

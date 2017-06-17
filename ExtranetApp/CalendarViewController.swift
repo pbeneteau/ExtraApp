@@ -11,9 +11,17 @@ import UIKit
 class CalendarViewController: UIViewController {
 
     @IBOutlet weak var downloadButton: UIButton!
+    private var canDownload: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        student.initCalendarLink { (success,isTimedUot) in
+            if success {
+                self.canDownload = true
+            } else {
+                print("ddd")
+            }
+        }
         
     }
 
@@ -23,11 +31,13 @@ class CalendarViewController: UIViewController {
     }
     
     @IBAction func downloadButtonPressed(_ sender: Any) {
-        let url = NSURL(string: student.getCalendarLink())
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url! as URL)
-        } else {
-            UIApplication.shared.openURL(url! as URL)
+        if canDownload {
+            let url = NSURL(string: student.getCalendarLink())
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url! as URL)
+            } else {
+                UIApplication.shared.openURL(url! as URL)
+            }
         }
     }
 

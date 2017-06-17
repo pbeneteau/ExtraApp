@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController {
             let newPic = self.resizeImage(image: picture, targetSize: self.picture.frame.size)
             self.picture.image = newPic
             self.picture.clipsToBounds = true
-            self.picture.layer.cornerRadius = self.picture.frame.size.height / 2
+            self.picture.layer.cornerRadius = newPic.size.height / 2
         }
 
     }

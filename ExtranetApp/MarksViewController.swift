@@ -260,6 +260,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func initFilterView() {
+        semesters.removeAll()
+        
         let semesterNames = student.getSemestersNamesList()
         for i in 0..<semesterNames.count {
             

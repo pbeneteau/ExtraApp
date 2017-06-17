@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileInfoViewController: UIViewController {
+class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var containerView: UIView!
     
@@ -17,6 +17,11 @@ class ProfileInfoViewController: UIViewController {
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var labels = [String]()
+    var images = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +41,38 @@ class ProfileInfoViewController: UIViewController {
     
     func initProfileLabels() {
         
-        self.birthDateLabel.text = student.getBirthDate()
-        self.addressLabel.text = student.getAddress()
-        self.cityLabel.text = student.getCity()
-        self.phoneLabel.text = student.getPhone()
-        self.emailLabel.text = student.getEmail()
+        
+        labels.append(student.getEmail())
+        labels.append(student.getPhone())
+        labels.append(student.getBirthDate())
+        labels.append(student.getCity())
+        labels.append(student.getAddress())
+        
+        images = ["close-envelope", "phone-receiver", "calendar", "home"]
+        
+        tableView.reloadData()
+
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "infoCell")
+        
+        (cell.viewWithTag(6) as? UILabel)?.text = labels[indexPath.row]
+                
+        if indexPath.row != 4 {
+            
+            let image: UIImage = UIImage(named: images[indexPath.row])!
+            
+            (cell.viewWithTag(7) as? UIImageView)?.image = image
+        }
+        
+        return cell
     }
 }

@@ -12,12 +12,15 @@ import Alamofire
 import JSSAlertView
 import TextFieldEffects
 import TKSubmitTransitionSwift3
+import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: KaedeTextField!
     @IBOutlet weak var passwordTextField: KaedeTextField!
     
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
+    @IBOutlet weak var mainView: UIView!
     
     @IBOutlet weak var backgroundView: UIImageView!
     
@@ -44,17 +47,21 @@ class LoginViewController: UIViewController {
         // Si deja login
         if userDefaults.string(forKey: "isLogged") != nil {
             if userDefaults.string(forKey: "isLogged") == "loggedIn" {
+                self.mainView.isHidden = true
+                self.activityIndicator.startAnimating()
                 if Reachability.isConnectedToNetwork() == true {
                     autoLogin { (success,isTimedOut) in
                         if success {
                             self.initInformations { (success,isTimedOut) in
                                 if success {
+                                    self.activityIndicator.stopAnimating()
                                     moveToProfile()
                                 }
                             }
                         } else {
                             self.initInformations { (success,isTimedOut) in
                                 if success {
+                                    self.activityIndicator.stopAnimating()
                                     moveToProfile()
                                 }
                             }
@@ -63,6 +70,7 @@ class LoginViewController: UIViewController {
                 } else {
                     self.initInformations { (success,isTimedOut) in
                         if success {
+                            self.activityIndicator.stopAnimating()
                             moveToProfile()
                         }
                     }
@@ -110,35 +118,43 @@ class LoginViewController: UIViewController {
                             }
                             self.initInformations { (success,isTimedOut) in
                                 if success {
+                                    self.view.endEditing(true)
                                     self.loginButton2.startFinishAnimation(0) {
                                         moveToProfile()
                                     }
                                 } else if isTimedOut {
+                                    self.view.endEditing(true)
                                     self.loginButton2.returnToOriginalState()
                                     showAlert(title: "Attention", message: "Mauvaise connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                                 } else {
+                                    self.view.endEditing(true)
                                     self.loginButton2.returnToOriginalState()
                                     showAlert(title: "Attention", message: "Pas de connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                                 }
                             }
                         } else if isTimedOut { // Time Out
+                            self.view.endEditing(true)
                             self.loginButton2.returnToOriginalState()
                             showAlert(title: "Attention", message: "Mauvaise connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                         } else { // Mauvaise combinaison
+                            self.view.endEditing(true)
                             self.loginButton2.returnToOriginalState()
                             showAlert(title: "Attention", message: "Mauvaise combinaison", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                         }
                     }
                 } else { // Pas de connection
+                    self.view.endEditing(true)
                     self.loginButton2.returnToOriginalState()
                     showAlert(title: "Attention", message: "Pas de connexion internet", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
                 }
                 
                 
             } else {
+                self.view.endEditing(true)
                 showAlert(title: "Attention", message: "Veuillez entrer correctement vos Ids", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
             }
         } else {
+            self.view.endEditing(true)
             showAlert(title: "Attention", message: "Veuillez entrer correctement vos Ids", color: UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0), sender: self)
         }
     }

@@ -177,7 +177,7 @@ class Student {
             for vn in studentVnCodes {
                 let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
                 
-                Alamofire.request(url).responseString { response in
+                manager.request(url).responseString { response in
                     
                     switch (response.result) {
                     case .success:
@@ -536,6 +536,7 @@ class Student {
                     let str = response.result.value?.slice(from: "OpenCalendar?key=", to: "%3D%3D")!
                     self.calendarLink = "https://extranet.groupe-efrei.fr/Student/OpenCalendar?key=\(String(str!)!)%3D%3D&langue=FR"
                 }
+                completionHandler(true,true)
                 break
             case .failure(let error):
                 if error._code == NSURLErrorTimedOut {
