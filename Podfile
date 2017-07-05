@@ -17,6 +17,8 @@ target 'ExtranetApp' do
     pod 'TextFieldEffects'
     pod 'TKSubmitTransitionSwift3'
     pod 'NVActivityIndicatorView'
+    pod 'KDCircularProgress'
+    pod 'MarqueeLabel/Swift'
 
     target 'ExtranetAppTests' do
         inherit! :search_paths

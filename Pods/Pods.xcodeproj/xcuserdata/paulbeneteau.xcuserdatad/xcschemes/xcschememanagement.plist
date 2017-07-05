@@ -29,6 +29,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KDCircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MarqueeLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NVActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pageboy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,12 +102,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1C007CFBC81A30195B45EC6C1FE87BAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>25755376B164310EA3CDA19F40374F6D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2C7B5CAC7D60E54D9981AF607F147E37</key>
+		<key>320AD47B0C6BA014D301395D3BFC8FB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>322428ECC8C5EC71F14C92233787C7AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,22 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>41BC5810846C96A29E081A11D2E1ECB6</key>
+		<key>3EDFE4052B5DE7D509935AC0774CB135</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>444926FD1519DA8CCFFB97B873F2B58F</key>
+		<key>3F86ADE3B2FABD8E512E367FF416035D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4CAA1B68D16487A0B9C2245588F42356</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4F089E1A721B44F32E3DC0F5D4BAE28C</key>
+		<key>5B344B961D1820C5A70477194BEEB43E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,7 +147,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F509338C36E51E9F4827A8AE144EDD8</key>
+		<key>B034508BEFC65C790B2F15CA8DE91389</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B05A5A1B0A529DABC580589D191450AA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,17 +167,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>D08A200EBD3DA88D5F91D3FEBEEFA8D8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D368184BEED712B6A15E4767FE420BE5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E9CCFC6EE734FA88ADE695BE639AD7EC</key>
+		<key>EFBF023FB6349BDCF48DBFF66CFCD517</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ECAABD9B7D962EA13DAD956E554812CA</key>
+		<key>F2560F61C8D5C9443F1EDE81813C7A82</key>
 		<dict>
 			<key>primary</key>
 			<true/>

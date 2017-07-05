@@ -19,19 +19,33 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    private var profilePicture: UIImage!
+    
     var msgDisplayed = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         nameLabel.text = student.getName()
-        student.downloadPicture { picture in
-            let newPic = self.resizeImage(image: picture, targetSize: self.picture.frame.size)
+        
+        if let imageData = userDefaults.object(forKey: "profilePicture"),
+            let image = UIImage(data: (imageData as! Data)) {
+            let newPic = self.resizeImage(image: image, targetSize: self.picture.frame.size)
             self.picture.image = newPic
             self.picture.clipsToBounds = true
-            self.picture.layer.cornerRadius = newPic.size.height / 2
+        } else {
+            student.downloadPicture { (success, pictureData, timeOut) in
+                if success {
+                    if let picture = UIImage(data: pictureData) {
+                        self.profilePicture = picture
+                        let newPic = self.resizeImage(image: self.profilePicture, targetSize: self.picture.frame.size)
+                        self.picture.image = newPic
+                        self.picture.clipsToBounds = true
+                        self.saveProfilePiture()
+                    }
+                }
+            }
         }
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,10 +62,14 @@ class ProfileViewController: UIViewController {
             msgDisplayed = 1
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
+        
+    }
+    
+    func saveProfilePiture() {
+        userDefaults.set(UIImagePNGRepresentation(self.profilePicture), forKey: "profilePicture")
     }
     
     @IBAction func logOutButtonPressed(_ sender: Any) {

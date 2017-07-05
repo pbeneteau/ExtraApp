@@ -11,13 +11,7 @@ import UIKit
 class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var containerView: UIView!
-    
-    @IBOutlet weak var birthDateLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    
+    @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var labels = [String]()
@@ -30,6 +24,16 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         containerView.layer.shadowOpacity = 0.18
         containerView.layer.shadowRadius = 10
         containerView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
+        
+        
+        let border = CALayer()
+        let width = CGFloat(0.5)
+        border.borderColor = UIColor.lightGray.cgColor
+        border.frame = CGRect(x: 0, y: informationsLabel.frame.size.height - width, width:  informationsLabel.frame.size.width, height: informationsLabel.frame.size.height)
+        
+        border.borderWidth = width
+        informationsLabel.layer.addSublayer(border)
+        informationsLabel.layer.masksToBounds = true
         
         self.initProfileLabels()
     }
@@ -62,10 +66,11 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "infoCell")
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as UITableViewCell
         
         (cell.viewWithTag(6) as? UILabel)?.text = labels[indexPath.row]
-                
+        
         if indexPath.row != 4 {
             
             let image: UIImage = UIImage(named: images[indexPath.row])!

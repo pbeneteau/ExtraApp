@@ -43,6 +43,8 @@ public func cleanMarksJSONinfos(string: String) -> String {
     newString = newString.replacingOccurrences(of: ",listeners:{afterrender:{fn:function(item){Ext.net.DirectMethod.request({url: '/Student/Absence/Summary', timeout: 600000, cleanRequest: true, eventMask: {showMask:true} });}}}", with: "")
     newString = newString.replacingOccurrences(of: "id:\"ExtranetRightContent\",border:false,xtype:\"panel\",flex:3,", with: "")
     newString = newString.replacingOccurrences(of: "{cls:\"x-panel-alert\",style:\"padding: 5px\",items:[{cls:\"alert-label\",xtype:\"netlabel\",text:\"No alerts\"}],layout:\"vbox\",title:\"Important Messages\"},", with: "")
+    newString = newString.replacingOccurrences(of: "{cls:\"x-panel-alert\",style:\"padding: 5px\",items:[{cls:\"alert-label\",xtype:\"netlabel\",text:\"No alerts\"}],layout:\"vbox\",title:\"Messages Importants\"},", with: "")
+    
     newString = newString.replacingOccurrences(of: "cls:\"x-panel-infoperso\",style:\"padding: 5px\",", with: "")
     newString = newString.replacingOccurrences(of: ",{border:false,minHeight:170,style:\"padding: 5px\",xtype:\"container\",flex:1,items:[{xtype:\"netimage\",imageUrl:\"/Student/Home/Photo\"}]}", with: "")
     newString = newString.replacingOccurrences(of: "border:false,padding:0,xtype:\"fieldset\",flex:2,", with: "")
@@ -54,7 +56,10 @@ public func cleanMarksJSONinfos(string: String) -> String {
     newString = newString.replacingOccurrences(of: "xtype:\"fieldcontainer\",", with: "")
     newString = newString.replacingOccurrences(of: "id:\"idd0b11e8e78ad36ef\",xtype:\"displayfield\",", with: "")
     newString = newString.replacingOccurrences(of: ",fieldLabel:\"E-mail\",labelWidth:50", with: "")
+    
     newString = newString.replacingOccurrences(of: ",layout:\"hbox\",title:\"Personal Data\"", with: "")
+    newString = newString.replacingOccurrences(of: ",layout:\"hbox\",title:\"Infos personnelles\"", with: "")
+    
     newString = newString.replacingOccurrences(of: "items:", with: "\"items\":")
     newString = newString.replacingOccurrences(of: "id:", with: "\"id\":")
     newString = newString.replacingOccurrences(of: "xtype:", with: "\"xtype\":")

@@ -16,6 +16,8 @@ import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var splashScreen: UIImageView!
+    
     @IBOutlet weak var usernameTextField: KaedeTextField!
     @IBOutlet weak var passwordTextField: KaedeTextField!
     
@@ -38,6 +40,8 @@ class LoginViewController: UIViewController {
         
         loginButton2.layer.cornerRadius = loginButton2.frame.size.height / 2
         
+        self.activityIndicator.startAnimating()
+        
         // Auto completion des textFields
         if userDefaults.string(forKey: "password") != nil || userDefaults.string(forKey: "username") != nil{
             passwordTextField.text! = userDefaults.string(forKey: "password")!
@@ -56,6 +60,7 @@ class LoginViewController: UIViewController {
                                 if success {
                                     self.activityIndicator.stopAnimating()
                                     moveToProfile()
+                                    self.splashScreen.isHidden = true
                                 }
                             }
                         } else {
@@ -63,6 +68,7 @@ class LoginViewController: UIViewController {
                                 if success {
                                     self.activityIndicator.stopAnimating()
                                     moveToProfile()
+                                    self.splashScreen.isHidden = true
                                 }
                             }
                         }
@@ -72,12 +78,17 @@ class LoginViewController: UIViewController {
                         if success {
                             self.activityIndicator.stopAnimating()
                             moveToProfile()
+                            self.splashScreen.isHidden = true
                         }
                     }
                 }
+            } else {
+                self.splashScreen.isHidden = true
             }
         } else {
             userDefaults.set("loggedIn", forKey: "notLogged")
+            self.splashScreen.isHidden = true
+
         }
         
     }
@@ -93,7 +104,6 @@ class LoginViewController: UIViewController {
     }
     
     func loginButtonPressed() {
-        
         
         if self.passwordTextField.text! != "" {
             if self.usernameTextField.text! != "" {

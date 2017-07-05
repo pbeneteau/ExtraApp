@@ -43,13 +43,17 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
-        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+
         courseJSON = semesterJSON[subjectSelected]["children"][courseSelected]
         
         initDetailview()
         
         initCourses()
         
+        self.tableview.contentInset = UIEdgeInsets(top: 20,left: 0,bottom: 0,right: 0)
+        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,7 +121,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
             exam = exam.replacingOccurrences(of: "(", with: "")
             exam = exam.replacingOccurrences(of: ")", with: "")
             
-            var mark = course[i]["MarkCode"].stringValue
+            var mark = course[i]["MarkCode"].stringValue.replacingOccurrences(of: ",", with: ".")
             var weight = course[i]["Weight"].stringValue
             
             if weight == "" {

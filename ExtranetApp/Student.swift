@@ -32,16 +32,18 @@ class Student {
         
     }
     
-    
-    public func initInfos(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
-        
+    public func initInfos(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {        
             let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
             
             manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
+                print(response)
                 switch (response.result) {
+                    
                 case .success:
                     let dataString = cleanMarksJSONinfos(string: response.result.value!)
+                    
                     if let dict = convertToDictionary(text: dataString) {
+                        print(dict)
                         self.name = JSON(dict)["items"][0]["items"][0]["items"][0]["value"].stringValue
                         self.name = self.name.replacingOccurrences(of: ",", with: " ")
                         self.birthDate = JSON(dict)["items"][0]["items"][0]["items"][1]["value"].stringValue
@@ -239,7 +241,6 @@ class Student {
         }
     }
     
-    
     func encodeEscapeUrl(string: String) -> String {
         
         let escapedString = string.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
@@ -261,55 +262,30 @@ class Student {
         }
     }
     
-    func listMarks(jsonFile: JSON) {
+    public func downloadPicture(completionHandler: @escaping (_ success: Bool, _ picture: Data, _ isTimedOut: Bool) -> ()) {
         
-        if jsonFile["children"].count > 0 {
-            let years = jsonFile["children"]
-            for i in 0..<years.count {
-                print("\(years[i]["Title"].stringValue)")
-                print("     |")
-                
-                let semesters = years[i]["children"]
-                for i in 0..<semesters.count {
-                    print("     \(semesters[i]["Title"].stringValue)")
-                    print("             |")
-                    
-                    let modules = semesters[i]["children"]
-                    for i in 0..<modules.count {
-                        print("             \(modules[i]["Title"].stringValue)          credits: \(modules[i]["CreditsAttempt"].stringValue)")
-                        print("                     |")
-                        
-                        let courses = modules[i]["children"]
-                        for i in 0..<courses.count {
-                            print("                     \(courses[i]["Title"].stringValue)          coefficient: \(courses[i]["Weight"].stringValue)")
-                            print("                             Moyenne: \(courses[i]["MarkCode"].stringValue)")
-                            
-                            
-                            let exams = courses[i]["children"]
-                            for i in 0..<exams.count {
-                                print("                             \(exams[i]["Title"].stringValue)          coefficient: \(exams[i]["Weight"].stringValue)")
-                                print("                                     Note: \(exams[i]["MarkCode"].stringValue)")
-                                
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    public func downloadPicture(completionHandler: @escaping (_ picture: UIImage) -> ()) {
-        
-        let destination = DownloadRequest.suggestedDownloadDestination()
         let url = "https://extranet.groupe-efrei.fr/Student/Home/Photo/"
         
-        Alamofire.download(url, to: destination).validate().responseData { response in
-            if response.error != nil {
-            } else {
-                if let data = response.result.value {
-                    completionHandler(UIImage(data: data)!)
+        var pictureData = Data()
+        
+        manager.request(url).validate().responseData { response in
+            switch (response.result) {
+            case .success:
+                if response.result.value != nil {
+                    pictureData = response.result.value!
+                    completionHandler(true, pictureData, false)
+                } else {
+                    completionHandler(false,pictureData, false)
                 }
+                break
+            case .failure(let error):
+                if error._code == NSURLErrorTimedOut {
+                    completionHandler(false,pictureData, true)
+                }
+                completionHandler(false,pictureData, false)
+                break
             }
+
         }
     }
     

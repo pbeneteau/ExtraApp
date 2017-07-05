@@ -14,7 +14,6 @@
 		006DD1D91EE73F0500E71768 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D81EE73F0500E71768 /* utils.swift */; };
 		006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1DA1EE741E800E71768 /* MarksViewController.swift */; };
 		00715F661EECA14600EEB714 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00715F651EECA14600EEB714 /* TabBarViewController.swift */; };
-		008118551EEE8FEF003BF37E /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008118541EEE8FEF003BF37E /* CalendarViewController.swift */; };
 		00DB83891EEC80B30023A505 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DB83881EEC80B30023A505 /* UserNotifications.framework */; };
 		00EC49931EEC1BBA00443ACD /* ModuleSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */; };
 		00FB5E911EE9AE900080D172 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00FB5E851EE9AE900080D172 /* Roboto-Black.ttf */; };
@@ -41,6 +40,11 @@
 		382027A91EDF5BA90092D384 /* ExtranetAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382027A81EDF5BA90092D384 /* ExtranetAppUITests.swift */; };
 		38283FD31EE9B17000A9DE49 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38283FD21EE9B17000A9DE49 /* CourseTableViewCell.swift */; };
 		38B6DBF01EE98D2E00E592BB /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B6DBEF1EE98D2E00E592BB /* Reachability.swift */; };
+		38CCD2381F0BF06D007116DD /* ComputersAvalaibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CCD2371F0BF06D007116DD /* ComputersAvalaibilityViewController.swift */; };
+		38CCD23A1F0BF0A5007116DD /* ProfileCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CCD2391F0BF0A5007116DD /* ProfileCalendarViewController.swift */; };
+		38CCD23C1F0C0DA3007116DD /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CCD23B1F0C0DA3007116DD /* LaunchScreenViewController.swift */; };
+		38CCD2401F0D6526007116DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CCD23F1F0D6526007116DD /* SettingsViewController.swift */; };
+		38CCD2421F0D654F007116DD /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CCD2411F0D654F007116DD /* SettingsTableViewController.swift */; };
 		4308C4C08547E5A369D46C55 /* Pods_ExtranetAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A4694A4E085201FB81B6CA /* Pods_ExtranetAppTests.framework */; };
 		CDD7D5E890A9042A41D52BD9 /* Pods_ExtranetAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D29F3410D68F1CC38FD218E4 /* Pods_ExtranetAppUITests.framework */; };
 		EFEABB13575FF849D99FE03E /* Pods_ExtranetApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977E027FC4C5EEC0B390966B /* Pods_ExtranetApp.framework */; };
@@ -71,7 +75,6 @@
 		006DD1D81EE73F0500E71768 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		006DD1DA1EE741E800E71768 /* MarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MarksViewController.swift; sourceTree = "<group>"; };
 		00715F651EECA14600EEB714 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		008118541EEE8FEF003BF37E /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		00DB83871EEC7EC70023A505 /* ExtranetApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExtranetApp.entitlements; sourceTree = "<group>"; };
 		00DB83881EEC80B30023A505 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleSectionView.xib; sourceTree = "<group>"; };
@@ -106,6 +109,11 @@
 		382027AA1EDF5BA90092D384 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38283FD21EE9B17000A9DE49 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		38B6DBEF1EE98D2E00E592BB /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		38CCD2371F0BF06D007116DD /* ComputersAvalaibilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputersAvalaibilityViewController.swift; sourceTree = "<group>"; };
+		38CCD2391F0BF0A5007116DD /* ProfileCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCalendarViewController.swift; sourceTree = "<group>"; };
+		38CCD23B1F0C0DA3007116DD /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		38CCD23F1F0D6526007116DD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		38CCD2411F0D654F007116DD /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		47A4694A4E085201FB81B6CA /* Pods_ExtranetAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExtranetAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB7D9248F386D74EABADDB3 /* Pods-ExtranetAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExtranetAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExtranetAppTests/Pods-ExtranetAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6E5B7D89602CF385F9CE031D /* Pods-ExtranetAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExtranetAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExtranetAppUITests/Pods-ExtranetAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +179,7 @@
 				3813AC611EE9FBD1004D8813 /* ProfileDetailsViewController.swift */,
 				3813AC651EEABCA8004D8813 /* ProfileNotificationsViewController.swift */,
 				3813AC631EEA01A5004D8813 /* ProfileInfoViewController.swift */,
+				38CCD2391F0BF0A5007116DD /* ProfileCalendarViewController.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -205,14 +214,16 @@
 				382027881EDF5BA90092D384 /* AppDelegate.swift */,
 				38E168F61EEC4B4D001B6657 /* Utils */,
 				006DD1D41EE7274D00E71768 /* LoginViewController.swift */,
+				38CCD2371F0BF06D007116DD /* ComputersAvalaibilityViewController.swift */,
+				38CCD2431F0D6554007116DD /* Settings */,
 				3813AC671EEB1029004D8813 /* Profile */,
 				38E168F71EEC4B7D001B6657 /* Marks */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
-				00715F651EECA14600EEB714 /* TabBarViewController.swift */,
-				008118541EEE8FEF003BF37E /* CalendarViewController.swift */,
 				00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */,
+				00715F651EECA14600EEB714 /* TabBarViewController.swift */,
 				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
+				38CCD23B1F0C0DA3007116DD /* LaunchScreenViewController.swift */,
 				382027941EDF5BA90092D384 /* Info.plist */,
 			);
 			path = ExtranetApp;
@@ -234,6 +245,15 @@
 				382027AA1EDF5BA90092D384 /* Info.plist */,
 			);
 			path = ExtranetAppUITests;
+			sourceTree = "<group>";
+		};
+		38CCD2431F0D6554007116DD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				38CCD23F1F0D6526007116DD /* SettingsViewController.swift */,
+				38CCD2411F0D654F007116DD /* SettingsTableViewController.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		38E168F61EEC4B4D001B6657 /* Utils */ = {
@@ -471,7 +491,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		45DB91C45759390B83007DAF /* [CP] Embed Pods Frameworks */ = {
@@ -501,7 +521,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		6AD136034FB943819396D6B4 /* [CP] Copy Pods Resources */ = {
@@ -546,7 +566,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		CF17527923868028488552D2 /* [CP] Copy Pods Resources */ = {
@@ -586,9 +606,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				008118551EEE8FEF003BF37E /* CalendarViewController.swift in Sources */,
+				38CCD23A1F0BF0A5007116DD /* ProfileCalendarViewController.swift in Sources */,
+				38CCD2381F0BF06D007116DD /* ComputersAvalaibilityViewController.swift in Sources */,
 				006DD1D51EE7274D00E71768 /* LoginViewController.swift in Sources */,
 				006DD1D71EE737F300E71768 /* ProfileViewController.swift in Sources */,
+				38CCD23C1F0C0DA3007116DD /* LaunchScreenViewController.swift in Sources */,
 				006DD1D91EE73F0500E71768 /* utils.swift in Sources */,
 				006DD1DB1EE741E800E71768 /* MarksViewController.swift in Sources */,
 				00715F661EECA14600EEB714 /* TabBarViewController.swift in Sources */,
@@ -600,7 +622,9 @@
 				38B6DBF01EE98D2E00E592BB /* Reachability.swift in Sources */,
 				3813AC641EEA01A5004D8813 /* ProfileInfoViewController.swift in Sources */,
 				382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */,
+				38CCD2421F0D654F007116DD /* SettingsTableViewController.swift in Sources */,
 				38283FD31EE9B17000A9DE49 /* CourseTableViewCell.swift in Sources */,
+				38CCD2401F0D6526007116DD /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
