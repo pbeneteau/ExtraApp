@@ -11,10 +11,16 @@ import UIKit
 class SettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var averagesCalculationSwitch: UISwitch!
+    @IBOutlet weak var touchIDSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initUserSettingsValues()
+
+    }
+    
+    func initUserSettingsValues() {
         
         if userDefaults.object(forKey: "averagesCalculation") != nil {
             
@@ -28,11 +34,19 @@ class SettingsTableViewController: UITableViewController {
             userDefaults.set(true, forKey: "averagesCalculation")
             averagesCalculationSwitch.isOn = true
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        if userDefaults.object(forKey: "touchIdLogin") != nil {
+            
+            let state = userDefaults.bool(forKey: "touchIdLogin")
+            if state == true {
+                touchIDSwitch.isOn = true
+            } else {
+                touchIDSwitch.isOn = false
+            }
+        } else {
+            userDefaults.set(true, forKey: "touchIdLogin")
+            touchIDSwitch.isOn = false
+        }
     }
     
     // MARK: - Table view data source
@@ -107,6 +121,14 @@ class SettingsTableViewController: UITableViewController {
             userDefaults.set(true, forKey: "averagesCalculation")
         } else {
             userDefaults.set(false, forKey: "averagesCalculation")
+        }
+    }
+    
+    @IBAction func touchIDSwitchAction(_ sender: Any) {
+        if touchIDSwitch.isOn {
+            userDefaults.set(true, forKey: "touchIdLogin")
+        } else {
+            userDefaults.set(false, forKey: "touchIdLogin")
         }
     }
 }

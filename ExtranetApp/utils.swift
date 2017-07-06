@@ -143,3 +143,11 @@ extension String {
     }
 }
 
+public func registerNotificationWillEnterForeground(observer: AnyObject, selector: Selector) {
+    // Handle when the app becomes active, going from the background to the foreground
+    NotificationCenter.default.addObserver(observer, selector: selector, name: .UIApplicationWillEnterForeground, object: nil)
+}
+
+public func removeObserverForNotifications(observer: AnyObject) {
+    NotificationCenter.default.removeObserver(observer)
+}

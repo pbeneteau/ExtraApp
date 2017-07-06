@@ -13,6 +13,8 @@ import JSSAlertView
 import TextFieldEffects
 import TKSubmitTransitionSwift3
 import NVActivityIndicatorView
+import LocalAuthentication
+
 
 class LoginViewController: UIViewController {
     
@@ -30,8 +32,20 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var helpButton: UIButton!
     
+    var message = ""
+    
+    var context = LAContext()
+    var policy : LAPolicy?
+    
+    deinit {
+        removeObserverForNotifications(observer: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+                
+        setupController()
+        updateUI()
         
         configuration.timeoutIntervalForRequest = 6 // seconds
         configuration.timeoutIntervalForResource = 6
@@ -51,26 +65,42 @@ class LoginViewController: UIViewController {
         // Si deja login
         if userDefaults.string(forKey: "isLogged") != nil {
             if userDefaults.string(forKey: "isLogged") == "loggedIn" {
-                self.mainView.isHidden = true
-                self.activityIndicator.startAnimating()
-                if Reachability.isConnectedToNetwork() == true {
-                    autoLogin { (success,isTimedOut) in
+                
+                if userDefaults.bool(forKey: "touchIdLogin") {
+                    
+                    loginProcess(policy: policy!) { success in
+                        
                         if success {
-                            self.initInformations { (success,isTimedOut) in
-                                if success {
-                                    self.activityIndicator.stopAnimating()
-                                    moveToProfile()
-                                    self.splashScreen.isHidden = true
-                                }
-                            }
+                            self.initLogin()
                         } else {
-                            self.initInformations { (success,isTimedOut) in
-                                if success {
-                                    self.activityIndicator.stopAnimating()
-                                    moveToProfile()
-                                    self.splashScreen.isHidden = true
-                                }
-                            }
+                            print("wrong touch id")
+                        }
+                    }
+                } else {
+                    self.initLogin()
+                }
+            } else {
+                self.splashScreen.isHidden = true
+            }
+        } else {
+            userDefaults.set("loggedIn", forKey: "notLogged")
+            self.splashScreen.isHidden = true
+            
+        }
+    }
+    
+    func initLogin() {
+        
+        self.mainView.isHidden = true
+        self.activityIndicator.startAnimating()
+        if Reachability.isConnectedToNetwork() == true {
+            self.autoLogin { (success,isTimedOut) in
+                if success {
+                    self.initInformations { (success,isTimedOut) in
+                        if success {
+                            self.activityIndicator.stopAnimating()
+                            moveToProfile()
+                            self.splashScreen.isHidden = true
                         }
                     }
                 } else {
@@ -82,20 +112,48 @@ class LoginViewController: UIViewController {
                         }
                     }
                 }
-            } else {
-                self.splashScreen.isHidden = true
             }
         } else {
-            userDefaults.set("loggedIn", forKey: "notLogged")
-            self.splashScreen.isHidden = true
-
+            self.initInformations { (success,isTimedOut) in
+                if success {
+                    self.activityIndicator.stopAnimating()
+                    moveToProfile()
+                    self.splashScreen.isHidden = true
+                }
+            }
         }
-        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    private func setupController() {
+        registerNotificationWillEnterForeground(observer: self, selector: #selector(self.updateUI))
+        
+        // The Refresh button will let us to repeat the login process so many times as we want
+        //refresh.alpha = 0
+    }
+    
+    
+    func updateUI() {
+        // Depending the iOS version we'll need to choose the policy we are able to use
+        if #available(iOS 9.0, *) {
+            // iOS 9+ users with Biometric and Passcode verification
+            policy = .deviceOwnerAuthentication
+        } else {
+            // iOS 8+ users with Biometric and Custom (Fallback button) verification
+            context.localizedFallbackTitle = "Fuu!"
+            policy = .deviceOwnerAuthenticationWithBiometrics
+        }
+        
+        var err: NSError?
+        
+        // Check if the user is able to use the policy we've selected previously
+        guard context.canEvaluatePolicy(policy!, error: &err) else {
+            // Print the localized message received by the system
+            print(err?.localizedDescription)
+            return
+        }
+        
+        // Great! The user is able to use his/her Touch ID 👍
         
     }
     
@@ -104,6 +162,8 @@ class LoginViewController: UIViewController {
     }
     
     func loginButtonPressed() {
+        
+        userDefaults.set(false, forKey: "touchIdLogin")
         
         if self.passwordTextField.text! != "" {
             if self.usernameTextField.text! != "" {
@@ -234,4 +294,61 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    private func loginProcess(policy: LAPolicy, completionHandler: @escaping (_ success: Bool) -> ()) {
+        
+        // Start evaluation process with a callback that is executed when the user ends the process successfully or not
+        context.evaluatePolicy(policy, localizedReason: "Utiliser Touch ID pour se connecter", reply: { (success, error) in
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5, animations: {
+                })
+                
+                guard success else {
+                    guard let error = error else {
+                        print("unexpected error")
+                        completionHandler(true)
+                        return
+                    }
+                    switch(error) {
+                    case LAError.authenticationFailed:
+                        self.message = "There was a problem verifying your identity."
+                    case LAError.userCancel:
+                        self.message = "Authentication was canceled by user."
+                        // Fallback button was pressed and an extra login step should be implemented for iOS 8 users.
+                    // By the other hand, iOS 9+ users will use the pasccode verification implemented by the own system.
+                    case LAError.userFallback:
+                        self.message = "The user tapped the fallback button (Fuu!)"
+                    case LAError.systemCancel:
+                        self.message = "Authentication was canceled by system."
+                    case LAError.passcodeNotSet:
+                        self.message = "Passcode is not set on the device."
+                    case LAError.touchIDNotAvailable:
+                        self.message = "Touch ID is not available on the device."
+                    case LAError.touchIDNotEnrolled:
+                        self.message = "Touch ID has no enrolled fingers."
+                    // iOS 9+ functions
+                    case LAError.touchIDLockout:
+                        self.message = "There were too many failed Touch ID attempts and Touch ID is now locked."
+                    case LAError.appCancel:
+                        self.message = "Authentication was canceled by application."
+                    case LAError.invalidContext:
+                        self.message = "LAContext passed to this call has been previously invalidated."
+                    // MARK: IMPORTANT: There are more error states, take a look into the LAError struct
+                    default:
+                        self.message = "Touch ID may not be configured"
+                        break
+                    }
+                    print(self.message)
+                    completionHandler(false)
+                    return
+                }
+                
+                // Good news! Everything went fine 👏
+                self.message = "worked!"
+                print(self.message)
+            }
+        })
+    }
+    
+    
 }
