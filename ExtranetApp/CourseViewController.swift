@@ -20,6 +20,7 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var exams = [String]()
     var marks = [String]()
     var weights = [String]()
+    var subjectAverage: Float = 0.0
     
     var detailViewOpen: Bool = false
     
@@ -102,7 +103,11 @@ class CourseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         averageMarksLabel.text = "\(courseJSON["MarkCode"].stringValue)"
         if averageMarksLabel.text == "" {
-            averageMarksLabel.text = "-"
+            if subjectAverage != 0.0 && subjectAverage != -1 {
+                averageMarksLabel.text = String(subjectAverage)
+            } else {
+                averageMarksLabel.text = "-"
+            }
         }
         subjectWeightLabel.text = "\(courseJSON["Weight"].stringValue)"
         if subjectWeightLabel.text == "" {

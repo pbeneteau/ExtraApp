@@ -182,7 +182,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             (cell.viewWithTag(4) as! UILabel).text = averagesSectionArray[indexPath.section][indexPath.row]
             (cell.viewWithTag(4) as! UILabel).textColor = UIColor(red:0.21, green:0.95, blue:0.59, alpha:1.0)
         } else {
-            if calculatedAverageArray[indexPath.section][indexPath.row] != 9999 {
+            if calculatedAverageArray[indexPath.section][indexPath.row] != -1 {
                 if calculatedAverageArray[indexPath.section][indexPath.row].isNaN == false {
                     (cell.viewWithTag(4) as! UILabel).text = String(format: "%.01f", calculatedAverageArray[indexPath.section][indexPath.row])
                     (cell.viewWithTag(4) as! UILabel).textColor = UIColor.lightGray
@@ -238,6 +238,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             detailController.semesterJSON = student.getSemesters()[selectedSemester]
             detailController.subjectSelected = sectionSelected
             detailController.courseSelected = indexSelected
+            detailController.subjectAverage = self.calculatedAverageArray[sectionSelected][indexSelected]
         }
     }
     
@@ -277,8 +278,17 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     mark = mark.replacingOccurrences(of: ",", with: ".")
                     coeff = coeff.replacingOccurrences(of: ",", with: ".")
-                                        
-                    if mark != "" && coeff != "" && mark != "ABS" {
+                    
+                
+                    
+                    if mark != "" && coeff != "" {
+                        if mark == "ABS" {
+                            if let doubleCoeff = Float(coeff) {
+                                marks.append(0.0)
+                                coeffs.append(doubleCoeff)
+                            }
+                        }
+                        
                         if let doubleMark = Float(mark), let doubleCoeff = Float(coeff) {
                             marks.append(doubleMark)
                             coeffs.append(doubleCoeff)
@@ -427,9 +437,9 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func arrayAverage(marks: [Float], coeffs: [Float]) -> Float {
         
         if marks.count != coeffs.count {
-            return 9999
+            return -1
         } else if marks.count == 0 || coeffs.count == 0 {
-            return 9999
+            return -1
         }
         var marksWithCoeff = [Float]()
         var totalCoeff: Float = 0
