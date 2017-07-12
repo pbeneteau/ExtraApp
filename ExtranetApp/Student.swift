@@ -27,44 +27,55 @@ class Student {
     var studentPicture = UIImage()
     private var semestersNamesList = [String]()
     private var calendarLink: String = ""
+    private let pre = Locale.preferredLanguages[0]
     
     init() {
         
     }
     
-    public func initInfos(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {        
-            let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
+    public func initInfos(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
+        let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
+        
+        manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
             
-            manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
-                print(response)
-                switch (response.result) {
-                    
-                case .success:
-                    let dataString = cleanMarksJSONinfos(string: response.result.value!)
-                    
-                    if let dict = convertToDictionary(text: dataString) {
-                        print(dict)
-                        self.name = JSON(dict)["items"][0]["items"][0]["items"][0]["value"].stringValue
-                        self.name = self.name.replacingOccurrences(of: ",", with: " ")
-                        self.birthDate = JSON(dict)["items"][0]["items"][0]["items"][1]["value"].stringValue
-                        self.address = JSON(dict)["items"][0]["items"][0]["items"][2]["value"].stringValue
-                        self.city = JSON(dict)["items"][0]["items"][0]["items"][3]["value"].stringValue
-                        self.phone = JSON(dict)["items"][0]["items"][0]["items"][4]["value"].stringValue
-                        self.email = JSON(dict)["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
-                        
-                        completionHandler(true,false)
+            switch (response.result) {
+                
+            case .success:
+                
+                var jsonData: JSON!
+                let cleanedJson = cleanInfosJSON(string: response.result.value!)
+                
+                if cleanedJson == "language error" {
+                    completionHandler(false, false)
+                    return
+                } else {
+                    if convertToDictionary(text: cleanedJson) != nil {
+                        jsonData = JSON(convertToDictionary(text: cleanedJson) as Any)
                     } else {
-                        completionHandler(false,false)
+                        completionHandler(false, false)
+                        return
                     }
-                    break
-                case .failure(let error):
-                    if error._code == NSURLErrorTimedOut {
-                        completionHandler(false,true)
-                    }
-                    completionHandler(false,false)
-                    break
                 }
+                
+                self.name = jsonData["items"][0]["items"][0]["items"][0]["value"].stringValue
+                self.name = self.name.replacingOccurrences(of: ",", with: " ")
+                self.birthDate = jsonData["items"][0]["items"][0]["items"][1]["value"].stringValue
+                self.address = jsonData["items"][0]["items"][0]["items"][2]["value"].stringValue
+                self.city = jsonData["items"][0]["items"][0]["items"][3]["value"].stringValue
+                self.phone = jsonData["items"][0]["items"][0]["items"][4]["value"].stringValue
+                self.email = jsonData["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
+                
+                completionHandler(true, false)
+                
+                break
+            case .failure(let error):
+                if error._code == NSURLErrorTimedOut {
+                    completionHandler(false,true)
+                }
+                completionHandler(false,false)
+                break
             }
+        }
         
     }
     
@@ -176,8 +187,19 @@ class Student {
             var dictionnary = [String:JSON]()
             let vnCount = studentVnCodes.count
             
+            var url: String = ""
+            
             for vn in studentVnCodes {
-                let url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
+                
+                if pre == "fr-FR" {
+                    url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=Tous"
+                } else if pre == "en" {
+                    url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
+                } /* else if pre == "es-ES" {
+                    url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=Todo"
+                } else if pre == "pt-PT" {
+                    url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=Tudo"
+                } */
                 
                 manager.request(url).responseString { response in
                     
@@ -204,15 +226,18 @@ class Student {
                         completionHandler(false,dictionnary, false)
                         break
                     }
-
+                    
                 }
             }
         }
     }
     
+    
+    
     func getVnCodes(completionHandler: @escaping (_ success: Bool, _ vnCodes: [String], _ isTimedOut: Bool) -> ()) {
         if Reachability.isConnectedToNetwork() == true
         {
+            
             let url = "https://extranet.groupe-efrei.fr/Student/Episode/GetEpisodes"
             var vnCodes = [String]()
             
@@ -285,7 +310,7 @@ class Student {
                 completionHandler(false,pictureData, false)
                 break
             }
-
+            
         }
     }
     

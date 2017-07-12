@@ -21,8 +21,11 @@ class ProfileNotificationsViewController: UIViewController {
 
         containerView.layer.shadowColor = UIColor.black.cgColor
         containerView.layer.shadowOpacity = 0.18
-        containerView.layer.shadowRadius = 10
+        containerView.layer.shadowRadius = 7
         containerView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
+        containerView.layer.shouldRasterize = true
+        containerView.layer.rasterizationScale = UIScreen.main.scale
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(initTableview), name: NSNotification.Name(rawValue: "reloadNotificationsTableView"), object: nil)
     }

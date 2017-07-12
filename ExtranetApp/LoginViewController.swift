@@ -32,6 +32,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var helpButton: UIButton!
     
+    @IBOutlet weak var messageLabel: UILabel!
+    
     var message = ""
     
     var context = LAContext()
@@ -43,6 +45,9 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        messageLabel.text = ""
                 
         setupController()
         updateUI()
@@ -53,8 +58,6 @@ class LoginViewController: UIViewController {
         manager = Alamofire.SessionManager(configuration: configuration)
         
         loginButton2.layer.cornerRadius = loginButton2.frame.size.height / 2
-        
-        self.activityIndicator.startAnimating()
         
         // Auto completion des textFields
         if userDefaults.string(forKey: "password") != nil || userDefaults.string(forKey: "username") != nil{
@@ -69,14 +72,13 @@ class LoginViewController: UIViewController {
                 if userDefaults.bool(forKey: "touchIdLogin") {
                     
                     loginProcess(policy: policy!) { success in
-                        
+                        self.activityIndicator.startAnimating()
                         if success {
                             self.initLogin()
-                        } else {
-                            print("wrong touch id")
                         }
                     }
                 } else {
+                    self.activityIndicator.startAnimating()
                     self.initLogin()
                 }
             } else {
@@ -149,7 +151,7 @@ class LoginViewController: UIViewController {
         // Check if the user is able to use the policy we've selected previously
         guard context.canEvaluatePolicy(policy!, error: &err) else {
             // Print the localized message received by the system
-            print(err?.localizedDescription)
+            print(err?.localizedDescription as Any)
             return
         }
         
@@ -305,47 +307,51 @@ class LoginViewController: UIViewController {
                 
                 guard success else {
                     guard let error = error else {
-                        print("unexpected error")
-                        completionHandler(true)
+                        self.message = "Unexpected error"
+                        self.messageLabel.text = self.message
+                        print(self.message)
+                        completionHandler(false)
                         return
                     }
                     switch(error) {
                     case LAError.authenticationFailed:
-                        self.message = "There was a problem verifying your identity."
+                        self.message = "Problème durant la vérification de votre identité."
                     case LAError.userCancel:
-                        self.message = "Authentication was canceled by user."
+                        self.message = "L'authentification a été annulée par l'utilisateur."
                         // Fallback button was pressed and an extra login step should be implemented for iOS 8 users.
                     // By the other hand, iOS 9+ users will use the pasccode verification implemented by the own system.
                     case LAError.userFallback:
-                        self.message = "The user tapped the fallback button (Fuu!)"
+                        self.message = "L'utilisateur a activé le bouton de repli."
                     case LAError.systemCancel:
-                        self.message = "Authentication was canceled by system."
+                        self.message = "L'authentification a été annulée par le système."
                     case LAError.passcodeNotSet:
-                        self.message = "Passcode is not set on the device."
+                        self.message = "Le code d'accès n'est pas défini sur l'appareil."
                     case LAError.touchIDNotAvailable:
-                        self.message = "Touch ID is not available on the device."
+                        self.message = "Touch ID n'est pas disponible sur l'appareil."
                     case LAError.touchIDNotEnrolled:
-                        self.message = "Touch ID has no enrolled fingers."
+                        self.message = "Touch ID n'a pas de doigts configurés."
                     // iOS 9+ functions
                     case LAError.touchIDLockout:
-                        self.message = "There were too many failed Touch ID attempts and Touch ID is now locked."
+                        self.message = "Il y a eu trop de tentatives d'identification Touch ID donc Touch ID est maintenant verrouillé."
                     case LAError.appCancel:
-                        self.message = "Authentication was canceled by application."
+                        self.message = "L'authentification a été annulée par la demande."
                     case LAError.invalidContext:
-                        self.message = "LAContext passed to this call has been previously invalidated."
+                        self.message = "LAContext passé à cet appel a déjà été invalidé."
                     // MARK: IMPORTANT: There are more error states, take a look into the LAError struct
                     default:
-                        self.message = "Touch ID may not be configured"
+                        self.message = "Le Touch ID n'est sans doute pas configuré."
                         break
                     }
+                    self.messageLabel.text = self.message
                     print(self.message)
                     completionHandler(false)
                     return
                 }
-                
-                // Good news! Everything went fine 👏
-                self.message = "worked!"
+                // Good news! Everything went fine
+                self.message = "Authentification réussie!"
+                self.messageLabel.text = self.message
                 print(self.message)
+                completionHandler(true)
             }
         })
     }

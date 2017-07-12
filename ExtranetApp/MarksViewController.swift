@@ -50,7 +50,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
-        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+
         loadData()
         
         
@@ -194,9 +195,13 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         (cell.viewWithTag(10)! as UIView).layer.shadowColor = UIColor.black.cgColor
         (cell.viewWithTag(10)! as UIView).layer.shadowOpacity = 0.18
-        (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 6
-        (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0, height: 5.0)
+        (cell.viewWithTag(10)! as UIView).layer.shadowRadius = 7
+        (cell.viewWithTag(10)! as UIView).layer.shadowOffset = CGSize(width: 0, height: 10.0)
+        (cell.viewWithTag(10)! as UIView).layer.shouldRasterize = true
+        (cell.viewWithTag(10)! as UIView).layer.rasterizationScale = UIScreen.main.scale
+        
         (cell.viewWithTag(6)! as UIView).layer.cornerRadius = (cell.viewWithTag(6)! as UIView).frame.height / 2
+        
         (cell.viewWithTag(6)! as UIView).isHidden = true
         
         for path in newMarksNotifications {

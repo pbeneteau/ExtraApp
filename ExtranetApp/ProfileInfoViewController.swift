@@ -24,7 +24,8 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         containerView.layer.shadowOpacity = 0.18
         containerView.layer.shadowRadius = 10
         containerView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
-        
+        containerView.layer.shouldRasterize = true
+        containerView.layer.rasterizationScale = UIScreen.main.scale
         
         let border = CALayer()
         let width = CGFloat(0.5)
@@ -55,7 +56,6 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         images = ["close-envelope", "phone-receiver", "calendar", "home"]
         
         tableView.reloadData()
-
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -77,6 +77,8 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
             
             (cell.viewWithTag(7) as? UIImageView)?.image = image
         }
+        
+        cell.selectionStyle = .none
         
         return cell
     }

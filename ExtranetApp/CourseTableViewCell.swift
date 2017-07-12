@@ -21,8 +21,10 @@ class CourseTableViewCell: UITableViewCell {
         
         containerView.layer.shadowColor = UIColor.black.cgColor
         containerView.layer.shadowOffset = CGSize(width: 0, height: 10)
-        containerView.layer.shadowOpacity = 0.1
-        containerView.layer.shadowRadius = 5
+        containerView.layer.shadowOpacity = 0.18
+        containerView.layer.shadowRadius = 7
+        containerView.layer.shouldRasterize = true
+        containerView.layer.rasterizationScale = UIScreen.main.scale
         
         examTitleLabel.font = UIFont(name: "Roboto-Bold", size: 23)
         examCoeffLabel.font = UIFont(name: "Roboto-Medium", size: 18)

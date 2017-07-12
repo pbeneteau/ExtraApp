@@ -33,7 +33,43 @@ public func cleanMarksJSON(string: String) -> String {
 }
 
 
-public func cleanMarksJSONinfos(string: String) -> String {
+public func cleanInfosJSON(string: String) -> String {
+    
+    var personalDataString = ""
+    var importantMessageString = ""
+    var noAlertsString = ""
+    var addressString = ""
+    var birthString = ""
+    var cityString = ""
+    var EMailString = ""
+    var nameString = ""
+    var mobilePhoneString = ""
+    
+    let pre = Locale.preferredLanguages[0]
+    
+    if pre == "fr-FR" {
+        personalDataString = "Infos personnelles"
+        importantMessageString = "Messages importants"
+        noAlertsString = "Aucune alerte"
+        addressString = "Adresse"
+        birthString = "Date de naissance"
+        cityString = "Ville"
+        EMailString = "Courriel"
+        nameString = "Nom"
+        mobilePhoneString = "Téléphone mobile"
+    } else if pre == "en" {
+        personalDataString = "Personal Data"
+        importantMessageString = "Important Messages"
+        noAlertsString = "No alerts"
+        addressString = "Address"
+        birthString = "Birthdate"
+        cityString = "City"
+        EMailString = "E-mail"
+        nameString = "Name"
+        mobilePhoneString = "Mobile Phone"
+    } else {
+        return "language error"
+    }
     
     var newString = string.replacingOccurrences(of: "<script type=\"text/javascript\">Ext.ComponentManager.onAvailable(\"ExtranetContent\",", with: "")
     newString = newString.replacingOccurrences(of: "function(){", with: "")
@@ -42,8 +78,7 @@ public func cleanMarksJSONinfos(string: String) -> String {
     newString = newString.replacingOccurrences(of: ", false);}", with: "")
     newString = newString.replacingOccurrences(of: ",listeners:{afterrender:{fn:function(item){Ext.net.DirectMethod.request({url: '/Student/Absence/Summary', timeout: 600000, cleanRequest: true, eventMask: {showMask:true} });}}}", with: "")
     newString = newString.replacingOccurrences(of: "id:\"ExtranetRightContent\",border:false,xtype:\"panel\",flex:3,", with: "")
-    newString = newString.replacingOccurrences(of: "{cls:\"x-panel-alert\",style:\"padding: 5px\",items:[{cls:\"alert-label\",xtype:\"netlabel\",text:\"No alerts\"}],layout:\"vbox\",title:\"Important Messages\"},", with: "")
-    newString = newString.replacingOccurrences(of: "{cls:\"x-panel-alert\",style:\"padding: 5px\",items:[{cls:\"alert-label\",xtype:\"netlabel\",text:\"No alerts\"}],layout:\"vbox\",title:\"Messages Importants\"},", with: "")
+    newString = newString.replacingOccurrences(of: "{cls:\"x-panel-alert\",style:\"padding: 5px\",items:[{cls:\"alert-label\",xtype:\"netlabel\",text:\"\(noAlertsString)\"}],layout:\"vbox\",title:\"\(importantMessageString)\"},", with: "")
     
     newString = newString.replacingOccurrences(of: "cls:\"x-panel-infoperso\",style:\"padding: 5px\",", with: "")
     newString = newString.replacingOccurrences(of: ",{border:false,minHeight:170,style:\"padding: 5px\",xtype:\"container\",flex:1,items:[{xtype:\"netimage\",imageUrl:\"/Student/Home/Photo\"}]}", with: "")
@@ -55,10 +90,10 @@ public func cleanMarksJSONinfos(string: String) -> String {
     newString = newString.replacingOccurrences(of: "id:\"EXT_TELEPHONEMOBILE\",cls:\"alert-detail\",xtype:\"displayfield\",", with: "")
     newString = newString.replacingOccurrences(of: "xtype:\"fieldcontainer\",", with: "")
     newString = newString.replacingOccurrences(of: "id:\"idd0b11e8e78ad36ef\",xtype:\"displayfield\",", with: "")
-    newString = newString.replacingOccurrences(of: ",fieldLabel:\"E-mail\",labelWidth:50", with: "")
+    newString = newString.replacingOccurrences(of: ",fieldLabel:\"\(EMailString)\",labelWidth:50", with: "")
     
-    newString = newString.replacingOccurrences(of: ",layout:\"hbox\",title:\"Personal Data\"", with: "")
-    newString = newString.replacingOccurrences(of: ",layout:\"hbox\",title:\"Infos personnelles\"", with: "")
+    newString = newString.replacingOccurrences(of: ",layout:\"hbox\",title:\"\(personalDataString)\"", with: "")
+
     
     newString = newString.replacingOccurrences(of: "items:", with: "\"items\":")
     newString = newString.replacingOccurrences(of: "id:", with: "\"id\":")
@@ -66,17 +101,24 @@ public func cleanMarksJSONinfos(string: String) -> String {
     newString = newString.replacingOccurrences(of: "value:", with: "\"value\":")
     newString = newString.replacingOccurrences(of: "cls:", with: "\"cls\":")
     newString = newString.replacingOccurrences(of: "layout:", with: "\"layout\":")
+    
     newString = newString.replacingOccurrences(of: "[{\"items\":[{\"items\":[{\"items\":", with: "{\"items\":[{\"items\":[{\"items\":")
     newString = newString.replacingOccurrences(of: "]}]}]", with: "]}]}")
-    newString = newString.replacingOccurrences(of: "Name : ", with: "")
-    newString = newString.replacingOccurrences(of: "Birthdate : ", with: "")
-    newString = newString.replacingOccurrences(of: "Address : ", with: "")
-    newString = newString.replacingOccurrences(of: "City : ", with: "")
-    newString = newString.replacingOccurrences(of: "Mobile Phone : ", with: "")
+    newString = newString.replacingOccurrences(of: "\(nameString) : ", with: "")
+    newString = newString.replacingOccurrences(of: "\(birthString) : ", with: "")
+    newString = newString.replacingOccurrences(of: "\(addressString) : ", with: "")
+    newString = newString.replacingOccurrences(of: "\(cityString) : ", with: "")
+    newString = newString.replacingOccurrences(of: "\(mobilePhoneString) : ", with: "")
+    
+    
+    newString = newString.replacingOccurrences(of: "style:", with: "\"style\":")
+    newString = newString.replacingOccurrences(of: "text:", with: "\"text\":")
+    newString = newString.replacingOccurrences(of: "title:", with: "\"title\":")
+    newString = newString.replacingOccurrences(of: "fieldLabel:", with: "\"fieldLabel\":")
+    newString = newString.replacingOccurrences(of: "labelWidth:", with: "\"labelWidth\":")
     
     return newString
 }
-
 
 public func convertToDictionary(text: String) -> Any? {
     if let data = text.data(using: .utf8) {
@@ -99,7 +141,6 @@ public func nsdataToJSON(data: NSData) -> Any? {
     return nil
 }
 
-
 public func moveToLogin() {
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     let naviVC = storyBoard.instantiateViewController(withIdentifier: "LoginView")
@@ -113,7 +154,6 @@ public func moveToProfile() {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     appDelegate.window?.rootViewController = naviVC
 }
-
 
 public func showAlert(title: String, message: String, color: UIColor, sender: UIViewController) {
     let alertview = JSSAlertView().show(sender,

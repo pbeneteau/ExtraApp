@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class SettingsTableViewController: UITableViewController {
     
@@ -17,7 +18,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         initUserSettingsValues()
-
+        
     }
     
     func initUserSettingsValues() {
@@ -126,9 +127,38 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func touchIDSwitchAction(_ sender: Any) {
         if touchIDSwitch.isOn {
-            userDefaults.set(true, forKey: "touchIdLogin")
+            
+            var authError : NSError?
+            if LAContext().canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+                if authError?.code != nil {
+                    showAlertViewIfNoBiometricSensorHasBeenDetected()
+                } else {
+                    userDefaults.set(true, forKey: "touchIdLogin")
+                }
+            }
         } else {
             userDefaults.set(false, forKey: "touchIdLogin")
         }
+    }
+    
+    func showAlertViewIfNoBiometricSensorHasBeenDetected(){
+        
+        showAlertWithTitle(title: "Erreur", message: "Cet apareil n'a pas de capteur TouchID.")
+        
+    }
+    
+    func showAlertWithTitle( title:String, message:String ) {
+        
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertVC.addAction(okAction)
+        
+        DispatchQueue.main.async() { () -> Void in
+            
+            self.present(alertVC, animated: true, completion: nil)
+            
+        }
+        
     }
 }

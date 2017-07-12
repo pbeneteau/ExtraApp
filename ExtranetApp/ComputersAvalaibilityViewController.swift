@@ -33,6 +33,12 @@ class ComputersAvalaibilityViewController: UIViewController, UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if UIScreen.main.bounds.size.height == 736 {
+            tableView.rowHeight += 30
+        } else {
+            tableView.rowHeight += 5
+        }
+        
         initActivityIndicatorView()
 
         initPullToRefresh()
@@ -120,8 +126,10 @@ class ComputersAvalaibilityViewController: UIViewController, UITableViewDelegate
         (cell.viewWithTag(6))?.layer.cornerRadius = 8
         (cell.viewWithTag(6))?.layer.shadowColor = UIColor.black.cgColor
         (cell.viewWithTag(6))?.layer.shadowOpacity = 0.18
-        (cell.viewWithTag(6))?.layer.shadowRadius = 10
+        (cell.viewWithTag(6))?.layer.shadowRadius = 7
         (cell.viewWithTag(6))?.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
+        (cell.viewWithTag(6))?.layer.shouldRasterize = true
+        (cell.viewWithTag(6))?.layer.rasterizationScale = UIScreen.main.scale
         
         (cell.viewWithTag(56) as? UILabel)?.text = "Batiment \(buildings[indexPath.row])"
         
