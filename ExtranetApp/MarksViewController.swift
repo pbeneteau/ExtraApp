@@ -43,6 +43,11 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return refreshControl
     }()
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableview.reloadData()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 

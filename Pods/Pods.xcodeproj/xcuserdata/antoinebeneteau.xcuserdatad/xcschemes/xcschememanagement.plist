@@ -8,26 +8,46 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>CZPicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>DynamicButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>FZAccordionTableView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>JSSAlertView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>KDCircularProgress.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>18</integer>
+		</dict>
+		<key>MarqueeLabel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
 		</dict>
 		<key>NVActivityIndicatorView.xcscheme</key>
 		<dict>
@@ -38,61 +58,98 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>Pods-ExtranetApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>Pods-ExtranetAppTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>Pods-ExtranetAppUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 		<key>PureLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 		<key>SwiftSpinner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>13</integer>
 		</dict>
 		<key>TKSubmitTransitionSwift3.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 		<key>Tabman.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>TextFieldEffects.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>15</integer>
 		</dict>
 		<key>Whisper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>17</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1C007CFBC81A30195B45EC6C1FE87BAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>25755376B164310EA3CDA19F40374F6D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>320AD47B0C6BA014D301395D3BFC8FB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>322428ECC8C5EC71F14C92233787C7AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,12 +169,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3F86ADE3B2FABD8E512E367FF416035D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>45216F3DF93900339BCE0D38C15409D2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>4F7C90C558F48F2D894F79670645F485</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5B344B961D1820C5A70477194BEEB43E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,6 +219,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B034508BEFC65C790B2F15CA8DE91389</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B05A5A1B0A529DABC580589D191450AA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B931B98EF1A8BFB0ACAF73A12FC0C0C4</key>
 		<dict>
 			<key>primary</key>
@@ -162,7 +239,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>D08A200EBD3DA88D5F91D3FEBEEFA8D8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D368184BEED712B6A15E4767FE420BE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EFBF023FB6349BDCF48DBFF66CFCD517</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F2560F61C8D5C9443F1EDE81813C7A82</key>
 		<dict>
 			<key>primary</key>
 			<true/>
