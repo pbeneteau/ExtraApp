@@ -169,15 +169,15 @@
                                     <constraint firstItem="mnz-3Y-vfo" firstAttribute="top" secondItem="gtE-V9-6pI" secondAttribute="top" constant="19" id="sfC-KB-3Z0"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="Z9s-Dq-hms">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch ID error or success label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="8Sc-Hc-NQu">
                                 <rect key="frame" x="64" y="451" width="193" height="17"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="Z9s-Dq-hms">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -793,7 +793,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GiK-Dp-OL4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2351" y="1777"/>
+            <point key="canvasLocation" x="2347.5" y="1847.5352112676057"/>
         </scene>
         <!--Profile-->
         <scene sceneID="bZg-ju-SuM">
@@ -854,7 +854,7 @@
                                                 <rect key="frame" x="73" y="8" width="79" height="73"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EFREI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mll-nX-w6B">
-                                                <rect key="frame" x="93.5" y="116" width="39" height="21"/>
+                                                <rect key="frame" x="94" y="116" width="39" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="DjO-Jp-xje"/>
                                                 </constraints>
