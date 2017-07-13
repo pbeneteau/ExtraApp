@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0007B4061F16E54900128F3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0007B4051F16E54900128F3B /* Assets.xcassets */; };
 		006CE2591EE81194001F156A /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006CE2581EE81194001F156A /* CourseViewController.swift */; };
 		006DD1D31EE7243400E71768 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D21EE7243400E71768 /* Student.swift */; };
 		006DD1D51EE7274D00E71768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006DD1D41EE7274D00E71768 /* LoginViewController.swift */; };
@@ -34,7 +35,6 @@
 		3813AC691EEBFA8C004D8813 /* NotificationsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813AC681EEBFA8C004D8813 /* NotificationsUtils.swift */; };
 		382027891EDF5BA90092D384 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382027881EDF5BA90092D384 /* AppDelegate.swift */; };
 		3820278E1EDF5BA90092D384 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3820278C1EDF5BA90092D384 /* Main.storyboard */; };
-		382027901EDF5BA90092D384 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3820278F1EDF5BA90092D384 /* Assets.xcassets */; };
 		382027931EDF5BA90092D384 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 382027911EDF5BA90092D384 /* LaunchScreen.storyboard */; };
 		3820279E1EDF5BA90092D384 /* ExtranetAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3820279D1EDF5BA90092D384 /* ExtranetAppTests.swift */; };
 		382027A91EDF5BA90092D384 /* ExtranetAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382027A81EDF5BA90092D384 /* ExtranetAppUITests.swift */; };
@@ -68,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0007B4051F16E54900128F3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		006CE2581EE81194001F156A /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		006DD1D21EE7243400E71768 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		006DD1D41EE7274D00E71768 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		382027851EDF5BA90092D384 /* ExtranetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExtranetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		382027881EDF5BA90092D384 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3820278D1EDF5BA90092D384 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3820278F1EDF5BA90092D384 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		382027921EDF5BA90092D384 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		382027941EDF5BA90092D384 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		382027991EDF5BA90092D384 /* ExtranetAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExtranetAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,10 +218,10 @@
 				38CCD2431F0D6554007116DD /* Settings */,
 				3813AC671EEB1029004D8813 /* Profile */,
 				38E168F71EEC4B7D001B6657 /* Marks */,
+				0007B4051F16E54900128F3B /* Assets.xcassets */,
 				3820278C1EDF5BA90092D384 /* Main.storyboard */,
 				00EC49921EEC1BBA00443ACD /* ModuleSectionView.xib */,
 				00715F651EECA14600EEB714 /* TabBarViewController.swift */,
-				3820278F1EDF5BA90092D384 /* Assets.xcassets */,
 				382027911EDF5BA90092D384 /* LaunchScreen.storyboard */,
 				38CCD23B1F0C0DA3007116DD /* LaunchScreenViewController.swift */,
 				382027941EDF5BA90092D384 /* Info.plist */,
@@ -431,7 +431,6 @@
 				00FB5E9C1EE9AE900080D172 /* Roboto-ThinItalic.ttf in Resources */,
 				00FB5E9B1EE9AE900080D172 /* Roboto-Thin.ttf in Resources */,
 				382027931EDF5BA90092D384 /* LaunchScreen.storyboard in Resources */,
-				382027901EDF5BA90092D384 /* Assets.xcassets in Resources */,
 				00FB5E971EE9AE900080D172 /* Roboto-LightItalic.ttf in Resources */,
 				00FB5E931EE9AE900080D172 /* Roboto-Bold.ttf in Resources */,
 				00FB5E991EE9AE900080D172 /* Roboto-MediumItalic.ttf in Resources */,
@@ -443,6 +442,7 @@
 				00EC49931EEC1BBA00443ACD /* ModuleSectionView.xib in Resources */,
 				00FB5E9A1EE9AE900080D172 /* Roboto-Regular.ttf in Resources */,
 				00FB5E911EE9AE900080D172 /* Roboto-Black.ttf in Resources */,
+				0007B4061F16E54900128F3B /* Assets.xcassets in Resources */,
 				00FB5E961EE9AE900080D172 /* Roboto-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

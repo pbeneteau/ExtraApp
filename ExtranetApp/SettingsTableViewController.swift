@@ -12,6 +12,7 @@ import LocalAuthentication
 class SettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var averagesCalculationSwitch: UISwitch!
+    
     @IBOutlet weak var touchIDSwitch: UISwitch!
     
     override func viewDidLoad() {
@@ -36,6 +37,7 @@ class SettingsTableViewController: UITableViewController {
             averagesCalculationSwitch.isOn = true
         }
         
+        
         if userDefaults.object(forKey: "touchIdLogin") != nil {
             
             let state = userDefaults.bool(forKey: "touchIdLogin")
@@ -59,7 +61,14 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            return 1
+        } else if section == 2 {
+            return 2
+        }
+        return 0
     }
     
     /*
@@ -138,6 +147,17 @@ class SettingsTableViewController: UITableViewController {
             }
         } else {
             userDefaults.set(false, forKey: "touchIdLogin")
+        }
+    }
+    @IBAction func mailPressed(_ sender: Any) {
+        let email = "contact.extranetefrei@gmail.com"
+        if let url = URL(string: "mailto:\(email)") {
+            UIApplication.shared.open(url)
+        }
+    }
+    @IBAction func twitterPressed(_ sender: Any) {
+        if let url = URL(string: "https://twitter.com/ExtranetEfrei") {
+            UIApplication.shared.open(url)
         }
     }
     
