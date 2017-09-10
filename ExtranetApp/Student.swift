@@ -57,13 +57,15 @@ class Student {
                     }
                 }
                 
-                self.name = jsonData["items"][0]["items"][0]["items"][0]["value"].stringValue
+                jsonData = jsonData[0]["items"][1]
+                
+                self.name = jsonData["items"][0]["items"][0]["value"].stringValue
                 self.name = self.name.replacingOccurrences(of: ",", with: " ")
-                self.birthDate = jsonData["items"][0]["items"][0]["items"][1]["value"].stringValue
-                self.address = jsonData["items"][0]["items"][0]["items"][2]["value"].stringValue
-                self.city = jsonData["items"][0]["items"][0]["items"][3]["value"].stringValue
-                self.phone = jsonData["items"][0]["items"][0]["items"][4]["value"].stringValue
-                self.email = jsonData["items"][0]["items"][0]["items"][5]["items"][0]["value"].stringValue
+                self.birthDate = jsonData["items"][0]["items"][1]["value"].stringValue
+                self.address = jsonData["items"][0]["items"][2]["value"].stringValue
+                self.city = jsonData["items"][0]["items"][3]["value"].stringValue
+                self.phone = jsonData["items"][0]["items"][4]["value"].stringValue
+                self.email = jsonData["items"][0]["items"][5]["items"][0]["value"].stringValue
                 
                 completionHandler(true, false)
                 
@@ -191,15 +193,11 @@ class Student {
             
             for vn in studentVnCodes {
                 
-                if pre == "fr-FR" {
+                if pre.range(of:"fr") != nil{
                     url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=Tous"
-                } else if pre == "en" {
+                } else if pre.range(of:"en") != nil {
                     url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=All"
-                } /* else if pre == "es-ES" {
-                    url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=Todo"
-                } else if pre == "pt-PT" {
-                    url = "https://extranet.groupe-efrei.fr/Student/Grade/GetFinalGrades?&vn=\(vn)&academic_year=Tudo"
-                } */
+                }
                 
                 manager.request(url).responseString { response in
                     

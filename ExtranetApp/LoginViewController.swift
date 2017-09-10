@@ -16,7 +16,7 @@ import NVActivityIndicatorView
 import LocalAuthentication
 
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var splashScreen: UIImageView!
     
@@ -46,6 +46,16 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if userDefaults.object(forKey: "averagesCalculation") == nil {
+            userDefaults.set(true, forKey: "averagesCalculation")
+        }
+        
+        self.usernameTextField.delegate = self
+        self.passwordTextField.delegate = self
+        
+        usernameTextField.returnKeyType = .continue
+        passwordTextField.returnKeyType = .continue
+
         
         messageLabel.text = ""
                 
@@ -356,5 +366,21 @@ class LoginViewController: UIViewController {
         })
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        //textField code
+        
+        
+        textField.resignFirstResponder()  //if desired
+        loginButtonPressed()
+        return true
+    }
     
+    @IBAction func helpButtonAction(_ sender: Any) {
+        
+        let email = "paul.beneteau.20160018@efrei.net"
+        if let url = URL(string: "mailto:\(email)") {
+            UIApplication.shared.open(url)
+        }
+    }
 }

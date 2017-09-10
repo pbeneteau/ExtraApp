@@ -47,7 +47,7 @@ public func cleanInfosJSON(string: String) -> String {
     
     let pre = Locale.preferredLanguages[0]
     
-    if pre == "fr-FR" {
+    if pre.range(of:"fr") != nil {
         personalDataString = "Infos personnelles"
         importantMessageString = "Messages importants"
         noAlertsString = "Aucune alerte"
@@ -57,7 +57,7 @@ public func cleanInfosJSON(string: String) -> String {
         EMailString = "Courriel"
         nameString = "Nom"
         mobilePhoneString = "Téléphone mobile"
-    } else if pre == "en" {
+    } else if pre.range(of:"en") != nil {
         personalDataString = "Personal Data"
         importantMessageString = "Important Messages"
         noAlertsString = "No alerts"
@@ -103,7 +103,7 @@ public func cleanInfosJSON(string: String) -> String {
     newString = newString.replacingOccurrences(of: "layout:", with: "\"layout\":")
     
     newString = newString.replacingOccurrences(of: "[{\"items\":[{\"items\":[{\"items\":", with: "{\"items\":[{\"items\":[{\"items\":")
-    newString = newString.replacingOccurrences(of: "]}]}]", with: "]}]}")
+    //newString = newString.replacingOccurrences(of: "]}]}]", with: "]}]}")
     newString = newString.replacingOccurrences(of: "\(nameString) : ", with: "")
     newString = newString.replacingOccurrences(of: "\(birthString) : ", with: "")
     newString = newString.replacingOccurrences(of: "\(addressString) : ", with: "")

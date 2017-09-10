@@ -28,22 +28,43 @@ class ProfileViewController: UIViewController {
         
         nameLabel.text = student.getName()
         
-        if let imageData = userDefaults.object(forKey: "profilePicture"),
-            let image = UIImage(data: (imageData as! Data)) {
-            let newPic = self.resizeImage(image: image, targetSize: self.picture.frame.size)
-            self.picture.image = newPic
-            self.picture.clipsToBounds = true
-        } else {
-            student.downloadPicture { (success, pictureData, timeOut) in
-                if success {
-                    if let picture = UIImage(data: pictureData) {
-                        self.profilePicture = picture
-                        let newPic = self.resizeImage(image: self.profilePicture, targetSize: self.picture.frame.size)
-                        self.picture.image = newPic
-                        self.picture.clipsToBounds = true
-                        self.saveProfilePiture()
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
+        let paths               = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        if let dirPath          = paths.first
+        {
+            let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("profilePic.jpg")
+            if let image    = UIImage(contentsOfFile: imageURL.path) {
+                let resizedPic = self.resizeImage(image: image, targetSize: self.picture.frame.size)
+                
+                self.picture.image = resizedPic
+                self.picture.clipsToBounds = true
+            } else {
+                student.downloadPicture { (success, pictureData, timeOut) in
+                    if success {
+                        if let picture = UIImage(data: pictureData) {
+                            
+                            if let data = UIImageJPEGRepresentation(picture, 1) {
+                                let filename = self.getDocumentsDirectory().appendingPathComponent("profilePic.jpg")
+                                try? data.write(to: filename)
+                            }
+                            
+                            self.profilePicture = picture
+                            let newPic = self.resizeImage(image: self.profilePicture, targetSize: self.picture.frame.size)
+                            self.picture.image = newPic
+                            self.picture.clipsToBounds = true
+                            self.saveProfilePiture()
+                        }
                     }
                 }
+            }
+        } else {
+            
+            if let imageData = userDefaults.object(forKey: "profilePicture"),
+                let image = UIImage(data: (imageData as! Data)) {
+                let newPic = self.resizeImage(image: image, targetSize: self.picture.frame.size)
+                self.picture.image = newPic
+                self.picture.clipsToBounds = true
             }
         }
     }
@@ -63,6 +84,12 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -74,8 +101,12 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logOutButtonPressed(_ sender: Any) {
         if (userDefaults.string(forKey: "isLogged") != nil) {
-            userDefaults.set("notLogged", forKey: "isLogged")
             
+            userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            userDefaults.synchronize()
+            
+            userDefaults.set("notLogged", forKey: "isLogged")
+
             moveToLogin()
         }
     }
