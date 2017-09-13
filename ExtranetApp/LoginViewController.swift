@@ -378,7 +378,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func helpButtonAction(_ sender: Any) {
         
-        let email = "paul.beneteau.20160018@efrei.net"
+        let email = "contact.extranetefrei@gmail.com"
         if let url = URL(string: "mailto:\(email)") {
             UIApplication.shared.open(url)
         }

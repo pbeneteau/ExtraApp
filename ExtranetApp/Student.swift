@@ -30,11 +30,14 @@ class Student {
     private let pre = Locale.preferredLanguages[0]
     
     init() {
-        
+        initAlamofireRequestManager()
     }
     
     public func initInfos(completionHandler: @escaping (_ success: Bool, _ isTimedOut: Bool) -> ()) {
+        
+        
         let url = "https://extranet.groupe-efrei.fr/Student/Home/RightContent"
+        
         
         manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseString { response in
             
@@ -317,6 +320,7 @@ class Student {
     }
     
     public func setSemestersNameList(_semestersNameList: [String]) {
+        self.semestersNamesList.removeAll()
         self.semestersNamesList = _semestersNameList
     }
     

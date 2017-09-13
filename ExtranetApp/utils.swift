@@ -19,6 +19,18 @@ var manager = Alamofire.SessionManager.default
 var configuration = URLSessionConfiguration.default
 
 
+public func initAlamofireRequestManager() {
+    
+    let configuration = URLSessionConfiguration.default
+    
+    configuration.timeoutIntervalForRequest = 15
+    configuration.timeoutIntervalForResource = 15
+    
+    manager = Alamofire.SessionManager(configuration: configuration)
+
+}
+
+
 public func cleanMarksJSON(string: String) -> String {
     
     var newString = string.replacingOccurrences(of: "X.net.RM.getIcon(\"BulletWhite\")", with: "\"\"")

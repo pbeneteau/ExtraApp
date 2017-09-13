@@ -50,6 +50,8 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
                 
         initActivityIndicatorView()
         
@@ -58,6 +60,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
         loadData()
+        
         
         
         tableview.addSubview(self.refreshControl)
@@ -82,6 +85,7 @@ class MarksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 
             }
         }
+        
         
         student.loadStudentData { (success, isTimedOut) in
             if success {
